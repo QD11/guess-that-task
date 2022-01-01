@@ -6,6 +6,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try{
         const posts = await Post.find();
+        console.log(posts)
         res.json(posts)
     }catch(err){
         res.json({message:err})
