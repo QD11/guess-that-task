@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import "dotenv/config.js";
 
-import postsRoutes from './routes/posts.js'
+// import postsRoutes from './routes/posts.js'
 
 const app = express();
 //Middlewares
