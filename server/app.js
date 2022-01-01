@@ -6,6 +6,7 @@ import "dotenv/config.js";
 
 import postsRoutes from './routes/posts.js'
 import playersRoutes from './routes/players.js'
+import lobbiesRoutes from './routes/lobbies.js'
 
 const app = express();
 //Middlewares
@@ -15,6 +16,8 @@ app.use(bodyParser.json());
 //Import Routes
 app.use('/posts', postsRoutes);
 app.use('/players', playersRoutes);
+app.use('/lobbies', lobbiesRoutes);
+
 
 //ROUTES
 app.get('/', (req, res) => {

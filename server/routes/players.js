@@ -51,7 +51,7 @@ router.patch('/:playerId', async (req,res) => {
     try{
         const updatedPlayer = await Player.updateOne(
             {_id: req.params.playerId }, 
-            { $set : {title: req.body.title}}
+            { $set : {name: req.body.name}}
         );
         res.json(updatedPlayer);
     }
