@@ -7,7 +7,7 @@ const router = express.Router();
 //ALL Lobbys
 router.get('/', async (req, res) => {
     try{
-        const lobbies = await Lobby.find().populate;
+        const lobbies = await Lobby.find();
         res.json(lobbies)
     }catch(err){
         res.json({message:err})
