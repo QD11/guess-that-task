@@ -49,14 +49,14 @@ router.delete('/:lobbyId', async (req,res) => {
 });
 
 //Add Owner
-router.patch('/:lobbyId/owner/:playerId', async (req,res) => {
+router.patch('/:lobbyId/owner', async (req,res) => {
     try{
         // const lobby = await Lobby.findById(req.params.lobbyId)
         // const owner = await Player.findById(req.params.playerId)
 
         const updatedLobby = await Lobby.updateOne(
             {_id: req.params.lobbyId }, 
-            {owner: req.params.playerId}
+            {owner: req.body.playerId}
         )
         res.json(updatedLobby);
     }catch (err) {
