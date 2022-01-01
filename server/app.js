@@ -5,6 +5,7 @@ import cors from 'cors'
 import "dotenv/config.js";
 
 import postsRoutes from './routes/posts.js'
+import playersRoutes from './routes/players.js'
 
 const app = express();
 //Middlewares
@@ -13,6 +14,7 @@ app.use(bodyParser.json());
 
 //Import Routes
 app.use('/posts', postsRoutes);
+app.use('/players', playersRoutes);
 
 //ROUTES
 app.get('/', (req, res) => {
