@@ -1,12 +1,3 @@
-import express from "express"
-const app = express();
-
-app.get('/', (req, res) => {
-    res
-    .status(200)
-    .send('Hello server is running')
-    .end();
-});
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser'
@@ -21,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //Import Routes
-app.use('/posts', postsRoutes);
+// app.use('/posts', postsRoutes);
 
 //ROUTES
 app.get('/', (req, res) => {
