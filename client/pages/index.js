@@ -20,6 +20,15 @@ const Home = () => {
     
     const createLobby = () => {
         const newCode = uuid().slice(0,6).toUpperCase()
+        fetch('https://guess-that-task-server.herokuapp.com/lobbies', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({code: newCode})
+        })
+        // .then(r => r.json())
+        
         //create the lobby in the backend
         router.push(`/${newCode}`)
     }

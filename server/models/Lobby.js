@@ -5,13 +5,13 @@ const LobbySchema = mongoose.Schema({
         type: String,
         required: true
     },
-    owner: {
-        type: String,
-        required: true
-    },
     date: {
         type: Date,
         default: Date.now
+    },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Player'
     },
     players: [{
         type: mongoose.Schema.Types.ObjectId,
