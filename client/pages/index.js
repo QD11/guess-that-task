@@ -28,19 +28,24 @@ const Home = () => {
             body: JSON.stringify({name: name})
         })
         .then(res => res.json())
-        .then(data => console.log(data))
-
-        fetch('https://guess-that-task-server.herokuapp.com/lobbies', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({code: newCode})
+        .then(player => {
+            fetch('https://guess-that-task-server.herokuapp.com/lobbies', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    code: newCode,
+                    owner: player._id
+                })
+            })
+            .then(res => res.json())
+            .then(lobby => router.push(`/${lobby.code}`))
         })
         // .then(r => r.json())
         
         //create the lobby in the backend
-        router.push(`/${newCode}`)
+        // router.push(`/${newCode}`)
     }
 
     const joinLobby = () => {

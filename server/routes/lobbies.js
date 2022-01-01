@@ -49,20 +49,20 @@ router.delete('/:lobbyId', async (req,res) => {
 });
 
 //Add Owner
-router.patch('/:lobbyId/owner', async (req,res) => {
-    try{
-        // const lobby = await Lobby.findById(req.params.lobbyId)
-        // const owner = await Player.findById(req.params.playerId)
+// router.patch('/:lobbyId/owner', async (req,res) => {
+//     try{
+//         // const lobby = await Lobby.findById(req.params.lobbyId)
+//         // const owner = await Player.findById(req.params.playerId)
 
-        const updatedLobby = await Lobby.updateOne(
-            {_id: req.params.lobbyId }, 
-            {owner: req.body.playerId}
-        )
-        res.json(updatedLobby);
-    }catch (err) {
-        res.json({message:err})
-    }
-})
+//         const updatedLobby = await Lobby.updateOne(
+//             {_id: req.params.lobbyId }, 
+//             {owner: req.body.playerId}
+//         )
+//         res.json(updatedLobby);
+//     }catch (err) {
+//         res.json({message:err})
+//     }
+// })
 
 //Update
 // router.patch('/:lobbyId', async (req,res) => {
