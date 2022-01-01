@@ -25,7 +25,7 @@ router.get('/:playerId', async (req,res) => {
 //Submits a player
 router.post('/', async (req, res) => {
     const player = new Player({
-        title: req.body.title,
+        name: req.body.name,
         description: req.body.description
     });
     try{
