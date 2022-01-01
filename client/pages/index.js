@@ -20,6 +20,16 @@ const Home = () => {
     
     const createLobby = () => {
         const newCode = uuid().slice(0,6).toUpperCase()
+        fetch('https://guess-that-task-server.herokuapp.com/players', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({name: name})
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
+
         fetch('https://guess-that-task-server.herokuapp.com/lobbies', {
             method: "POST",
             headers: {

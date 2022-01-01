@@ -1,5 +1,7 @@
 import express from 'express';
 import Lobby from '../models/Lobby.js';
+import Player from '../models/Player.js';
+
 const router = express.Router();
 
 //ALL Lobbys
@@ -45,6 +47,22 @@ router.delete('/:lobbyId', async (req,res) => {
         res.json({message: err })
     }
 });
+
+//Add Owner
+router.patch('/:lobbyId/owner/:playerId', async (req,res) => {
+    try{
+        // const lobby = await Lobby.findById(req.params.lobbyId)
+        // const owner = await Player.findById(req.params.playerId)
+
+        const updatedLobby = await Lobby.updateOne(
+            {_id: req.params.lobbyId }, 
+            {owner: req.params.playerId}
+        )
+        res.json(updatedLobby);
+    }catch (err) {
+        res.json({message:err})
+    }
+})
 
 //Update
 // router.patch('/:lobbyId', async (req,res) => {
