@@ -34,12 +34,10 @@ mongoose.connect(process.env.DB_CONNECTION, () =>
 app.get('*', (request, response) => {
 	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
-
+let port = process.env.PORT
+if (port == null || port == "") {
+    port = 3000;
+}
 //How do we start listening to the server
-app.listen(3000, () => console.log('Server running on port: http://localhost:3000'));
+app.listen(port, () => console.log('Server running on port: http://localhost:3000'));
 // Start the server
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}`);
-    console.log('Press Ctrl+C to quit.');
-});
