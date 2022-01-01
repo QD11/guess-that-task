@@ -22,10 +22,18 @@ app.get('/', (req, res) => {
         .end()
 });
 
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+}
+
 //Connect to DB
 mongoose.connect(process.env.DB_CONNECTION, () => 
     console.log('connected to DB!')
 )
+
+app.get('*', (request, response) => {
+	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 //How do we start listening to the server
 app.listen(3000, () => console.log('Server running on port: http://localhost:3000'));
