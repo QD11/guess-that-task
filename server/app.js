@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 //ROUTES
 app.get('/', (req, res) => {
     res
-        .send('We are on home')
+        json({ message: 'Welcome' })
         .status(200)
         .end()
 });
