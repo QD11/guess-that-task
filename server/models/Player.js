@@ -9,11 +9,13 @@ const PlayerSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    // lobby: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Lobby',
-    //     required: true
-    // }
+    lobby: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Lobby',
+        // required: true
+    }
+}, {
+    timestamps: true
 });
 
 export default mongoose.model('Players', PlayerSchema)

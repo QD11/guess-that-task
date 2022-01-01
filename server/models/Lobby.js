@@ -13,10 +13,12 @@ const LobbySchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    // players: [{
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'Player'
-    // }]
+    players: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Player'
+    }]
+}, {
+    timestamps: true
 });
 
 export default mongoose.model('Lobbies', LobbySchema)
