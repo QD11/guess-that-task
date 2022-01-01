@@ -26,7 +26,11 @@ router.get('/:playerId', async (req,res) => {
 router.post('/', async (req, res) => {
     const player = new Player({
         name: req.body.name,
-        description: req.body.description
+        description: req.body.description,
+        // lobby: {
+            
+        // }
+        
     });
     try{
         const savedPlayer = await player.save();
