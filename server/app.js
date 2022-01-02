@@ -1,7 +1,15 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 import express from 'express';
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser'
-import cors from 'cors'
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import http from 'http';
+import { Server } from "socket.io";
+import WebSockets from "./utils/WebSockets.js";
 import "dotenv/config.js";
 
 import postsRoutes from './routes/posts.js'

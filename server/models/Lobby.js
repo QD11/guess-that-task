@@ -18,7 +18,8 @@ const LobbySchema = mongoose.Schema({
         ref: 'Player'
     }]
 }, {
-    timestamps: true
+    timestamps: true,
+    collection: "lobbies"
 });
 
 export default mongoose.model('Lobbies', LobbySchema)

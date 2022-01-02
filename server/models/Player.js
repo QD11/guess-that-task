@@ -15,7 +15,8 @@ const PlayerSchema = mongoose.Schema({
         // required: true
     }
 }, {
-    timestamps: true
+    timestamps: true,
+    collection: "players"
 });
 
 export default mongoose.model('Players', PlayerSchema)
