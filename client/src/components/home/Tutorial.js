@@ -110,7 +110,11 @@ const ModalDiv = styled.div`
         position: absolute;
         top: 10px;
         right: 10px;
+        font-size: 10px;
+        color: #730707;
+        border-color: #730707;
         padding: 5px 7px;
+        border-radius: 50%;
     }
 `
 
