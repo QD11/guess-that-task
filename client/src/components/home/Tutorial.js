@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import Image from 'next/image'
 import styled from 'styled-components'
 import { MdLiveHelp } from 'react-icons/md'
 
@@ -25,11 +26,23 @@ const Tutorial = () => {
                 <div onClick={toggleModal} className="overlay"></div>
                 <div className="modal-content">
                     <div className="content">
-                        <div>
-                            Crewmate
+                        <div className="roles">
+                            <span>Crewmate</span>
+                            <Image 
+                                src="/red-among-us-png.png"
+                                alt="crewmate"
+                                width={50}
+                                height={50}
+                            />
                         </div>
-                        <div>
-                            Imposter
+                        <div className="roles">
+                            <span>Imposter</span>
+                            <Image 
+                                src="/imposter.png"
+                                alt="imposter"
+                                width={110}
+                                height={60}
+                            />
                         </div>
                     </div>
                     <button className="close-modal" onClick={toggleModal}>
@@ -58,6 +71,10 @@ const ModalDiv = styled.div`
     position: fixed;
     z-index: 1;
 
+    .roles {
+        display: flex;
+        align-items: center;
+    }
 
     .content {
         display: flex;
