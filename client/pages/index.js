@@ -59,7 +59,7 @@ const Home = () => {
         <>
             <Head>
                 <title>Guess That Task</title>
-                <link rel="shortcut icon" href="/tasks.png" />
+                <link rel="shortcut icon" href="/red-among-us-png.png" />
             </Head>
             {/* <Title>
                 Guess That Task!
