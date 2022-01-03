@@ -22,7 +22,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //Import Routes
-app.use('/posts', postsRoutes);
+// app.use('/posts', postsRoutes);
 app.use('/players', playersRoutes);
 app.use('/lobbies', lobbiesRoutes);
 
