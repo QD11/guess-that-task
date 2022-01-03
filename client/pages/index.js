@@ -7,6 +7,8 @@ import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-
 import { v4 as uuid } from 'uuid';
 import { useRouter } from 'next/router'
 
+import Tutorial from '../src/components/home/Tutorial'
+
 const Home = () => {
     const router = useRouter()
     const [name, setName] = useState(uniqueNamesGenerator({
@@ -62,6 +64,7 @@ const Home = () => {
             {/* <Title>
                 Guess That Task!
             </Title> */}
+                <Tutorial />
             <Center>
                 {toggleJoinLobby ? 
                     <>
