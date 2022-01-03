@@ -12,7 +12,7 @@ import { Server } from "socket.io";
 import WebSockets from "./utils/WebSockets.js";
 import "dotenv/config.js";
 
-import postsRoutes from './routes/posts.js'
+// import postsRoutes from './routes/posts.js'
 import playersRoutes from './routes/players.js'
 import lobbiesRoutes from './routes/lobbies.js'
 
