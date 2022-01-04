@@ -31,7 +31,7 @@ const Tutorial = () => {
                                 <h2>Rules</h2>
                             </div>
                             <p>
-                                Guess That Task is a social deduction game where the players are split between two teams, crewmate and imposter. Crewmates are randomly assigned a task in which they must fulfill within a time limit. The imposter must correctly guess the crewmates' tasks. Additional rules can be added, but that is the gist of this game.
+                                Guess That Task is a social deduction game where the players are split between two teams, crewmate and imposter. Crewmates are randomly assigned a task in which they must fulfill within a time limit. The imposter must correctly guess the crewmates' tasks. The imposters have limited amount of guesses so guess wisely! Additional rules can be added, but that is the gist of this game.
                             </p>
                         </div>
                         <div className="split">
@@ -45,9 +45,11 @@ const Tutorial = () => {
                                         height={50}
                                     />
                                 </div>
-                                <span>Complete your tasks without the imposter knowing!</span>
+                                {/* <span>Complete your tasks!</span> */}
                                 <ul>
-                                    <li>You MUST perform your tasks in front of the imposters to give them a chance. </li>
+                                    <li>The imposters must be aware that you're doing your task. Do not perform your tasks discreetly!</li>
+                                    <li>Try to bait the imposters! Whatever action you're performing doesn't have to be your tasks.</li>
+                                    <li>Work with each other!</li>
                                 </ul>
                             </div>
                             <div className="roles">
@@ -60,7 +62,11 @@ const Tutorial = () => {
                                         height={90}
                                     />
                                 </div>
-                                <span>Figure out what the crewmates are doing!</span>
+                                {/* <span>Figure out what the crewmates are doing!</span> */}
+                                <ul>
+                                    <li>Guess wisely! You have limited guesses!</li>
+                                    <li>You are given clues as time goes on! </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -146,7 +152,7 @@ const ModalDiv = styled.div`
         // min-width: 600px;
         // min-width: 300px;
         // width: fit-content;
-        width: 500px;
+        width: 700px;
     }
 
     .close-modal {
