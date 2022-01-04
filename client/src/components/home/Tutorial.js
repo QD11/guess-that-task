@@ -31,7 +31,7 @@ const Tutorial = () => {
                                 <h2>Rules</h2>
                             </div>
                             <p>
-                                Guess That Task is a social deduction game where the players are split between two teams, crewmate and imposter. Crewmates are randomly assigned a task in which they must fulfill within a time limit. The imposter must correctly guess the crewmates' tasks. The imposters have limited amount of guesses so guess wisely! Additional rules can be added, but that is the gist of this game.
+                                Guess That Task is a social deduction game where the players are split between two teams, crewmate and imposter. Crewmates are randomly assigned a task in which they must fulfill within a time limit. The imposter must correctly guess the crewmates&apos; tasks. The imposters have limited amount of guesses so guess wisely! Additional rules can be added, but that is the gist of this game.
                             </p>
                         </div>
                         <div className="split">
@@ -47,8 +47,8 @@ const Tutorial = () => {
                                 </div>
                                 {/* <span>Complete your tasks!</span> */}
                                 <ul>
-                                    <li>The imposters must be aware that you're doing your task. Do not perform your tasks discreetly!</li>
-                                    <li>Try to bait the imposters! Whatever action you're performing doesn't have to be your tasks.</li>
+                                    <li>The imposters must be aware that you&apos;re doing your task. Do not perform your tasks discreetly!</li>
+                                    <li>Try to bait the imposters! Whatever action you&apos;re performing doesn&apos;t have to be your tasks.</li>
                                     <li>Work with each other!</li>
                                 </ul>
                             </div>
