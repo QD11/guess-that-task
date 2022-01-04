@@ -31,7 +31,7 @@ const Tutorial = () => {
                                 <h2>Rules</h2>
                             </div>
                             <p>
-                                Guess That Task is a social deduction game where the players are split between two teams, crewmate and imposter. Crewmates are randomly assigned a task that they must fulfill within a time limit. The imposter must correctly guess the crewmates&apos; tasks. The imposters have limited amount of guesses so guess wisely! Additional rules can be added, but that is the gist of this game.
+                                Guess That Task is a social deduction game where the players are split between two teams, crewmate and imposter. Crewmates are randomly assigned a task that they must fulfill within a time limit. The imposter must correctly guess the crewmates&apos; tasks. The imposters have limited amount of guesses so guess wisely!
                             </p>
                         </div>
                         <div className="split">
@@ -41,15 +41,14 @@ const Tutorial = () => {
                                     <Image 
                                         src="/red-among-us-png.png"
                                         alt="crewmate"
-                                        width={50}
-                                        height={50}
+                                        width={60}
+                                        height={60}
                                     />
                                 </div>
                                 {/* <span>Complete your tasks!</span> */}
                                 <ul>
-                                    <li>The imposters must be aware that you&apos;re doing your task. Do not perform your tasks discreetly!</li>
-                                    <li>Try to bait the imposters! Whatever action you&apos;re performing doesn&apos;t have to be your tasks.</li>
-                                    <li>Work with each other!</li>
+                                    <li>You must perform your task while the imposters are watching.</li>
+                                    <li>Try to bait the imposters!</li>
                                 </ul>
                             </div>
                             <div className="roles">
@@ -59,12 +58,12 @@ const Tutorial = () => {
                                         src="/imposter.png"
                                         alt="imposter"
                                         width={130}
-                                        height={90}
+                                        height={60}
                                     />
                                 </div>
                                 {/* <span>Figure out what the crewmates are doing!</span> */}
                                 <ul>
-                                    <li>Guess wisely! You have limited guesses!</li>
+                                    <li>Guess wisely! You have limited amount of guesses!</li>
                                     <li>You are given clues as time goes on! </li>
                                 </ul>
                             </div>
@@ -117,6 +116,7 @@ const ModalDiv = styled.div`
         align-items: center;
         flex-direction: column;
         margin-right: 50px;
+        width: 50%;
         .header {
             display: flex;
             align-items: center;
