@@ -46,6 +46,9 @@ const Tutorial = () => {
                                     />
                                 </div>
                                 <span>Complete your tasks without the imposter knowing!</span>
+                                <ul>
+                                    <li>You MUST perform your tasks in front of the imposters to give them a chance. </li>
+                                </ul>
                             </div>
                             <div className="roles">
                                 <div className="header"> 
