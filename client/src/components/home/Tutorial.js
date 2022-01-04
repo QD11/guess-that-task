@@ -26,29 +26,39 @@ const Tutorial = () => {
                 <div onClick={toggleModal} className="overlay"></div>
                 <div className="modal-content">
                     <div className="content">
-                        <div className="roles">
-                            <div className="header">
-                                <h3>Crewmate</h3>
-                                <Image 
-                                    src="/red-among-us-png.png"
-                                    alt="crewmate"
-                                    width={60}
-                                    height={60}
-                                />
+                        <div className="rules">
+                            <div className="rules-div">
+                                <h2>Rules</h2>
                             </div>
-                            <span>Complete your tasks without the imposter knowing!</span>
+                            <p>
+                                Guess That Task is a social deduction game where the players are split between two teams, crewmate and imposter. Crewmates are randomly assigned a task in which they must fulfill within a time limit. The imposter must correctly guess the crewmates' tasks. Additional rules can be added, but that is the gist of this game.
+                            </p>
                         </div>
-                        <div className="roles">
-                            <div className="header"> 
-                                <h3>Imposter</h3>
-                                <Image 
-                                    src="/imposter.png"
-                                    alt="imposter"
-                                    width={110}
-                                    height={60}
-                                />
+                        <div className="split">
+                            <div className="roles">
+                                <div className="header">
+                                    <h3>Crewmate</h3>
+                                    <Image 
+                                        src="/red-among-us-png.png"
+                                        alt="crewmate"
+                                        width={50}
+                                        height={50}
+                                    />
+                                </div>
+                                <span>Complete your tasks without the imposter knowing!</span>
                             </div>
-                            <span>Figure out what the crewmates are doing!</span>
+                            <div className="roles">
+                                <div className="header"> 
+                                    <h3>Imposter</h3>
+                                    <Image 
+                                        src="/imposter.png"
+                                        alt="imposter"
+                                        width={130}
+                                        height={90}
+                                    />
+                                </div>
+                                <span>Figure out what the crewmates are doing!</span>
+                            </div>
                         </div>
                     </div>
                     <button className="close-modal" onClick={toggleModal}>
@@ -81,6 +91,18 @@ const ModalDiv = styled.div`
     position: fixed;
     z-index: 1;
 
+    .rules {
+        .rules-div {
+            display: flex;
+            justify-content: center
+        }
+    }
+
+    .split {
+        display: flex;
+        flex-direction: row;
+    }
+
     .roles {
         display: flex;
         align-items: center;
@@ -95,6 +117,7 @@ const ModalDiv = styled.div`
     .content {
         display: flex;
         justify-content: space-around;
+        flex-direction: column;
     }
 
     .overlay {
@@ -117,9 +140,10 @@ const ModalDiv = styled.div`
         background: #f1f1f1;
         padding: 14px 28px;
         border-radius: 3px;
-        min-width: 600px;
+        // min-width: 600px;
         // min-width: 300px;
-        width: fit-content;
+        // width: fit-content;
+        width: 500px;
     }
 
     .close-modal {
@@ -131,6 +155,7 @@ const ModalDiv = styled.div`
         border-color: #730707;
         padding: 5px 7px;
         border-radius: 50%;
+        cursor: pointer;
     }
 `
 
