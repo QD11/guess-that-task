@@ -27,22 +27,28 @@ const Tutorial = () => {
                 <div className="modal-content">
                     <div className="content">
                         <div className="roles">
-                            <span>Crewmate</span>
-                            <Image 
-                                src="/red-among-us-png.png"
-                                alt="crewmate"
-                                width={50}
-                                height={50}
-                            />
+                            <div className="header">
+                                <h3>Crewmate</h3>
+                                <Image 
+                                    src="/red-among-us-png.png"
+                                    alt="crewmate"
+                                    width={60}
+                                    height={60}
+                                />
+                            </div>
+                            <span>Complete your tasks without the imposter knowing!</span>
                         </div>
                         <div className="roles">
-                            <span>Imposter</span>
-                            <Image 
-                                src="/imposter.png"
-                                alt="imposter"
-                                width={110}
-                                height={60}
-                            />
+                            <div className="header"> 
+                                <h3>Imposter</h3>
+                                <Image 
+                                    src="/imposter.png"
+                                    alt="imposter"
+                                    width={110}
+                                    height={60}
+                                />
+                            </div>
+                            <span>Figure out what the crewmates are doing!</span>
                         </div>
                     </div>
                     <button className="close-modal" onClick={toggleModal}>
@@ -78,6 +84,12 @@ const ModalDiv = styled.div`
     .roles {
         display: flex;
         align-items: center;
+        flex-direction: column;
+        margin-right: 50px;
+        .header {
+            display: flex;
+            align-items: center;
+        }
     }
 
     .content {
