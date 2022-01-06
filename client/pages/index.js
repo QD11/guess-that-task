@@ -130,9 +130,11 @@ const Center = styled.div`
     // min-height: 450px;
     @media (min-width:320px){
         width: 90%;
+        height: fit-content;
     }
     @media (min-width:600px){
         width: 75%;
+        height: fit-content;
     }
     @media (min-width:1024px){
         width: 50%;
