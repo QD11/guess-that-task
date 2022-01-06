@@ -160,10 +160,21 @@ const ModalDiv = styled.div`
         background: #f1f1f1;
         padding: 14px 28px;
         border-radius: 3px;
+        overflow-y: auto;
         // min-width: 600px;
         // min-width: 300px;
         // width: fit-content;
-        width: 700px;
+        // width: 700px;
+
+        @media (min-width:320px){
+            width: 90%;
+        }
+        @media (min-width:600px){
+            width: 75%;
+        }
+        @media (min-width:1024px){
+            width: 50%;
+        }
     }
 
     .close-modal {
