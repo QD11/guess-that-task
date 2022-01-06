@@ -168,9 +168,11 @@ const ModalDiv = styled.div`
 
         @media (min-width:320px){
             width: 90%;
+            height: 70%;
         }
         @media (min-width:600px){
             width: 75%;
+            height: 70%;
         }
         @media (min-width:1024px){
             width: 50%;
