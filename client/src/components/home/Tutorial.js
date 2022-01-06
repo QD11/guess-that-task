@@ -81,6 +81,7 @@ const Tutorial = () => {
 
 const HelpButton = styled(MdLiveHelp)`
     font-size: 80px;
+    position: fixed;
     cursor: pointer;
     color: #775312;
     transition-duration: 0.5s;

@@ -121,7 +121,7 @@ const Title = styled.h1`
 
 const Center = styled.div`
     background: #ffd892;
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -148,7 +148,8 @@ const Center = styled.div`
         margin-left: auto;
         background: none;
         outline: none;
-        width: 300px;
+        // width: 300px;
+        width: 100%;
         text-align: center;
         font-weight: 200;
         font-size: 25px;
