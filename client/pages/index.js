@@ -64,16 +64,34 @@ const Home = () => {
             {/* <Title>
                 Guess That Task!
             </Title> */}
+            <Container>
                 <Tutorial />
-            <Center>
-                {toggleJoinLobby ? 
+                <Center>
+                    {toggleJoinLobby ? 
+                        <>
+                            <input 
+                                className="input-code"
+                                maxLength="6"
+                                value={lobbyCode}
+                                onChange={e => setLobbyCode(e.target.value.toUpperCase())}
+                            />
+                            <input 
+                                className="name-input"
+                                value={name}
+                                onChange={e => setName(e.target.value)}
+                            />
+                            <div className="bottom-container">
+                                <div className="create-container">
+                                    <button className="back-button" onClick={() => setToggleJoinLobby(false)}>Back</button>
+                                </div>
+                                <div className="create-container">
+                                    <button disabled={lobbyCode.length !== 6} onClick={joinLobby}>Join</button>
+                                </div>
+                            </div>
+                        </>
+                    :
                     <>
-                        <input 
-                            className="input-code"
-                            maxLength="6"
-                            value={lobbyCode}
-                            onChange={e => setLobbyCode(e.target.value.toUpperCase())}
-                        />
+                        <Title>Guess That Task!</Title>
                         <input 
                             className="name-input"
                             value={name}
@@ -81,35 +99,24 @@ const Home = () => {
                         />
                         <div className="bottom-container">
                             <div className="create-container">
-                                <button className="back-button" onClick={() => setToggleJoinLobby(false)}>Back</button>
+                                <button onClick={createLobby} >Create Lobby</button>
                             </div>
                             <div className="create-container">
-                                <button disabled={lobbyCode.length !== 6} onClick={joinLobby}>Join</button>
+                                <button onClick={() => setToggleJoinLobby(true)}>Join Lobby</button>
                             </div>
                         </div>
                     </>
-                :
-                <>
-                    <Title>Guess That Task!</Title>
-                    <input 
-                        className="name-input"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                    />
-                    <div className="bottom-container">
-                        <div className="create-container">
-                            <button onClick={createLobby} >Create Lobby</button>
-                        </div>
-                        <div className="create-container">
-                            <button onClick={() => setToggleJoinLobby(true)}>Join Lobby</button>
-                        </div>
-                    </div>
-                </>
-                }
-            </Center>
+                    }
+                </Center>
+            </Container>
         </>
     )
 }
+
+const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+`
 
 const Title = styled.h1`
     color: black;
@@ -121,10 +128,11 @@ const Title = styled.h1`
 
 const Center = styled.div`
     background: #ffd892;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    // position: fixed;
+    margin: auto;
+    // left: 50%;
+    // top: 50%;
+    // transform: translate(-50%, -50%);
     border-radius: 6px;
     padding: 50px;
     // min-height: 450px;
@@ -135,7 +143,7 @@ const Center = styled.div`
         width: 75%;
     }
     @media (min-width:1024px){
-        width: 30%;
+        width: 40%;
     }
 
     & h1 {

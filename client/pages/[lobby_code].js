@@ -1,5 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import PlayerList from '../src/components/lobby/PlayerList'
 
 const Lobby = () => {
     const router = useRouter()
@@ -8,6 +9,7 @@ const Lobby = () => {
     return (
         <div>
             <h1>Lobby Code: {lobby_code}</h1>
+            <PlayerList />
         </div>
     )
 }

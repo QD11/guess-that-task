@@ -81,7 +81,7 @@ const Tutorial = () => {
 
 const HelpButton = styled(MdLiveHelp)`
     font-size: 80px;
-    position: fixed;
+    // position: fixed;
     cursor: pointer;
     color: #775312;
     transition-duration: 0.5s;
@@ -89,12 +89,12 @@ const HelpButton = styled(MdLiveHelp)`
         color: #e29100;
     }
 
-    @media (min-width:320px){
-        margin-bottom: 60px;
-    }
-    @media (min-width:600px){
-        margin-bottom: 60px;
-    }
+    // @media (min-width:320px){
+    //     margin-bottom: 60px;
+    // }
+    // @media (min-width:600px){
+    //     margin-bottom: 60px;
+    // }
     // @media (min-width:1024px){
     //     width: 50%;
     // }
