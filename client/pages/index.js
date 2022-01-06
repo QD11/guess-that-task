@@ -83,7 +83,7 @@ const Home = () => {
                             <div className="create-container">
                                 <button className="back-button" onClick={() => setToggleJoinLobby(false)}>Back</button>
                             </div>
-                            <div className="join-container">
+                            <div className="create-container">
                                 <button disabled={lobbyCode.length !== 6} onClick={joinLobby}>Join</button>
                             </div>
                         </div>
@@ -100,7 +100,7 @@ const Home = () => {
                         <div className="create-container">
                             <button onClick={createLobby} >Create Lobby</button>
                         </div>
-                        <div className="join-container">
+                        <div className="create-container">
                             <button onClick={() => setToggleJoinLobby(true)}>Join Lobby</button>
                         </div>
                     </div>
@@ -164,7 +164,8 @@ const Center = styled.div`
         margin-block-end: 0.67em;
         background: #fff;
         outline: none;
-        width: 300px;
+        // width: 300px;
+        width: 100%;
         text-align: center;
         font-weight: 200;
         font-size: 50px;
@@ -177,6 +178,7 @@ const Center = styled.div`
             border-right: 3px solid #1a141466;
         }
         .create-container {
+            width: 48%;
             .back-button{
                 background: red;
                 color: white;
