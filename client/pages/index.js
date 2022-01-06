@@ -129,11 +129,9 @@ const Center = styled.div`
     padding: 50px;
     // min-height: 450px;
     @media (min-width:320px){
-        margin-top: 25px;
         width: 90%;
     }
     @media (min-width:600px){
-        // margin-top: 25px;
         width: 75%;
     }
     @media (min-width:1024px){

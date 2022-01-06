@@ -87,6 +87,16 @@ const HelpButton = styled(MdLiveHelp)`
     &:hover {
         color: #e29100;
     }
+
+    @media (min-width:320px){
+        margin-bottom: 25px;
+    }
+    @media (min-width:600px){
+        margin-bottom: 25px;
+    }
+    @media (min-width:1024px){
+        width: 50%;
+    }
 `
 
 const ModalDiv = styled.div`
