@@ -143,8 +143,9 @@ const Center = styled.div`
     @media (min-width:600px){
         width: 75%;
     }
-    @media (min-width:1024px){
-        width: 40%;
+    @media (min-width:900px){
+        margin-top: 80px;
+        width: 60%;
     }
 
     & h1 {

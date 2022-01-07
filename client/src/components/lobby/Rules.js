@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const Rules = () => {
     const [rules, setRules] = useState({
-        duration: 5,
+        duration: 10,
         numOfImposter: 1,
         clues: true,
     })
@@ -20,8 +20,10 @@ const Rules = () => {
         <RuleContainer>
             <li>
                 <span>Game Duration</span>
-                <label>{rules.duration} minutes</label>
-                <input className="duration" name="duration" type="range" min="5" max="30" step="1" value={rules.duration} onChange={handleRules}></input>
+                <div>
+                    <input className="duration" name="duration" type="number" onKeyDown={e => e.preventDefault()} min="10" max="60" step="5" value={rules.duration} onChange={handleRules}></input>
+                    <label> minutes</label>
+                </div>
             </li>
             <li>
                 <span>Number of Imposters</span>
@@ -51,7 +53,7 @@ const TwButton = styled.button`
 const RuleContainer = styled.ul`
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 65%;
     // height: 70%;
     border: 3px solid black;
     border-radius: 10px;
