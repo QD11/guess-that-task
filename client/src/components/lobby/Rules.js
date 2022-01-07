@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 const Rules = () => {
     const [rules, setRules] = useState({
+        duration: 5,
         numOfImposter: 1
     })
     console.log(rules)
@@ -19,6 +20,11 @@ const Rules = () => {
 
     return (
         <RuleContainer>
+            <li>
+                <span>Game Duration</span>
+                <label>{rules.duration} minutes</label>
+                <input className="duration" name="duration" type="range" min="5" max="30" step="1" value={rules.duration} onChange={handleRules}></input>
+            </li>
             <li>
                 <span>Number of Imposters</span>
                 <div className="tw-toggle">
