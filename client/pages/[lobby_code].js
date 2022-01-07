@@ -1,6 +1,8 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import PlayerList from '../src/components/lobby/PlayerList'
+import Rules from '../src/components/lobby/Rules'
+import styled from 'styled-components'
 
 const Lobby = () => {
     const router = useRouter()
@@ -9,10 +11,19 @@ const Lobby = () => {
     return (
         <div>
             <h1>Lobby Code: {lobby_code}</h1>
-            <PlayerList />
+            <MainContainer>
+                <PlayerList />
+                <Rules />
+            </MainContainer>
         </div>
     )
 }
+
+const MainContainer = styled.div`
+    display: flex;
+    margin: auto;
+    width: 60%;
+`
 
 //use getStaticPaths as well as getStaticProps
 // export async function getStaticPaths() {
