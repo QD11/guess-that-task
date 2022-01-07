@@ -10,7 +10,7 @@ const PlayerList = () => {
     return (
         <PlayerContainer>
             {placeHolder.map(player => 
-                <li>
+                <li key={1}>
                     {player.name}
                 </li>)}
         </PlayerContainer>

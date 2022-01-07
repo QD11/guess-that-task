@@ -21,7 +21,7 @@ const Rules = () => {
         <RuleContainer>
             <li>
                 <span>Number of Imposters</span>
-                <div class="tw-toggle">
+                <div className="tw-toggle">
                     <button name="numOfImposter" onClick={handleRules} value={1}>1</button>
                     <button name="numOfImposter" onClick={handleRules} value={2}>2</button>
                     <button name="numOfImposter" onClick={handleRules} value={3}>3</button>
