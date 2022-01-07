@@ -4,7 +4,8 @@ import styled from 'styled-components'
 const Rules = () => {
     const [rules, setRules] = useState({
         duration: 5,
-        numOfImposter: 1
+        numOfImposter: 1,
+        clues: true,
     })
     console.log(rules)
 
@@ -14,9 +15,6 @@ const Rules = () => {
             [e.target.name]: parseInt(e.target.value)
         })
     }
-    // const placeHolder = new Array(5).fill({
-    //     name: "Bob"
-    // })
 
     return (
         <RuleContainer>
@@ -28,21 +26,35 @@ const Rules = () => {
             <li>
                 <span>Number of Imposters</span>
                 <div className="tw-toggle">
-                    <button name="numOfImposter" onClick={handleRules} value={1}>1</button>
-                    <button name="numOfImposter" onClick={handleRules} value={2}>2</button>
-                    <button name="numOfImposter" onClick={handleRules} value={3}>3</button>
+                    <TwButton active={1} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={1}>1</TwButton>
+                    <TwButton active={2} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={2}>2</TwButton>
+                    <TwButton active={3} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={3}>3</TwButton>
+                </div>
+            </li>
+            <li>
+                <span>Clues</span>
+                <div className="tw-toggle">
+                    <TwButton active={true} cur_value={rules.clues} name="clues" onClick={() => setRules({...rules, clues: true})}>Yes</TwButton>
+                    <TwButton active={false} cur_value={rules.clues} name="clues" onClick={() => setRules({...rules, clues: false})}>No</TwButton>
                 </div>
             </li>
         </RuleContainer>
     )
 }
 
+const TwButton = styled.button`
+    // background-color: brown;
+    color: ${props => props.active === props.cur_value ? "white": "black"};
+    background-color: ${props => props.active === props.cur_value ? "black": "#fff"};
+`
+
 const RuleContainer = styled.ul`
     display: flex;
     flex-direction: column;
     width: 60%;
     // height: 70%;
-    border: 5px solid black;
+    border: 3px solid black;
+    border-radius: 10px;
     // margin: auto;
     padding: 10px;
     .tw-toggle{

@@ -22,7 +22,8 @@ const PlayerContainer = styled.ul`
     flex-direction: column;
     width: 35%;
     // height: 70%;
-    border: 5px solid black;
+    border: 3px solid black;
+    border-radius: 10px;
     // margin: auto;
     padding: 10px;
     margin-right: 20px;
