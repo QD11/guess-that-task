@@ -22,10 +22,11 @@ const PlayerContainer = styled.ul`
     flex-direction: column;
     width: 35%;
     // height: 70%;
-    border: 3px solid black;
+    //border: 3px solid black;
     border-radius: 10px;
+    background-color: #ffd892;
     // margin: auto;
-    padding: 10px;
+    padding: 20px;
     margin-right: 20px;
     & li {
         list-style: none;

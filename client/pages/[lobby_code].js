@@ -1,4 +1,5 @@
 import React from 'react'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import PlayerList from '../src/components/lobby/PlayerList'
 import Rules from '../src/components/lobby/Rules'
@@ -9,13 +10,19 @@ const Lobby = () => {
     const { lobby_code } = router.query
 
     return (
-        <div>
-            <h1>Lobby Code: {lobby_code}</h1>
-            <MainContainer>
-                <PlayerList />
-                <Rules />
-            </MainContainer>
-        </div>
+        <>
+            <Head>
+                <title>Guess That Task - Lobby</title>
+                <link rel="shortcut icon" href="/red-among-us-png.png" />
+            </Head>
+            <div>
+                <h1>Lobby Code: {lobby_code}</h1>
+                <MainContainer>
+                    <PlayerList />
+                    <Rules />
+                </MainContainer>
+            </div>
+        </>
     )
 }
 

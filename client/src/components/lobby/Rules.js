@@ -5,6 +5,7 @@ const Rules = () => {
     const [rules, setRules] = useState({
         duration: 10,
         numOfImposter: 1,
+        numOfCrewmatesTasks: 1,
         clues: true,
     })
     console.log(rules)
@@ -34,12 +35,20 @@ const Rules = () => {
                 </div>
             </li>
             <li>
+                <span># of Tasks Required to Win</span>
+                <div>
+                    <input className="numOfCrewmatesTasks" name="numOfCrewmatesTasks" type="number" onKeyDown={e => e.preventDefault()} min="1" max="10" step="1" value={rules.numOfCrewmatesTasks} onChange={handleRules}></input>
+                    <label> tasks</label>
+                </div>
+            </li>
+            <li>
                 <span>Clues</span>
                 <div className="tw-toggle">
                     <TwButton active={true} cur_value={rules.clues} name="clues" onClick={() => setRules({...rules, clues: true})}>Yes</TwButton>
                     <TwButton active={false} cur_value={rules.clues} name="clues" onClick={() => setRules({...rules, clues: false})}>No</TwButton>
                 </div>
             </li>
+            <hr/>
         </RuleContainer>
     )
 }
@@ -55,10 +64,11 @@ const RuleContainer = styled.ul`
     flex-direction: column;
     width: 65%;
     // height: 70%;
-    border: 3px solid black;
+    // border: 3px solid black;
     border-radius: 10px;
+    background-color: #ffd892;
     // margin: auto;
-    padding: 10px;
+    padding: 20px;
     .tw-toggle{
         align-items: center;
         display: flex;
@@ -66,13 +76,21 @@ const RuleContainer = styled.ul`
         justify-content: space-around;
     }
     & li {
+        border-radius: 10px;
+        background-color: #fff6e6;
         list-style: none;
-        border: 1px solid black;
         margin-bottom: 10px;
         font-size: 20px;
         display: flex;
         justify-content: space-between;
         padding: 12px;
+    }
+    & hr {
+        width: 100%;
+        height:2px;
+        border-width:0;
+        // color:black;
+        background-color:white;
     }
 `
 

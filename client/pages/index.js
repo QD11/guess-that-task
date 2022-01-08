@@ -144,8 +144,8 @@ const Center = styled.div`
         width: 75%;
     }
     @media (min-width:900px){
-        margin-top: 80px;
-        width: 60%;
+        margin-top: 50px;
+        width: 35%;
     }
 
     & h1 {
@@ -162,7 +162,7 @@ const Center = styled.div`
         width: 100%;
         text-align: center;
         font-weight: 200;
-        font-size: 25px;
+        font-size: 40px;
         border: none;
         border-bottom: 2px solid #b17822;
     }
@@ -206,6 +206,7 @@ const Center = styled.div`
             font-weight: 600;
             border: 0;
             width: 100%;
+            height: 150%;
             // width: 10rem;
             cursor: pointer;
             outline: none;
