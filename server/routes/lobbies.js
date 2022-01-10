@@ -1,6 +1,5 @@
 import express from 'express';
 import Lobby from '../models/Lobby.js';
-import Player from '../models/Player.js';
 
 const router = express.Router();
 
@@ -8,7 +7,8 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try{
         const lobbies = await Lobby.find()
-            .populate("owner","-__v");
+            .populate("owner","-__v")
+            .populate("players","-__v");
         res.json(lobbies)
     }catch(err){
         res.json({message:err})
@@ -19,7 +19,8 @@ router.get('/', async (req, res) => {
 router.get('/:lobbyId', async (req,res) => {
     try{
         const lobby = await Lobby.findById(req.params.lobbyId)
-            .populate("owner","-__v");
+            .populate("owner","-__v")
+            .populate("players","-__v");
         res.json(lobby);
     }catch (err) {
         res.json({message:err})
@@ -30,8 +31,10 @@ router.get('/:lobbyId', async (req,res) => {
 router.post('/', async (req, res) => {
     const lobby = new Lobby({
         code: req.body.code,
-        owner: req.body.owner
+        owner: req.body.owner,
+        players: [req.body.owner]
     });
+    console.log(lobby)
     try{
         const savedLobby = await lobby.save();
         res.json(savedLobby);

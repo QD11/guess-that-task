@@ -65,8 +65,8 @@ app.get('*', (request, response) => {
 });
 let port = process.env.PORT
 if (port == null || port == "") {
-    port = 3000;
+    port = 4000;
 }
 //How do we start listening to the server
-app.listen(port, () => console.log('Server running on port: http://localhost:3000'));
+app.listen(port, () => console.log('Server running on port: http://localhost:4000'));
 // Start the server
