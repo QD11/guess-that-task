@@ -29,17 +29,17 @@ const Lobby = () => {
 const MainContainer = styled.div`
     display: flex;
     margin: auto;
-    width: 65%;
-    // @media (min-width:320px){
-    //     width: 90%;
-    // }
-    // @media (min-width:600px){
-    //     width: 75%;
-    // }
-    // @media (min-width:900px){
-    //     margin-top: 100px;
-    //     width: 80%;
-    // }
+    // width: 65%;
+    @media (min-width:320px){
+        width: 98%;
+    }
+    @media (min-width:600px){
+        width: 75%;
+    }
+    @media (min-width:900px){
+        margin-top: 100px;
+        width: 80%;
+    }
 `
 
 //use getStaticPaths as well as getStaticProps

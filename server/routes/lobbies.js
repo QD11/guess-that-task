@@ -7,7 +7,8 @@ const router = express.Router();
 //ALL Lobbys
 router.get('/', async (req, res) => {
     try{
-        const lobbies = await Lobby.find();
+        const lobbies = await Lobby.find()
+            .populate("owner","-__v");
         res.json(lobbies)
     }catch(err){
         res.json({message:err})
@@ -18,6 +19,7 @@ router.get('/', async (req, res) => {
 router.get('/:lobbyId', async (req,res) => {
     try{
         const lobby = await Lobby.findById(req.params.lobbyId)
+            .populate("owner","-__v");
         res.json(lobby);
     }catch (err) {
         res.json({message:err})

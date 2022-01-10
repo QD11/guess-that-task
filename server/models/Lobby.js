@@ -11,11 +11,11 @@ const LobbySchema = mongoose.Schema({
     },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Player'
+        ref: 'Players'
     },
     players: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Player'
+        ref: 'Players'
     }]
 }, {
     timestamps: true,

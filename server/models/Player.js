@@ -11,7 +11,7 @@ const PlayerSchema = mongoose.Schema({
     },
     lobby: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Lobby',
+        ref: 'Lobbies',
         // required: true
     }
 }, {
