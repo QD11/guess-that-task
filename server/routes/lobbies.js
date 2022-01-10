@@ -34,7 +34,6 @@ router.post('/', async (req, res) => {
         owner: req.body.owner,
         players: [req.body.owner]
     });
-    console.log(lobby)
     try{
         const savedLobby = await lobby.save();
         res.json(savedLobby);
