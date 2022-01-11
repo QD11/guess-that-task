@@ -49,17 +49,14 @@ const Home = () => {
     const joinLobby = () => {
         //check if lobby code exists
         fetch(`https://guess-that-task-server.herokuapp.com/lobbies/${lobbyCode}`)
-        .then(res => {
-            if (res.ok) {
-                res.json()
-                .then(lobby => router.push(`/${lobby.code}`))
-            }
-            else {
-                res.json()
-                .then(error => console.log(error))
+        .then(res => res.json())
+        .then(lobby => {
+            if (lobby) {
+                router.push(`/${lobby.code}`)
+            } else {
+                console.log('No Code Found')
             }
         })
-        
     }
 
     return (
