@@ -56,9 +56,9 @@ const Home = () => {
             }
             else {
                 res.json()
-                .then(error => console.log(error)
+                .then(error => console.log(error))
             }
-        }
+        })
         
     }
 
