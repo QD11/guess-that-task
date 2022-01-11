@@ -19,6 +19,7 @@ const Home = () => {
     }))
     const [toggleJoinLobby, setToggleJoinLobby] = useState(false)
     const [lobbyCode, setLobbyCode] = useState('')
+    const [errorCode, setErrorCode] = useState(false)
     
     const createLobby = () => {
         const newCode = uuid().slice(0,6).toUpperCase()
@@ -52,8 +53,10 @@ const Home = () => {
         .then(res => res.json())
         .then(lobby => {
             if (lobby) {
+                setErrorCode(false)
                 router.push(`/${lobby.code}`)
             } else {
+                setErrorCode(true)
                 console.log('No Code Found')
             }
         })
