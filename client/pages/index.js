@@ -44,15 +44,22 @@ const Home = () => {
             .then(res => res.json())
             .then(lobby => router.push(`/${lobby.code}`))
         })
-        // .then(r => r.json())
-        
-        //create the lobby in the backend
-        // router.push(`/${newCode}`)
     }
 
     const joinLobby = () => {
         //check if lobby code exists
-        router.push(`/${lobbyCode}`)
+        fetch(`https://guess-that-task-server.herokuapp.com/lobbies/${lobbyCode}`)
+        .then(res => {
+            if (res.ok) {
+                res.json()
+                .then(lobby => router.push(`/${lobby.code}`))
+            }
+            else {
+                res.json()
+                .then(error => console.log(error)
+            }
+        }
+        
     }
 
     return (
