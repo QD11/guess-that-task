@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
 //Get specific lobby
 router.get('/:lobbyId', async (req,res) => {
     try{
-        const lobby = await Lobby.findById(req.params.lobbyId)
+        const lobby = await Lobby.find({code : req.params.lobbyId})
             .populate("owner","-__v")
             .populate("players","-__v");
         res.json(lobby);
