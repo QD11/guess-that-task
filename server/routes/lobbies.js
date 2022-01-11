@@ -16,9 +16,9 @@ router.get('/', async (req, res) => {
 });
 
 //Get specific lobby
-router.get('/:lobbyId', async (req,res) => {
+router.get('/:lobbyCode', async (req,res) => {
     try{
-        const lobby = await Lobby.find({code : req.params.lobbyId})
+        const lobby = await Lobby.findOne({code : req.params.lobbyCode})
             .populate("owner","-__v")
             .populate("players","-__v");
         res.json(lobby);
@@ -43,9 +43,9 @@ router.post('/', async (req, res) => {
 })
 
 //Delete Lobby
-router.delete('/:lobbyId', async (req,res) => {
+router.delete('/:lobbyCode', async (req,res) => {
     try{
-        const removeLobby = await Lobby.remove({_id: req.params.lobbyId })
+        const removeLobby = await Lobby.remove({code: req.params.lobbyCode })
         res.json(removeLobby)
     }catch(err){
         res.json({message: err })
@@ -53,13 +53,13 @@ router.delete('/:lobbyId', async (req,res) => {
 });
 
 //Add Player
-router.patch('/:lobbyId/:playerId', async (req,res) => {
+router.patch('/:lobbyCode/:playerId', async (req,res) => {
     try{
-        const lobby = await Lobby.findById(req.params.lobbyId)
+        // const lobby = await Lobby.find({code : req.params.lobbyId})
         // const player = await Player.findById(req.params.playerId)
 
         const updatedLobby = await Lobby.updateOne(
-            {_id: req.params.lobbyId }, 
+            {code : req.params.lobbyCode}, 
             { $push: {players: req.body.playerId}}
         )
         res.json(updatedLobby);
