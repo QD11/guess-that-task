@@ -24,12 +24,10 @@ const Home = ({user}) => {
     const [errorCode, setErrorCode] = useState(false)
     const isInitialMount = useRef(true);
 
-    //fetch name from cookies
-    //if no cookies, post request
     useEffect(() => {
-        if (user) {
-            setId(JSON.parse(user).id)
-            setName(JSON.parse(user).name)
+        if (!user.message) {
+            setId(user._id)
+            setName(user.name)
         } else {
             fetch('https://guess-that-task-server.herokuapp.com/players', {
                 method: "POST",
@@ -41,11 +39,7 @@ const Home = ({user}) => {
             .then(res => res.json())
             .then(player => {
                 setId(player._id)
-                cookie.set("user", JSON.stringify({
-                    id: player._id,
-                    name: player.name
-                }))
-                // cookie.set("user", player._id)
+                cookie.set("user", player._id)
             })}
     }, [])
     // cookie.remove("user") //remove user cookie
@@ -102,8 +96,6 @@ const Home = ({user}) => {
                 },
                 body: JSON.stringify({name: name})
             })
-            // .then(res => res.json())
-            // .then(player => console.log(player))
         }
     })
 
@@ -165,14 +157,11 @@ const Home = ({user}) => {
     )
 }
 
-export function getServerSideProps({req, res}) {
-    //store only id and fetch name here instead
-    // console.log('aaaa')
-    // console.log(req.cookies.user)
+export async function getServerSideProps({req, res}) {
+    const response = await fetch(`https://guess-that-task-server.herokuapp.com/players/${req.cookies.user}`)
+    const data = await response.json()
 
-    return { props: 
-        { user: req.cookies.user || "" }
-    }
+    return { props: {user: data}}
 }
 
 const Container = styled.div`
