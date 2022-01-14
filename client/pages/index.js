@@ -10,8 +10,9 @@ import cookie from 'js-cookie'
 
 import Tutorial from '../src/components/home/Tutorial'
 
-const Home = ({nickName}) => {
+const Home = ({user}) => {
     const router = useRouter()
+    const [id, setId] = useState('')
     const [name, setName] = useState(uniqueNamesGenerator({
         dictionaries: [adjectives, animals, colors],
         length: 2,
@@ -22,19 +23,31 @@ const Home = ({nickName}) => {
     const [lobbyCode, setLobbyCode] = useState('')
     const [errorCode, setErrorCode] = useState(false)
 
-    console.log(JSON.parse(nickName))
-
+    //fetch name from cookies
+    //if no cookies, post request
     useEffect(() => {
-        cookie.set("nickName", JSON.stringify({
-            name: "pi",
-            _id: "111"
-        }))
-
+        if (user) {
+            setId(JSON.parse(user).id)
+            setName(JSON.parse(user).name)
+        } else {
+                fetch('https://guess-that-task-server.herokuapp.com/players', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({name: name})
+            })
+            .then(res => res.json())
+            .then(player => {
+                console.log(player)
+                setId(player._id)
+                cookie.set("user", JSON.stringify({
+                    id: player._id,
+                    name: player.name
+                }))
+            })}
     }, [])
-
-    // useEffect(() => {
-    //     cookie.remove("nickName")
-    // }, [])
+    // cookie.remove("user") //remove user cookie
     
     const createLobby = () => {
         const newCode = uuid().slice(0,6).toUpperCase()
@@ -138,7 +151,7 @@ const Home = ({nickName}) => {
 export function getServerSideProps({req, res}) {
 
     return { props: 
-        { nickName: req.cookies.nickName || "" }
+        { user: req.cookies.user || "" }
     }
 }
 
