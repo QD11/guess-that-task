@@ -2,14 +2,15 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import styled from 'styled-components'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-generator';
 import { v4 as uuid } from 'uuid';
 import { useRouter } from 'next/router'
+import cookie from 'js-cookie'
 
 import Tutorial from '../src/components/home/Tutorial'
 
-const Home = () => {
+const Home = ({nickName}) => {
     const router = useRouter()
     const [name, setName] = useState(uniqueNamesGenerator({
         dictionaries: [adjectives, animals, colors],
@@ -20,6 +21,20 @@ const Home = () => {
     const [toggleJoinLobby, setToggleJoinLobby] = useState(false)
     const [lobbyCode, setLobbyCode] = useState('')
     const [errorCode, setErrorCode] = useState(false)
+
+    console.log(JSON.parse(nickName))
+
+    useEffect(() => {
+        cookie.set("nickName", JSON.stringify({
+            name: "pi",
+            _id: "111"
+        }))
+
+    }, [])
+
+    // useEffect(() => {
+    //     cookie.remove("nickName")
+    // }, [])
     
     const createLobby = () => {
         const newCode = uuid().slice(0,6).toUpperCase()
@@ -118,6 +133,13 @@ const Home = () => {
             </Container>
         </>
     )
+}
+
+export function getServerSideProps({req, res}) {
+
+    return { props: 
+        { nickName: req.cookies.nickName || "" }
+    }
 }
 
 const Container = styled.div`
@@ -224,5 +246,23 @@ const Center = styled.div`
         }
     }
 `
+
+    //serverside cookies (not need since its not important information)
+    //add cookie
+    // useEffect(() => {
+    //     fetch("/api/login", {
+    //         method: "post",
+    //         headers: {"Content-Type": "application/json"},
+    //         body: JSON.stringify({token: "ABCD"})
+    //     })
+    // }, [])
+    //remove cookie
+    // useEffect(() => {
+    //     fetch("/api/logout", {
+    //         method: "post",
+    //         headers: {"Content-Type": "application/json"},
+    //         body: JSON.stringify({})
+    //     })
+    // }, [])
 
 export default Home
