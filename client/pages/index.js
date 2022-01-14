@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import styled from 'styled-components'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-generator';
 import { v4 as uuid } from 'uuid';
 import { useRouter } from 'next/router'
@@ -22,6 +22,7 @@ const Home = ({user}) => {
     const [toggleJoinLobby, setToggleJoinLobby] = useState(false)
     const [lobbyCode, setLobbyCode] = useState('')
     const [errorCode, setErrorCode] = useState(false)
+    const isInitialMount = useRef(true);
 
     //fetch name from cookies
     //if no cookies, post request
@@ -44,27 +45,10 @@ const Home = ({user}) => {
                     id: player._id,
                     name: player.name
                 }))
+                // cookie.set("user", player._id)
             })}
     }, [])
     // cookie.remove("user") //remove user cookie
-
-    const changeNameHandle = () => {
-        fetch(`https://guess-that-task-server.herokuapp.com/players/${id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({name: name})
-        })
-        .then(res => res.json())
-        .then(player => {
-            console.log(player)
-            // cookie.set("user", JSON.stringify({
-            //     id: player._id,
-            //     name: player.name
-            // }))
-        })
-    }
     
     const createLobby = () => {
         const newCode = uuid().slice(0,6).toUpperCase()
@@ -107,6 +91,22 @@ const Home = ({user}) => {
         })
     }
 
+    useEffect(() => {
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+        } else {
+            fetch(`https://guess-that-task-server.herokuapp.com/players/${id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({name: name})
+            })
+            // .then(res => res.json())
+            // .then(player => console.log(player))
+        }
+    })
+
     return (
         <>
             <Head>
@@ -148,7 +148,6 @@ const Home = ({user}) => {
                             className="name-input"
                             value={name}
                             onChange={e => setName(e.target.value)}
-                            onBlur={changeNameHandle}
                         />
                         <div className="bottom-container">
                             <div className="create-container">
@@ -167,6 +166,9 @@ const Home = ({user}) => {
 }
 
 export function getServerSideProps({req, res}) {
+    //store only id and fetch name here instead
+    // console.log('aaaa')
+    // console.log(req.cookies.user)
 
     return { props: 
         { user: req.cookies.user || "" }
