@@ -30,7 +30,7 @@ const Home = ({user}) => {
             setId(JSON.parse(user).id)
             setName(JSON.parse(user).name)
         } else {
-                fetch('https://guess-that-task-server.herokuapp.com/players', {
+            fetch('https://guess-that-task-server.herokuapp.com/players', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -39,7 +39,6 @@ const Home = ({user}) => {
             })
             .then(res => res.json())
             .then(player => {
-                console.log(player)
                 setId(player._id)
                 cookie.set("user", JSON.stringify({
                     id: player._id,
@@ -48,6 +47,24 @@ const Home = ({user}) => {
             })}
     }, [])
     // cookie.remove("user") //remove user cookie
+
+    const changeNameHandle = () => {
+        fetch(`https://guess-that-task-server.herokuapp.com/players/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({name: name})
+        })
+        .then(res => res.json())
+        .then(player => {
+            console.log(player)
+            // cookie.set("user", JSON.stringify({
+            //     id: player._id,
+            //     name: player.name
+            // }))
+        })
+    }
     
     const createLobby = () => {
         const newCode = uuid().slice(0,6).toUpperCase()
@@ -131,6 +148,7 @@ const Home = ({user}) => {
                             className="name-input"
                             value={name}
                             onChange={e => setName(e.target.value)}
+                            onBlur={changeNameHandle}
                         />
                         <div className="bottom-container">
                             <div className="create-container">
