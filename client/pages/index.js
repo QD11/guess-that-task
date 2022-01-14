@@ -121,6 +121,7 @@ const Home = ({user}) => {
                             />
                             <input 
                                 className="name-input"
+                                maxLength="15"
                                 value={name}
                                 onChange={e => setName(e.target.value)}
                             />
@@ -139,6 +140,7 @@ const Home = ({user}) => {
                         <input 
                             className="name-input"
                             value={name}
+                            maxLength="15"
                             onChange={e => setName(e.target.value)}
                         />
                         <div className="bottom-container">
@@ -160,7 +162,6 @@ const Home = ({user}) => {
 export async function getServerSideProps({req, res}) {
     const response = await fetch(`https://guess-that-task-server.herokuapp.com/players/${req.cookies.user}`)
     const data = await response.json()
-
     return { props: {user: data}}
 }
 
