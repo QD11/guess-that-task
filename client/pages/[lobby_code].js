@@ -5,6 +5,8 @@ import PlayerList from '../src/components/lobby/PlayerList'
 import Rules from '../src/components/lobby/Rules'
 import styled from 'styled-components'
 
+import Tutorial from '../src/components/home/Tutorial'
+
 const Lobby = () => {
     const router = useRouter()
     const { lobby_code } = router.query
@@ -16,7 +18,10 @@ const Lobby = () => {
                 <link rel="shortcut icon" href="/red-among-us-png.png" />
             </Head>
             <div>
-                <h1>Lobby Code: {lobby_code}</h1>
+                <div>
+                    <Tutorial />
+                    <h1>Lobby Code: {lobby_code}</h1>
+                </div>
                 <MainContainer>
                     <PlayerList />
                     <Rules />

@@ -24,6 +24,14 @@ const Home = ({user}) => {
     const [errorCode, setErrorCode] = useState(false)
     const isInitialMount = useRef(true);
 
+    // useEffect(() => {
+    //     fetch("/api/login", {
+    //         method: "post",
+    //         headers: {"Content-Type": "application/json"},
+    //         body: JSON.stringify({token: "ABCD"})
+    //     })
+    // }, [])
+
     useEffect(() => {
         if (!user.message) {
             setId(user._id)
