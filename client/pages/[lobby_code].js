@@ -18,10 +18,10 @@ const Lobby = () => {
                 <link rel="shortcut icon" href="/red-among-us-png.png" />
             </Head>
             <div>
-                <div>
+                <Header>
                     <Tutorial />
                     <h1>Lobby Code: {lobby_code}</h1>
-                </div>
+                </Header>
                 <MainContainer>
                     <PlayerList />
                     <Rules />
@@ -30,6 +30,11 @@ const Lobby = () => {
         </>
     )
 }
+
+const Header = styled.div`
+    display: flex;
+    flex-direction: row;
+`
 
 const MainContainer = styled.div`
     display: flex;
