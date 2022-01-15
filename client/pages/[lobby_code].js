@@ -10,13 +10,15 @@ import Error from 'next/error'
 import Tutorial from '../src/components/home/Tutorial'
 
 const Lobby = ({ errorCode, lobby }) => {
+    const router = useRouter()
+    const { lobby_code } = router.query
 
     if (errorCode) {
         return <Error statusCode={errorCode} />
     }
 
-    const router = useRouter()
-    const { lobby_code } = router.query
+    // const router = useRouter()
+    // const { lobby_code } = router.query
 
     return (
         <>
