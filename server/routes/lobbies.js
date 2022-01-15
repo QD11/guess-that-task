@@ -21,7 +21,7 @@ router.get('/:lobbyCode', async (req,res) => {
         const lobby = await Lobby.findOne({code : req.params.lobbyCode})
             .populate("owner","-__v")
             .populate("players","-__v");
-        res.json(lobby);
+        lobby ? res.json(lobby) : res.sendStatus(404)
     }catch (err) {
         res.json({message:err})
     }

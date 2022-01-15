@@ -168,6 +168,7 @@ const Home = ({user}) => {
 }
 
 export async function getServerSideProps({req, res}) {
+// export async function getStaticProps({req, res}) {
     const response = await fetch(`https://guess-that-task-server.herokuapp.com/players/${req.cookies.user}`)
     const data = await response.json()
     return { props: {user: data}}

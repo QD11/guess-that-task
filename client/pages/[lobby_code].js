@@ -7,7 +7,9 @@ import styled from 'styled-components'
 
 import Tutorial from '../src/components/home/Tutorial'
 
-const Lobby = () => {
+const Lobby = ({ errorCode, lobby }) => {
+    console.log(lobby)
+    console.log(errorCode)
     const router = useRouter()
     const { lobby_code } = router.query
 
@@ -29,6 +31,23 @@ const Lobby = () => {
             </div>
         </>
     )
+}
+
+export async function getServerSideProps(context, res) {
+    // const router = useRouter()
+    // const { lobby_code } = router.query
+    const lobby_code = context.params.lobby_code
+
+    const data = await fetch(`https://guess-that-task-server.herokuapp.com/lobbies/${lobby_code}`);
+    const errorCode = data.ok ? false : data.statusCode;
+    if (errorCode) {
+        res.statusCode = errorCode;
+    }
+    const json = await data.json();
+
+    return {
+        props: { errorCode, lobby: json }
+    };
 }
 
 const Header = styled.div`

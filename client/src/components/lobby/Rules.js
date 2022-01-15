@@ -8,7 +8,6 @@ const Rules = () => {
         numOfCrewmatesTasks: 1,
         clues: true,
     })
-    console.log(rules)
 
     const handleRules = e => {
         setRules({
