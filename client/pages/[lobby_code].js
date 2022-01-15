@@ -5,11 +5,16 @@ import PlayerList from '../src/components/lobby/PlayerList'
 import Rules from '../src/components/lobby/Rules'
 import styled from 'styled-components'
 
+import Error from 'next/error'
+
 import Tutorial from '../src/components/home/Tutorial'
 
 const Lobby = ({ errorCode, lobby }) => {
-    console.log(lobby)
-    console.log(errorCode)
+
+    if (errorCode) {
+        return <Error statusCode={errorCode} />
+    }
+
     const router = useRouter()
     const { lobby_code } = router.query
 
@@ -33,20 +38,20 @@ const Lobby = ({ errorCode, lobby }) => {
     )
 }
 
-export async function getServerSideProps(context, res) {
+export async function getServerSideProps(context) {
     // const router = useRouter()
     // const { lobby_code } = router.query
     const lobby_code = context.params.lobby_code
 
-    const data = await fetch(`https://guess-that-task-server.herokuapp.com/lobbies/${lobby_code}`);
-    const errorCode = data.ok ? false : data.statusCode;
-    if (errorCode) {
-        res.statusCode = errorCode;
+    const res = await fetch(`https://guess-that-task-server.herokuapp.com/lobbies/${lobby_code}`);
+    const errorCode = res.ok ? false : res.status;
+    let json = null
+    if (errorCode === false) {
+        json = await res.json()
     }
-    const json = await data.json();
 
     return {
-        props: { errorCode, lobby: json }
+        props: { errorCode, lobby: json}
     };
 }
 
