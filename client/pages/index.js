@@ -36,7 +36,7 @@ const Home = ({user}) => {
     // }, [])
 
     useEffect(() => {
-        if (!user.message) {
+        if (!user.message ) {
             setId(user._id)
             setName(user.name)
             dispatch(getUserID({
@@ -55,7 +55,7 @@ const Home = ({user}) => {
                 setId(player._id)
                 cookie.set("user", player._id)
                 dispatch(getUserID({
-                    id: user._id
+                    id: player._id
                 }))
             })}
     }, [])
