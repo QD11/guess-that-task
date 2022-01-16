@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
 router.get('/:playerId', async (req,res) => {
     try{
         const player = await Player.findById(req.params.playerId)
-        res.json(player);
+        player? res.json(player) : res.sendStatus(404)
     }catch (err) {
         res.json({message:err})
     }
