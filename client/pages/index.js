@@ -63,28 +63,27 @@ const Home = ({user}) => {
     
     const createLobby = () => {
         const newCode = uuid().slice(0,6).toUpperCase()
-        fetch('https://guess-that-task-server.herokuapp.com/players', {
+        // fetch('https://guess-that-task-server.herokuapp.com/players', {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify({name: name})
+        // })
+        // .then(res => res.json())
+        // .then(player => {
+        fetch('https://guess-that-task-server.herokuapp.com/lobbies', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({name: name})
+            body: JSON.stringify({
+                code: newCode,
+                owner: id,
+            })
         })
         .then(res => res.json())
-        .then(player => {
-            fetch('https://guess-that-task-server.herokuapp.com/lobbies', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    code: newCode,
-                    owner: player._id
-                })
-            })
-            .then(res => res.json())
-            .then(lobby => router.push(`/${lobby.code}`))
-        })
+        .then(lobby => router.push(`/${lobby.code}`))
     }
 
     const joinLobby = () => {

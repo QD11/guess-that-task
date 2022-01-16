@@ -18,14 +18,9 @@ const Lobby = ({ errorCode, lobby }) => {
     if (errorCode) {
         return <Error statusCode={errorCode} />
     }
-    // console.log('user', user.id)
-    // console.log(lobby)
-    // console.log(lobby.players[0]._id)
-    // console.log(lobby.players.find(player => player._id === user.id))
-    // if (lobby.players.find(player => player._id === user.id)) {
-        
-    //     return <Error statusCode={404}/>
-    // }
+    else if (!lobby.players.find(player => player._id === user.id)) {
+        return <Error statusCode={404}/>
+    }
     
 
     // const router = useRouter()
@@ -51,11 +46,11 @@ const Lobby = ({ errorCode, lobby }) => {
     )
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context, req) {
     // const router = useRouter()
     // const { lobby_code } = router.query
     const lobby_code = context.params.lobby_code
-
+    //
     const res = await fetch(`https://guess-that-task-server.herokuapp.com/lobbies/${lobby_code}`);
     const errorCode = res.ok ? false : res.status;
     let json = null
