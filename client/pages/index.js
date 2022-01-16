@@ -6,11 +6,14 @@ import React, {useState, useEffect, useRef} from 'react'
 import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-generator';
 import { v4 as uuid } from 'uuid';
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
+import { getUserID } from '../src/redux/userSlice'
 import cookie from 'js-cookie'
 
 import Tutorial from '../src/components/home/Tutorial'
 
 const Home = ({user}) => {
+    const dispatch = useDispatch()
     const router = useRouter()
     const [id, setId] = useState('')
     const [name, setName] = useState(uniqueNamesGenerator({
@@ -36,6 +39,9 @@ const Home = ({user}) => {
         if (!user.message) {
             setId(user._id)
             setName(user.name)
+            dispatch(getUserID({
+                id: user._id
+            }))
         } else {
             fetch('https://guess-that-task-server.herokuapp.com/players', {
                 method: "POST",
@@ -48,6 +54,9 @@ const Home = ({user}) => {
             .then(player => {
                 setId(player._id)
                 cookie.set("user", player._id)
+                dispatch(getUserID({
+                    id: user._id
+                }))
             })}
     }, [])
     // cookie.remove("user") //remove user cookie

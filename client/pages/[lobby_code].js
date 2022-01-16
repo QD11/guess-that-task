@@ -4,18 +4,29 @@ import { useRouter } from 'next/router'
 import PlayerList from '../src/components/lobby/PlayerList'
 import Rules from '../src/components/lobby/Rules'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 
 import Error from 'next/error'
 
 import Tutorial from '../src/components/home/Tutorial'
 
 const Lobby = ({ errorCode, lobby }) => {
+    const user = useSelector(state => state.user)
     const router = useRouter()
     const { lobby_code } = router.query
 
     if (errorCode) {
         return <Error statusCode={errorCode} />
     }
+    // console.log('user', user.id)
+    // console.log(lobby)
+    // console.log(lobby.players[0]._id)
+    // console.log(lobby.players.find(player => player._id === user.id))
+    // if (lobby.players.find(player => player._id === user.id)) {
+        
+    //     return <Error statusCode={404}/>
+    // }
+    
 
     // const router = useRouter()
     // const { lobby_code } = router.query
