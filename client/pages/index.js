@@ -92,21 +92,26 @@ const Home = ({user}) => {
         .then(res => res.json())
         .then(lobby => {
             if (lobby) {
-                fetch(`https://guess-that-task-server.herokuapp.com/lobbies/${lobbyCode}/${id}`, {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        playerID: id,
+                if (!lobby.players.find(player => player._id === id)) {
+                    console.log('1')
+                    fetch(`https://guess-that-task-server.herokuapp.com/lobbies/${lobbyCode}/${id}`, {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            playerId: id,
+                        })
                     })
-                })
-                .then(res => res.json())
-                .then(lobby => {
-                    console.log(lobby)
+                    .then(res => res.json())
+                    .then(lobby => {
+                        setErrorCode(false)
+                        router.push(`/${lobby.code}`)
+                    })
+                } else {
                     setErrorCode(false)
                     router.push(`/${lobby.code}`)
-                })
+                }
             } else {
                 setErrorCode(true)
                 console.log('No Code Found')
