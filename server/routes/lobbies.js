@@ -58,7 +58,7 @@ router.patch('/:lobbyCode/:playerId', async (req,res) => {
         // const lobby = await Lobby.find({code : req.params.lobbyId})
         // const player = await Player.findById(req.params.playerId)
 
-        const updatedLobby = await Lobby.updateOne(
+        const updatedLobby = await Lobby.findOneAndUpdate(
             {code : req.params.lobbyCode}, 
             { $push: {players: req.body.playerId}}
         )

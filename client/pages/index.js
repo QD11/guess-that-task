@@ -102,7 +102,8 @@ const Home = ({user}) => {
                     })
                 })
                 .then(res => res.json())
-                .then(() => {
+                .then(lobby => {
+                    console.log(lobby)
                     setErrorCode(false)
                     router.push(`/${lobby.code}`)
                 })
