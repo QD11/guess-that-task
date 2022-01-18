@@ -15,7 +15,7 @@ const Lobby = ({ errorCode, lobby }) => {
     const user = useSelector(state => state.user)
 
     useEffect(() => {
-        setSocket(io("http://localhost:4000"))
+        setSocket(io("https://guess-that-task-server.herokuapp.com/"))
     }, [])
 
     const router = useRouter()
