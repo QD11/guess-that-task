@@ -15,9 +15,9 @@ const Lobby = ({ errorCode, lobby }) => {
     const [socket, setSocket] = useState(null)
     const user = useSelector(state => state.user)
 
-    // useEffect(() => {
-    //     setSocket(io("http://localhost:4000"))
-    // }, [])
+    useEffect(() => {
+        setSocket(io("http://localhost:4000"))
+    }, [])
 
     const router = useRouter()
     const { lobby_code } = router.query

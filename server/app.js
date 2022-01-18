@@ -18,7 +18,11 @@ import lobbiesRoutes from './routes/lobbies.js'
 
 const app = express();
 const server = http.createServer(app)
-const io = new Server(server)
+const io = new Server(server, {
+    cors: {
+        origin: '*',
+    }
+})
 //Middlewares
 app.use(cors());
 app.use(bodyParser.json());
