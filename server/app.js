@@ -75,6 +75,9 @@ server.listen(process.env.PORT || 4000, () => console.log('Server running on por
 
 io.on('connection', (socket) => {
     console.log('a user connected');
+    socket.on('disconnect', function () {
+        console.log('user disconnected');
+    });
 })
 // server.listen(5000, () => console.log('Listening on port *:5000'))
 // Start the server

@@ -1,21 +1,24 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import PlayerList from '../src/components/lobby/PlayerList'
 import Rules from '../src/components/lobby/Rules'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
-import io from 'socket.io-client'
+import {io} from 'socket.io-client'
 import Error from 'next/error'
 
 import Tutorial from '../src/components/home/Tutorial'
 import { useEffect } from 'react/cjs/react.development'
 
 const Lobby = ({ errorCode, lobby }) => {
-    useEffect(() => {
-        io('http://localhost:4000')
-    }, [])
+    const [socket, setSocket] = useState(null)
     const user = useSelector(state => state.user)
+
+    useEffect(() => {
+        setSocket(io("http://localhost:4000"))
+    }, [])
+
     const router = useRouter()
     const { lobby_code } = router.query
 
