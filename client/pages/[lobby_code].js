@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import PlayerList from '../src/components/lobby/PlayerList'
@@ -9,7 +9,6 @@ import {io} from 'socket.io-client'
 import Error from 'next/error'
 
 import Tutorial from '../src/components/home/Tutorial'
-import { useEffect } from 'react/cjs/react.development'
 
 const Lobby = ({ errorCode, lobby }) => {
     const [socket, setSocket] = useState(null)
