@@ -17,6 +17,8 @@ import playersRoutes from './routes/players.js'
 import lobbiesRoutes from './routes/lobbies.js'
 
 const app = express();
+const server = http.createServer(app)
+const io = new Server(server)
 //Middlewares
 app.use(cors());
 app.use(bodyParser.json());
@@ -69,4 +71,8 @@ if (port == null || port == "") {
 }
 //How do we start listening to the server
 app.listen(port, () => console.log('Server running on port: http://localhost:4000'));
+io.on('connection', (socket) => {
+    console.log('a user connected');
+})
+server.listen(6000, () => console.log('Listening on port *:3000'))
 // Start the server
