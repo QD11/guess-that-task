@@ -9,8 +9,12 @@ import io from 'socket.io-client'
 import Error from 'next/error'
 
 import Tutorial from '../src/components/home/Tutorial'
+import { useEffect } from 'react/cjs/react.development'
 
 const Lobby = ({ errorCode, lobby }) => {
+    useEffect(() => {
+        io('http://localhost:4000')
+    }, [])
     const user = useSelector(state => state.user)
     const router = useRouter()
     const { lobby_code } = router.query

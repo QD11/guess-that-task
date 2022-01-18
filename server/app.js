@@ -65,14 +65,16 @@ mongoose.connection.on('disconnected', () => {
 app.get('*', (request, response) => {
 	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
-let port = process.env.PORT
-if (port == null || port == "") {
-    port = 4000;
-}
+// let port = process.env.PORT
+// if (port == null || port == "") {
+//     port = 4000;
+// }
 //How do we start listening to the server
-app.listen(port, () => console.log('Server running on port: http://localhost:4000'));
+// app.listen(port, () => console.log('Server running on port: http://localhost:4000'));
+server.listen(process.env.PORT || 4000, () => console.log('Server running on port: http://localhost:4000'));
+
 io.on('connection', (socket) => {
     console.log('a user connected');
 })
-server.listen(6000, () => console.log('Listening on port *:3000'))
+// server.listen(5000, () => console.log('Listening on port *:5000'))
 // Start the server
