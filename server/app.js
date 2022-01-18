@@ -62,10 +62,10 @@ mongoose.connection.on('disconnected', () => {
     console.log('Mongo connection is disconnected')
 })
 // mongoose.connect()
-
+const PORT = process.env.PORT || 4000
 //How do we start listening to the server
 // app.listen(port, () => console.log('Server running on port: http://localhost:4000'));
-server.listen(process.env.PORT || 4000, () => console.log('Server running on port: http://localhost:4000'));
+server.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
 
 io.on('connection', (socket) => {
     console.log('a user connected');
