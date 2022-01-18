@@ -37,9 +37,6 @@ app.get('/', (req, res) => {
         .end()
 });
 
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('client/build'));
-}
 
 //Connect to DB
 mongoose.connect(process.env.DB_CONNECTION, {
@@ -62,13 +59,6 @@ mongoose.connection.on('disconnected', () => {
 })
 // mongoose.connect()
 
-app.get('*', (request, response) => {
-	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
-// let port = process.env.PORT
-// if (port == null || port == "") {
-//     port = 4000;
-// }
 //How do we start listening to the server
 // app.listen(port, () => console.log('Server running on port: http://localhost:4000'));
 server.listen(process.env.PORT || 4000, () => console.log('Server running on port: http://localhost:4000'));
