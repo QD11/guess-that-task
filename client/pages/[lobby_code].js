@@ -5,7 +5,7 @@ import PlayerList from '../src/components/lobby/PlayerList'
 import Rules from '../src/components/lobby/Rules'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
-
+import io from 'socket.io-client'
 import Error from 'next/error'
 
 import Tutorial from '../src/components/home/Tutorial'
