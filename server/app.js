@@ -69,9 +69,12 @@ server.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
 
 io.on('connection', (socket) => {
     console.log('a user connected');
-    socket.on('disconnect', function () {
+    socket.on('disconnect', () {
         console.log('user disconnected');
     });
+    socket.on('welcome', () => {
+        console.log('welcome to socket.io')
+    })
 })
 // server.listen(5000, () => console.log('Listening on port *:5000'))
 // Start the server
