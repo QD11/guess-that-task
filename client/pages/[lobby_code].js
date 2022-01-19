@@ -22,7 +22,7 @@ const Lobby = ({ errorCode, lobby }) => {
         console.log(socket)
         console.log('welcomee')
         socket?.on("welcome", message => {
-            console.log(message)
+            console.log('data: ', message)
         })
     }, [socket])
 
