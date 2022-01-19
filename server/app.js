@@ -72,7 +72,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
-    socket.on('welcome', () => {
+    io.on('welcome', () => {
         console.log('welcome to socket.io')
     })
 })
