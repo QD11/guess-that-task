@@ -69,7 +69,7 @@ server.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
 
 io.on('connection', (socket) => {
     console.log('a user connected');
-    socket.on('disconnect', () {
+    socket.on('disconnect', () => {
         console.log('user disconnected');
     });
     socket.on('welcome', () => {
