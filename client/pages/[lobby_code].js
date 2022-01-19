@@ -18,6 +18,12 @@ const Lobby = ({ errorCode, lobby }) => {
         setSocket(io("https://guess-that-task-server.herokuapp.com/"))
     }, [])
 
+    useEffect(() => {
+        socket?.on("welcome", message => {
+            console.log(message)
+        })
+    }, [socket])
+
     const router = useRouter()
     const { lobby_code } = router.query
 
