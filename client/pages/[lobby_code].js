@@ -19,6 +19,7 @@ const Lobby = ({ errorCode, lobby }) => {
     }, [])
 
     useEffect(() => {
+        console.log(socket)
         console.log('welcomee')
         socket?.on("welcome", message => {
             console.log(message)
