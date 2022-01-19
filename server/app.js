@@ -72,8 +72,8 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
-    io.on('welcome', () => {
-        console.log('welcome to socket.io')
+    socket.on('welcome', () => {
+        socket.broadcast.emit('welcome', 'welcome to socket.io')
     })
 })
 // server.listen(5000, () => console.log('Listening on port *:5000'))
