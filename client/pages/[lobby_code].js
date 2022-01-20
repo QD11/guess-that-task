@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import PlayerList from '../src/components/lobby/PlayerList'
@@ -13,16 +13,17 @@ import Tutorial from '../src/components/home/Tutorial'
 const Lobby = ({ errorCode, lobby }) => {
     const router = useRouter()
     const { lobby_code } = router.query
-    const [socket, setSocket] = useState(null)
     const user = useSelector(state => state.user)
+    // const [socket, setSocket] = useState(null)
+    const socket = useRef(io("https://guess-that-task-server.herokuapp.com/"))
 
-    useEffect(() => {
-        setSocket(io("https://guess-that-task-server.herokuapp.com/"))
-    }, [])
+    // useEffect(() => {
+    //     setSocket(io("https://guess-that-task-server.herokuapp.com/"))
+    // }, [])
 
     useEffect(() => {
         socket?.on("room", lobby_code)
-        socket?.on("message", data => {
+        socket.on("message", data => {
             console.log(data)
         })
     }, [socket])
