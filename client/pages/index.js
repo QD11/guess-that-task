@@ -75,7 +75,11 @@ const Home = ({user}) => {
         .then(res => res.json())
         .then(lobby => {
             if (lobby) {
-                if (!lobby.players.find(player => player._id === id)) {
+                if (lobby.players.length === 10) {
+                    setErrorCode(true)
+                    console.log('No Code Found')
+                }
+                else if (!lobby.players.find(player => player._id === id)) {
                     console.log('1')
                     fetch(`https://guess-that-task-server.herokuapp.com/lobbies/${lobbyCode}/${id}`, {
                         method: "PATCH",

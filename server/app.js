@@ -79,6 +79,11 @@ io.on('connection', (socket) => {
             socket.leave(socket.room);
         }
 
+        socket.on('leaveRoom', () => {
+            socket.leave(room);
+            console.log(`the room ${room} has been left`);
+        });
+
         socket.room = room;
         socket.join(room);
 
@@ -86,8 +91,6 @@ io.on('connection', (socket) => {
 
         // io.in(room).emit("message", `Welcome ALL to lobby ${room}`)
     })
-
-
 
 })
 // server.listen(5000, () => console.log('Listening on port *:5000'))
