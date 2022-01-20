@@ -82,7 +82,7 @@ io.on('connection', (socket) => {
         socket.room = room;
         socket.join(room);
 
-        io.emit("message", `Welcome to lobby ${room}`)
+        socket.to(room).emit("message", `Welcome to lobby ${room}`)
     })
 
 
