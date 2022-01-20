@@ -27,14 +27,6 @@ const Home = ({user}) => {
     const [errorCode, setErrorCode] = useState(false)
     const isInitialMount = useRef(true);
 
-    // useEffect(() => {
-    //     fetch("/api/login", {
-    //         method: "post",
-    //         headers: {"Content-Type": "application/json"},
-    //         body: JSON.stringify({token: "ABCD"})
-    //     })
-    // }, [])
-
     useEffect(() => {
         if (!user.message ) {
             setId(user._id)
@@ -63,15 +55,6 @@ const Home = ({user}) => {
     
     const createLobby = () => {
         const newCode = uuid().slice(0,6).toUpperCase()
-        // fetch('https://guess-that-task-server.herokuapp.com/players', {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify({name: name})
-        // })
-        // .then(res => res.json())
-        // .then(player => {
         fetch('https://guess-that-task-server.herokuapp.com/lobbies', {
             method: "POST",
             headers: {
