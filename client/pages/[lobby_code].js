@@ -22,8 +22,9 @@ const Lobby = ({ errorCode, lobby }) => {
     }, [])
 
     useEffect(() => {
+        console.log(socket)
         socket?.on("room", lobby_code)
-        socket.on("message", data => {
+        socket?.on("message", data => {
             console.log(data)
         })
     }, [socket])
