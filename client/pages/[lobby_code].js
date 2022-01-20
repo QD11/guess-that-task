@@ -11,6 +11,8 @@ import Error from 'next/error'
 import Tutorial from '../src/components/home/Tutorial'
 
 const Lobby = ({ errorCode, lobby }) => {
+    const router = useRouter()
+    const { lobby_code } = router.query
     const [socket, setSocket] = useState(null)
     const user = useSelector(state => state.user)
 
@@ -19,15 +21,9 @@ const Lobby = ({ errorCode, lobby }) => {
     }, [])
 
     useEffect(() => {
-        console.log(socket)
-        console.log('welcomee')
-        socket?.on("welcome", message => {
-            console.log('data: ', message)
-        })
+        socket?.on("create", lobby_code)
+        
     }, [socket])
-
-    const router = useRouter()
-    const { lobby_code } = router.query
 
     if (errorCode) {
         return <Error statusCode={errorCode} />
