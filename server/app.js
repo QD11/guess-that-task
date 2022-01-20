@@ -73,6 +73,10 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
+
+    socket.on("disconnecting", () => {
+        console.log(socket.rooms)
+    })
     // socket.on('welcome', () => {
     socket.on('room', room => {
         if(socket.room) {
