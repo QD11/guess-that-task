@@ -83,6 +83,8 @@ io.on('connection', (socket) => {
         socket.join(room);
 
         socket.to(room).emit("message", `Welcome to lobby ${room}`)
+
+        io.in(room).emit("message", `Welcome ALL to lobby ${room}`)
     })
 
 
