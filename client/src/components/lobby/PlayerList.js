@@ -1,16 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const PlayerList = () => {
-
-    const placeHolder = new Array(10).fill({
-        name: "Bob"
-    })
+const PlayerList = ({players}) => {
+    
 
     return (
         <PlayerContainer>
-            {placeHolder.map(player => 
-                <li key={1}>
+            {players.map(player => 
+                <li key={player._id}>
                     {player.name}
                 </li>)}
         </PlayerContainer>

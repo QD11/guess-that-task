@@ -84,16 +84,17 @@ io.on('connection', (socket) => {
     //     console.log(`the room ${room} has been left`);
     // });
 
-    socket.on('room', room => {
+    socket.on('room', (room, user) => {
         if(socket.room) {
             console.log('leaving')
             socket.leave(socket.room);
         }
-        console.log(`the room ${room} has been joined`)
+        console.log(`${user.name} joined room ${room}`)
 
-        socket.on('leaveRoom', () => {
+        socket.on('leaveRoom', (user) => {
             socket.leave(room);
-            console.log(`the room ${room} has been left`);
+            socket.to(room).emit('playerLeft', user)
+            console.log(`${user.name} left room ${room}`);
         });
 
         //io.in(room).emit('roomCancelled', true)
@@ -103,6 +104,7 @@ io.on('connection', (socket) => {
         socket.room = room;
         socket.join(room);
 
+        socket.to(room).emit('playerJoined', user)
         socket.to(room).emit("message", `Welcome to lobby ${room}`)
 
         io.in(room).emit("message", `Welcome ALL to lobby ${room}`)

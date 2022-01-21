@@ -8,13 +8,15 @@ import { v4 as uuid } from 'uuid';
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { getUserID } from '../src/redux/userSlice'
-import {io} from 'socket.io-client'
 import cookie from 'js-cookie'
 
 import Tutorial from '../src/components/home/Tutorial'
 
+const production = 'https://guess-that-task-server.herokuapp.com';
+const development = 'http://localhost:4000'
+const url = process.env.NODE_ENV === 'development' ? development : production;
+
 const Home = ({user}) => {
-    const [socket, setSocket] = useState(null)
     const dispatch = useDispatch()
     const router = useRouter()
     const [id, setId] = useState('')
@@ -29,27 +31,17 @@ const Home = ({user}) => {
     const [errorCode, setErrorCode] = useState(false)
     const isInitialMount = useRef(true);
 
-    const production = 'https://guess-that-task-server.herokuapp.com';
-    const development = 'http://localhost:4000'
-    const url = process.env.NODE_ENV === 'development' ? development : production;
-
-    // useEffect(() => {
-    //     setSocket(io(url))
-    // }, [])
-
-    // useEffect(() => {
-    //     socket?.on("leaveRoom", data => {
-    //         console.log('leaving', data)
-    //     })
-    // }, [socket])
-
     useEffect(() => {
         if (!user.message ) {
             setId(user._id)
             setName(user.name)
-            dispatch(getUserID({
-                id: user._id
-            }))
+            fetch(`${url}/players/${user.id}`)
+            .then(res => res.json())
+            .then(player => {
+                dispatch(getUserID({
+                    info: player
+                }))
+            })
         } else {
             fetch(`${url}/players`, {
                 method: "POST",
@@ -63,7 +55,7 @@ const Home = ({user}) => {
                 setId(player._id)
                 cookie.set("user", player._id)
                 dispatch(getUserID({
-                    id: player._id
+                    info: player
                 }))
             })}
     }, [])
@@ -197,9 +189,6 @@ const Home = ({user}) => {
 }
 
 export async function getServerSideProps({req, res}) {
-    const production = 'https://guess-that-task-server.herokuapp.com';
-    const development = 'http://localhost:4000'
-    const url = process.env.NODE_ENV === 'development' ? development : production;
 
     let data = ''
     if (process.env.NODE_ENV === 'development') {

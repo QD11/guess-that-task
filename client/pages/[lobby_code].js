@@ -11,44 +11,61 @@ import { IoArrowBackCircleSharp } from 'react-icons/io5'
 
 import Tutorial from '../src/components/home/Tutorial'
 
+const production = 'https://guess-that-task-server.herokuapp.com';
+const development = 'http://localhost:4000'
+const url = process.env.NODE_ENV === 'development' ? development : production;
+
 const Lobby = ({ errorCode, lobby }) => {
     const router = useRouter()
     const { lobby_code } = router.query
     const user = useSelector(state => state.user)
-    const owner = lobby.owner._id === user.id ? true: false
+    const owner = lobby.owner._id === user.info._id ? true: false
     const [socket, setSocket] = useState(null)
-    // const socket = useRef(io("https://guess-that-task-server.herokuapp.com/"))
-
-    const production = 'https://guess-that-task-server.herokuapp.com';
-    const development = 'http://localhost:4000'
-    const url = process.env.NODE_ENV === 'development' ? development : production;
-
+    const [players, setPlayers] = useState(lobby.players)
+    
     useEffect(() => {
         setSocket(io(url))
     }, [])
 
     useEffect(() => {
-        socket?.emit("room", lobby_code)
+        socket?.emit("room", lobby_code, user.info)
+        socket?.on("playerJoined", data => {
+            if (!players.map(player => player._id).includes(data._id)) {
+                setPlayers(players => [...players, data])
+            }
+        })
+        socket?.on("playerLeft", data => {
+            setPlayers(players => players.filter(player => player._id !== data._id))
+        })
         socket?.on("message", data => {
             console.log(data)
         })
         socket?.on("goBack", data => {
+            console.log('yeet')
+
             if (data) {
+                console.log('yeet')
                 socket?.emit('leaveRoom', lobby_code)
                 router.push('/')
             }
         })
     }, [socket])
 
+    console.log(lobby)
+    console.log(user.info)
+
     if (errorCode) {
+        console.log('1')
         return <Error statusCode={errorCode} />
     }
-    else if (!lobby.players.find(player => player._id === user.id)) {
+    else if (!lobby.players.find(player => player._id === user.info._id)) {
+        console.log('2')
         return <Error statusCode={404}/>
     }
 
     const leaveLobby = () => {
         if (owner) {
+            console.log('1')
             fetch(`${url}/lobbies/${lobby_code}`, {
                 method: "DELETE",
                 headers: {
@@ -58,16 +75,16 @@ const Lobby = ({ errorCode, lobby }) => {
             socket?.emit('roomCanceled', true)
         } 
         else{
-            fetch(`${url}/lobbies/${lobby_code}/${user.id}/remove`, {
+            fetch(`${url}/lobbies/${lobby_code}/${user.info._id}/remove`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    playerId: user.id,
+                    playerId: user.info._id,
                 })
             })
-            socket?.emit('leaveRoom', lobby_code)
+            socket?.emit('leaveRoom', user.info)
             router.push('/')
         }
     }
@@ -85,7 +102,7 @@ const Lobby = ({ errorCode, lobby }) => {
                     <h1>Lobby Code: {lobby_code}</h1>
                 </Header>
                 <MainContainer>
-                    <PlayerList />
+                    <PlayerList players={players}/>
                     <Rules />
                 </MainContainer>
             </div>
@@ -94,10 +111,6 @@ const Lobby = ({ errorCode, lobby }) => {
 }
 
 export async function getServerSideProps(context, req) {
-    const production = 'https://guess-that-task-server.herokuapp.com';
-    const development = 'http://localhost:4000'
-    const url = process.env.NODE_ENV === 'development' ? development : production;
-
     // const router = useRouter()
     // const { lobby_code } = router.query
     const lobby_code = context.params.lobby_code
