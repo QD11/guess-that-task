@@ -96,6 +96,10 @@ io.on('connection', (socket) => {
             console.log(`the room ${room} has been left`);
         });
 
+        //io.in(room).emit('roomCancelled', true)
+        socket.on('roomCanceled', data => {
+            io.in(room).emit('goBack', data)
+        })
         socket.room = room;
         socket.join(room);
 

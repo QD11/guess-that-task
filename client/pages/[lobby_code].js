@@ -15,6 +15,7 @@ const Lobby = ({ errorCode, lobby }) => {
     const router = useRouter()
     const { lobby_code } = router.query
     const user = useSelector(state => state.user)
+    const owner = lobby.owner._id === user.id ? true: false
     const [socket, setSocket] = useState(null)
     // const socket = useRef(io("https://guess-that-task-server.herokuapp.com/"))
 
@@ -31,6 +32,12 @@ const Lobby = ({ errorCode, lobby }) => {
         socket?.on("message", data => {
             console.log(data)
         })
+        socket?.on("goBack", data => {
+            if (data) {
+                socket?.emit('leaveRoom', lobby_code)
+                router.push('/')
+            }
+        })
     }, [socket])
 
     if (errorCode) {
@@ -41,21 +48,28 @@ const Lobby = ({ errorCode, lobby }) => {
     }
 
     const leaveLobby = () => {
-        fetch(`${url}/lobbies/${lobby_code}/${user.id}/remove`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                playerId: user.id,
+        if (owner) {
+            fetch(`${url}/lobbies/${lobby_code}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
             })
-        })
-        .then(res => res.json())
-        .then(player => {
-            console.log(player)
-        })
-        socket?.emit('leaveRoom', lobby_code)
-        router.push('/')
+            socket?.emit('roomCanceled', true)
+        } 
+        else{
+            fetch(`${url}/lobbies/${lobby_code}/${user.id}/remove`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    playerId: user.id,
+                })
+            })
+            socket?.emit('leaveRoom', lobby_code)
+            router.push('/')
+        }
     }
 
     return (

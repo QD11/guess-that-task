@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
 //Delete Lobby
 router.delete('/:lobbyCode', async (req,res) => {
     try{
-        const removeLobby = await Lobby.remove({code: req.params.lobbyCode })
+        const removeLobby = await Lobby.deleteOne({code: req.params.lobbyCode })
         res.json(removeLobby)
     }catch(err){
         res.json({message: err })
