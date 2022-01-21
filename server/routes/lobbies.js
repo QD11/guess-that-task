@@ -68,6 +68,22 @@ router.patch('/:lobbyCode/:playerId', async (req,res) => {
     }
 })
 
+//Remove Player
+router.patch('/:lobbyCode/:playerId/remove', async (req,res) => {
+    try{
+        // const lobby = await Lobby.find({code : req.params.lobbyId})
+        // const player = await Player.findById(req.params.playerId)
+
+        const updatedLobby = await Lobby.findOneAndUpdate(
+            {code : req.params.lobbyCode}, 
+            { $pull: {players: req.body.playerId}}
+        )
+        res.json(updatedLobby);
+    }catch (err) {
+        res.json({message:err})
+    }
+})
+
 //Update
 // router.patch('/:lobbyId', async (req,res) => {
 //     try{

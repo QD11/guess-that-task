@@ -23,6 +23,7 @@ const io = new Server(server, {
         origin: '*',
     }
 })
+
 //Middlewares
 app.use(cors());
 app.use(bodyParser.json());
@@ -75,13 +76,20 @@ io.on('connection', (socket) => {
     });
 
     socket.on("disconnecting", () => {
-        console.log(socket.rooms)
+        console.log('leaving', socket.rooms)
     })
-    // socket.on('welcome', () => {
+    
+    // socket.on('leaveRoom', (room) => {
+    //     socket.leave(room);
+    //     console.log(`the room ${room} has been left`);
+    // });
+
     socket.on('room', room => {
         if(socket.room) {
+            console.log('leaving')
             socket.leave(socket.room);
         }
+        console.log(`the room ${room} has been joined`)
 
         socket.on('leaveRoom', () => {
             socket.leave(room);
@@ -93,7 +101,7 @@ io.on('connection', (socket) => {
 
         socket.to(room).emit("message", `Welcome to lobby ${room}`)
 
-        // io.in(room).emit("message", `Welcome ALL to lobby ${room}`)
+        io.in(room).emit("message", `Welcome ALL to lobby ${room}`)
     })
 
 })

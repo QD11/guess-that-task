@@ -8,11 +8,13 @@ import { v4 as uuid } from 'uuid';
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { getUserID } from '../src/redux/userSlice'
+import {io} from 'socket.io-client'
 import cookie from 'js-cookie'
 
 import Tutorial from '../src/components/home/Tutorial'
 
 const Home = ({user}) => {
+    const [socket, setSocket] = useState(null)
     const dispatch = useDispatch()
     const router = useRouter()
     const [id, setId] = useState('')
@@ -27,6 +29,20 @@ const Home = ({user}) => {
     const [errorCode, setErrorCode] = useState(false)
     const isInitialMount = useRef(true);
 
+    const production = 'https://guess-that-task-server.herokuapp.com';
+    const development = 'http://localhost:4000'
+    const url = process.env.NODE_ENV === 'development' ? development : production;
+
+    // useEffect(() => {
+    //     setSocket(io(url))
+    // }, [])
+
+    // useEffect(() => {
+    //     socket?.on("leaveRoom", data => {
+    //         console.log('leaving', data)
+    //     })
+    // }, [socket])
+
     useEffect(() => {
         if (!user.message ) {
             setId(user._id)
@@ -35,7 +51,7 @@ const Home = ({user}) => {
                 id: user._id
             }))
         } else {
-            fetch('https://guess-that-task-server.herokuapp.com/players', {
+            fetch(`${url}/players`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -55,7 +71,7 @@ const Home = ({user}) => {
     
     const createLobby = () => {
         const newCode = uuid().slice(0,6).toUpperCase()
-        fetch('https://guess-that-task-server.herokuapp.com/lobbies', {
+        fetch(`${url}/lobbies`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -71,7 +87,7 @@ const Home = ({user}) => {
 
     const joinLobby = () => {
         //check if lobby code exists
-        fetch(`https://guess-that-task-server.herokuapp.com/lobbies/${lobbyCode}`)
+        fetch(`${url}/lobbies/${lobbyCode}`)
         .then(res => res.json())
         .then(lobby => {
             if (lobby) {
@@ -81,7 +97,7 @@ const Home = ({user}) => {
                 }
                 else if (!lobby.players.find(player => player._id === id)) {
                     console.log('1')
-                    fetch(`https://guess-that-task-server.herokuapp.com/lobbies/${lobbyCode}/${id}`, {
+                    fetch(`${url}/lobbies/${lobbyCode}/${id}`, {
                         method: "PATCH",
                         headers: {
                             "Content-Type": "application/json"
@@ -110,7 +126,7 @@ const Home = ({user}) => {
         if (isInitialMount.current) {
             isInitialMount.current = false;
         } else {
-            fetch(`https://guess-that-task-server.herokuapp.com/players/${id}`, {
+            fetch(`${url}/players/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
@@ -181,9 +197,17 @@ const Home = ({user}) => {
 }
 
 export async function getServerSideProps({req, res}) {
-// export async function getStaticProps({req, res}) {
-    const response = await fetch(`https://guess-that-task-server.herokuapp.com/players/${req.cookies.user}`)
-    const data = await response.json()
+    const production = 'https://guess-that-task-server.herokuapp.com';
+    const development = 'http://localhost:4000'
+    const url = process.env.NODE_ENV === 'development' ? development : production;
+
+    let data = ''
+    if (process.env.NODE_ENV === 'development') {
+        data = {message: 'test'}
+    } else {
+        const response = await fetch(`${url}/${req.cookies.user}`)
+        data = await response.json()
+    }
     return { props: {user: data}}
 }
 
