@@ -3,9 +3,11 @@ import styled from 'styled-components'
 
 const PlayerList = ({players}) => {
     
-
     return (
         <PlayerContainer>
+            <span>
+                Players {players.length}/10
+            </span>
             {players.map(player => 
                 <li key={player._id}>
                     {player.name}
@@ -25,6 +27,10 @@ const PlayerContainer = styled.ul`
     // margin: auto;
     padding: 20px;
     margin-right: 20px;
+    & span {
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
     & li {
         list-style: none;
         border: 1px solid black;

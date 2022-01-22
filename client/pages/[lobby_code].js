@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import {io} from 'socket.io-client'
 import Error from 'next/error'
+import { useBeforeunload } from 'react-beforeunload';
 import { IoArrowBackCircleSharp } from 'react-icons/io5'
 
 import Tutorial from '../src/components/home/Tutorial'
@@ -19,6 +20,7 @@ const Lobby = ({ errorCode, lobby }) => {
     const router = useRouter()
     const { lobby_code } = router.query
     const user = useSelector(state => state.user)
+    console.log(lobby)
     const owner = lobby.owner._id === user.info._id ? true: false
     const [socket, setSocket] = useState(null)
     const [players, setPlayers] = useState(lobby.players)
@@ -41,18 +43,12 @@ const Lobby = ({ errorCode, lobby }) => {
             console.log(data)
         })
         socket?.on("goBack", data => {
-            console.log('yeet')
-
             if (data) {
-                console.log('yeet')
                 socket?.emit('leaveRoom', lobby_code)
                 router.push('/')
             }
         })
     }, [socket])
-
-    console.log(lobby)
-    console.log(user.info)
 
     if (errorCode) {
         console.log('1')
@@ -92,20 +88,25 @@ const Lobby = ({ errorCode, lobby }) => {
     return (
         <>
             <Head>
-                <title>Guess That Task - Lobby</title>
+                <title>Guess That Task</title>
                 <link rel="shortcut icon" href="/red-among-us-png.png" />
             </Head>
             <div>
                 <Header>
                     <BackButton onClick={leaveLobby}/>
-                    <Tutorial />
                     <h1>Lobby Code: {lobby_code}</h1>
+                    <Tutorial />
                 </Header>
                 <MainContainer>
                     <PlayerList players={players}/>
                     <Rules />
                 </MainContainer>
             </div>
+            <ButtonDiv>
+                <button>
+                    Start Game
+                </button>
+            </ButtonDiv>
         </>
     )
 }
@@ -127,6 +128,21 @@ export async function getServerSideProps(context, req) {
     };
 }
 
+const ButtonDiv = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & button {
+        background: #fff no-repeat 50%;
+        background-size: 40px 40px;
+        padding: 10px 25px;
+        border-radius: 4px;
+        font-size: 20px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+`
+
 const BackButton = styled(IoArrowBackCircleSharp)`
     font-size: 80px;
     cursor: pointer;
@@ -140,6 +156,7 @@ const BackButton = styled(IoArrowBackCircleSharp)`
 const Header = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 `
 
 const MainContainer = styled.div`

@@ -19,7 +19,7 @@ const Tutorial = () => {
     }, [modal])
 
     return (
-        <div>
+        <AllDiv>
             <HelpButton onClick={toggleModal}/>
             {modal && (
             <ModalDiv className="modal">
@@ -75,9 +75,14 @@ const Tutorial = () => {
                 </div>
             </ModalDiv>
         )}
-        </div>
+        </AllDiv>
     )
 }
+
+const AllDiv = styled.div`
+    display: flex;
+    justify-content: flex-end;
+`
 
 const HelpButton = styled(MdLiveHelp)`
     font-size: 80px;
