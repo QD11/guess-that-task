@@ -97,6 +97,14 @@ io.on('connection', (socket) => {
             console.log(`${user.name} left room ${room}`);
         });
 
+        socket.on('startGame', () => {
+            io.in(room).emit("startGame", true)
+        })
+
+        socket.on('endGame', () => {
+            io.in(room).emit("endGame", false)
+        })
+
         //io.in(room).emit('roomCancelled', true)
         socket.on('roomCanceled', data => {
             io.in(room).emit('goBack', data)

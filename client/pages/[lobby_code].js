@@ -11,6 +11,7 @@ import { useBeforeunload } from 'react-beforeunload';
 import { IoArrowBackCircleSharp } from 'react-icons/io5'
 
 import Tutorial from '../src/components/home/Tutorial'
+import Game from '../src/components/lobby/Game'
 
 const production = 'https://guess-that-task-server.herokuapp.com';
 const development = 'http://localhost:4000'
@@ -20,10 +21,10 @@ const Lobby = ({ errorCode, lobby }) => {
     const router = useRouter()
     const { lobby_code } = router.query
     const user = useSelector(state => state.user)
-    console.log(lobby)
     const owner = lobby.owner._id === user.info._id ? true: false
     const [socket, setSocket] = useState(null)
     const [players, setPlayers] = useState(lobby.players)
+    const [startGame, setStartGame] = useState(false)
     
     useEffect(() => {
         setSocket(io(url))
@@ -48,20 +49,23 @@ const Lobby = ({ errorCode, lobby }) => {
                 router.push('/')
             }
         })
+        socket?.on('startGame', () => {
+            setStartGame(true)
+        })
+        socket?.on('endGame', () => {
+            setStartGame(false)
+        })
     }, [socket])
 
     if (errorCode) {
-        console.log('1')
         return <Error statusCode={errorCode} />
     }
     else if (!lobby.players.find(player => player._id === user.info._id)) {
-        console.log('2')
         return <Error statusCode={404}/>
     }
 
     const leaveLobby = () => {
         if (owner) {
-            console.log('1')
             fetch(`${url}/lobbies/${lobby_code}`, {
                 method: "DELETE",
                 headers: {
@@ -85,30 +89,33 @@ const Lobby = ({ errorCode, lobby }) => {
         }
     }
 
-    return (
-        <>
-            <Head>
-                <title>Guess That Task</title>
-                <link rel="shortcut icon" href="/red-among-us-png.png" />
-            </Head>
-            <div>
-                <Header>
-                    <BackButton onClick={leaveLobby}/>
-                    <h1>Lobby Code: {lobby_code}</h1>
-                    <Tutorial />
-                </Header>
-                <MainContainer>
-                    <PlayerList players={players}/>
-                    <Rules />
-                </MainContainer>
-            </div>
-            <ButtonDiv>
-                <button>
-                    Start Game
-                </button>
-            </ButtonDiv>
-        </>
-    )
+    if (!startGame) {
+        return (
+            <>
+                <Head>
+                    <title>Guess That Task</title>
+                    <link rel="shortcut icon" href="/red-among-us-png.png" />
+                </Head>
+                <div>
+                    <Header>
+                        <BackButton onClick={leaveLobby}/>
+                        <h1>Lobby Code: {lobby_code}</h1>
+                        <Tutorial />
+                    </Header>
+                    <MainContainer>
+                        <PlayerList players={players}/>
+                        <Rules />
+                    </MainContainer>
+                </div>
+                <ButtonDiv>
+                    <button onClick={() => socket?.emit("startGame")}>
+                        Start Game
+                    </button>
+                </ButtonDiv>
+            </>
+        )
+    } else return <Game socket={socket} />
+
 }
 
 export async function getServerSideProps(context, req) {
@@ -140,6 +147,10 @@ const ButtonDiv = styled.div`
         font-size: 20px;
         font-weight: 600;
         cursor: pointer;
+        transition: .3s ease-out;
+        :hover {
+            transform: scale(1.05);
+        }
     }
 `
 
