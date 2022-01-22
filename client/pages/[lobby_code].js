@@ -11,7 +11,7 @@ import { useBeforeunload } from 'react-beforeunload';
 import { IoArrowBackCircleSharp } from 'react-icons/io5'
 
 import Tutorial from '../src/components/home/Tutorial'
-import Game from '../src/components/lobby/Game'
+import Game from '../src/components/game/Game'
 
 const production = 'https://guess-that-task-server.herokuapp.com';
 const development = 'http://localhost:4000'
@@ -45,7 +45,7 @@ const Lobby = ({ errorCode, lobby }) => {
         })
         socket?.on("goBack", data => {
             if (data) {
-                socket?.emit('leaveRoom', lobby_code)
+                socket?.emit('leaveRoom', user.info)
                 router.push('/')
             }
         })

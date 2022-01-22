@@ -68,6 +68,8 @@ const PORT = process.env.PORT || 4000
 // app.listen(port, () => console.log('Server running on port: http://localhost:4000'));
 server.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
 
+const connectedUsers = new Map();
+
 io.on('connection', (socket) => {
     console.log('a user connected');
 
@@ -89,13 +91,16 @@ io.on('connection', (socket) => {
             console.log('leaving')
             socket.leave(socket.room);
         }
-        console.log(`${user.name} joined room ${room}`)
 
-        socket.on('leaveRoom', (user) => {
-            socket.leave(room);
-            socket.to(room).emit('playerLeft', user)
-            console.log(`${user.name} left room ${room}`);
-        });
+        if (!connectedUsers.has(room)) {
+            connectedUsers.set(room, []);
+        }
+
+        if (!connectedUsers.get(room).some(u => u._id === user._id)) {
+            connectedUsers.get(room).push(user);
+        }
+
+        console.log(`${user.name} joined room ${room}`)
 
         socket.on('startGame', () => {
             io.in(room).emit("startGame", true)
@@ -113,6 +118,20 @@ io.on('connection', (socket) => {
         socket.join(room);
 
         socket.to(room).emit('playerJoined', user)
+
+        socket.on('leaveRoom', (user) => {
+            const index = connectedUsers.get(room).findIndex(u => u._id === user._id)
+            connectedUsers.get(room).splice(index, 1);
+            socket.leave(room);
+            socket.to(room).emit('playerLeft', user)
+            if (!connectedUsers.get(room).length) {
+                // delete key if no more users in room
+                connectedUsers.delete(room);
+            }
+        });
+
+        // io.in(room).emit("playersInRoom", connectedUsers.get(room))
+
         socket.to(room).emit("message", `Welcome to lobby ${room}`)
 
         io.in(room).emit("message", `Welcome ALL to lobby ${room}`)
