@@ -49,20 +49,20 @@ mongoose.connect(process.env.DB_CONNECTION, {
     useUnifiedTopology: true
 })
 
-mongoose.connection.on('connected', () => {
-    console.log('Mongo has connected succesfully')
-})
-mongoose.connection.on('reconnected', () => {
-    console.log('Mongo has reconnected')
-})
-mongoose.connection.on('error', error => {
-    console.log('Mongo connection has an error', error)
-mongoose.disconnect()
-})
-mongoose.connection.on('disconnected', () => {
-    console.log('Mongo connection is disconnected')
-})
-// mongoose.connect()
+// mongoose.connection.on('connected', () => {
+//     console.log('Mongo has connected succesfully')
+// })
+// mongoose.connection.on('reconnected', () => {
+//     console.log('Mongo has reconnected')
+// })
+// mongoose.connection.on('error', error => {
+//     console.log('Mongo connection has an error', error)
+// mongoose.disconnect()
+// })
+// mongoose.connection.on('disconnected', () => {
+//     console.log('Mongo connection is disconnected')
+// })
+
 const PORT = process.env.PORT || 4000
 //How do we start listening to the server
 // app.listen(port, () => console.log('Server running on port: http://localhost:4000'));
@@ -103,12 +103,12 @@ io.on('connection', (socket) => {
 
         console.log(`${user.name} joined room ${room}`)
 
-        socket.on('startGame', () => {
-            io.in(room).emit("startGame", true)
+        socket.on('startGame', (imposters) => {
+            io.in(room).emit("startGame", imposters)
         })
 
         socket.on('endGame', () => {
-            io.in(room).emit("endGame", false)
+            io.in(room).emit("endGame")
         })
 
         //io.in(room).emit('roomCancelled', true)

@@ -9,6 +9,7 @@ import {io} from 'socket.io-client'
 import Error from 'next/error'
 import { useBeforeunload } from 'react-beforeunload';
 import { IoArrowBackCircleSharp } from 'react-icons/io5'
+import _ from 'underscore'
 
 import Tutorial from '../src/components/home/Tutorial'
 import Game from '../src/components/game/Game'
@@ -31,6 +32,7 @@ const Lobby = ({ errorCode, lobby }) => {
         numOfCrewmatesTasks: 1,
         clues: true,
     })
+    const [imposters, setImposters] = useState(null)
     
     useEffect(() => {
         setSocket(io(url))
@@ -55,13 +57,13 @@ const Lobby = ({ errorCode, lobby }) => {
                 router.push('/')
             }
         })
-        socket?.on('startGame', () => {
+        socket?.on('startGame', (data) => {
             setStartGame(true)
+            setImposters(data)
         })
         socket?.on('endGame', () => {
             setStartGame(false)
         })
-
         return () => {
             socket?.disconnect()
         }
@@ -100,11 +102,12 @@ const Lobby = ({ errorCode, lobby }) => {
     }
 
     const handleStartButton = () => {
-        socket?.emit("startGame")
-        console.log(players)
+        const imposters = _.sample(players, rules.numOfImposter)
+        socket?.emit("startGame", imposters)
+        // console.log(players)
     }
 
-    if (!startGame) {
+    if (!startGame || !imposters) {
         return (
             <>
                 <Head>
@@ -119,19 +122,32 @@ const Lobby = ({ errorCode, lobby }) => {
                     </Header>
                     <MainContainer>
                         <PlayerList players={players}/>
-                        <Rules rules={rules} setRules={setRules}/>
+                        <Rules rules={rules} setRules={setRules} players={players}/>
                     </MainContainer>
                 </div>
                 <ButtonDiv>
-                    <button onClick={handleStartButton}>
+                    {/* <button onClick={handleStartButton} disabled={players.length === 1 || !owner}> */}
+                    <button onClick={handleStartButton} >
                         Start Game
                     </button>
                 </ButtonDiv>
             </>
         )
-    } else return <Game socket={socket} owner={owner} />
-
-}
+    } else return(
+            <>
+                <Head>
+                    <title>Guess That Task</title>
+                    <link rel="shortcut icon" href="/red-among-us-png.png" />
+                </Head>
+                <Game 
+                    socket={socket} 
+                    owner={owner} 
+                    imposters={imposters} 
+                    user={user.info}
+                />
+            </>
+        )
+    }
 
 export async function getServerSideProps(context, req) {
     // const router = useRouter()
@@ -196,7 +212,7 @@ const MainContainer = styled.div`
         width: 75%;
     }
     @media (min-width:900px){
-        margin-top: 100px;
+        margin-top: 50px;
         width: 80%;
     }
 `

@@ -16,3 +16,10 @@ a {
 * {
   box-sizing: border-box;
 }
+
+@font-face {
+  font-family: "VCR OSD Mono";
+  src: url("/fonts/VCROSDMono.woff2") format('woff2'),
+            url("/fonts/VCROSDMono.woff") format('woff');
+
+}

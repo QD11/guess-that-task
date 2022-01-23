@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 
-const Rules = ({rules, setRules}) => {
+const Rules = ({rules, setRules, players}) => {
     
     const handleRules = e => {
         setRules({
@@ -22,9 +22,9 @@ const Rules = ({rules, setRules}) => {
             <li>
                 <span>Number of Imposters</span>
                 <div className="tw-toggle">
-                    <TwButton active={1} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={1}>1</TwButton>
-                    <TwButton active={2} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={2}>2</TwButton>
-                    <TwButton active={3} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={3}>3</TwButton>
+                    <TwButton active={1} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={1} >1</TwButton>
+                    <TwButton active={2} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={2} disabled={players.length < 3}>2</TwButton>
+                    <TwButton active={3} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={3} disabled={players.length < 4}>3</TwButton>
                 </div>
             </li>
             <li>
