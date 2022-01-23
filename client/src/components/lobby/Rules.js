@@ -1,14 +1,8 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 
-const Rules = () => {
-    const [rules, setRules] = useState({
-        duration: 10,
-        numOfImposter: 1,
-        numOfCrewmatesTasks: 1,
-        clues: true,
-    })
-
+const Rules = ({rules, setRules}) => {
+    
     const handleRules = e => {
         setRules({
             ...rules,

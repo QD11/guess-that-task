@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
 
-const Game = ({socket}) => {
-
+const Game = ({socket, owner}) => {
+    
     useEffect(() => {
-        socket?.on("playersInRoom", data => {
+        socket.on('playersInRoom', data => {
             console.log(data)
         })
-    }, [socket])
+    }, [])
+
 
     return(
         <div>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import PlayerList from '../src/components/lobby/PlayerList'
@@ -25,6 +25,12 @@ const Lobby = ({ errorCode, lobby }) => {
     const [socket, setSocket] = useState(null)
     const [players, setPlayers] = useState(lobby.players)
     const [startGame, setStartGame] = useState(false)
+    const [rules, setRules] = useState({
+        duration: 10,
+        numOfImposter: 1,
+        numOfCrewmatesTasks: 1,
+        clues: true,
+    })
     
     useEffect(() => {
         setSocket(io(url))
@@ -55,6 +61,10 @@ const Lobby = ({ errorCode, lobby }) => {
         socket?.on('endGame', () => {
             setStartGame(false)
         })
+
+        return () => {
+            socket?.disconnect()
+        }
     }, [socket])
 
     if (errorCode) {
@@ -89,6 +99,11 @@ const Lobby = ({ errorCode, lobby }) => {
         }
     }
 
+    const handleStartButton = () => {
+        socket?.emit("startGame")
+        console.log(players)
+    }
+
     if (!startGame) {
         return (
             <>
@@ -104,17 +119,17 @@ const Lobby = ({ errorCode, lobby }) => {
                     </Header>
                     <MainContainer>
                         <PlayerList players={players}/>
-                        <Rules />
+                        <Rules rules={rules} setRules={setRules}/>
                     </MainContainer>
                 </div>
                 <ButtonDiv>
-                    <button onClick={() => socket?.emit("startGame")}>
+                    <button onClick={handleStartButton}>
                         Start Game
                     </button>
                 </ButtonDiv>
             </>
         )
-    } else return <Game socket={socket} />
+    } else return <Game socket={socket} owner={owner} />
 
 }
 

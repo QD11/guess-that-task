@@ -88,6 +88,7 @@ io.on('connection', (socket) => {
 
     socket.on('room', (room, user) => {
         if(socket.room) {
+            console.log(socket.room)
             console.log('leaving')
             socket.leave(socket.room);
         }
@@ -113,6 +114,7 @@ io.on('connection', (socket) => {
         //io.in(room).emit('roomCancelled', true)
         socket.on('roomCanceled', data => {
             io.in(room).emit('goBack', data)
+            socket.disconnect()
         })
         socket.room = room;
         socket.join(room);
@@ -120,14 +122,16 @@ io.on('connection', (socket) => {
         socket.to(room).emit('playerJoined', user)
 
         socket.on('leaveRoom', (user) => {
+            console.log(`${user.name} left room`)
             const index = connectedUsers.get(room).findIndex(u => u._id === user._id)
             connectedUsers.get(room).splice(index, 1);
-            socket.leave(room);
             socket.to(room).emit('playerLeft', user)
+            socket.leave(socket.room);
             if (!connectedUsers.get(room).length) {
                 // delete key if no more users in room
                 connectedUsers.delete(room);
             }
+            socket.disconnect()
         });
 
         // io.in(room).emit("playersInRoom", connectedUsers.get(room))
