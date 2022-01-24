@@ -200,12 +200,15 @@ export async function getServerSideProps({req, res}) {
     return { props: {user: data}}
 }
 
+
+
 const Container = styled.div`
     display: flex;
     flex-direction: column;
 `
 
 const Title = styled.h1`
+    font-family: VCR OSD Mono;
     color: black;
     font-size: 60px;
     margin-block-start: 0em;

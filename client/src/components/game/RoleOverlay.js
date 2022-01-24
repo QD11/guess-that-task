@@ -3,8 +3,8 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import { MdLiveHelp } from 'react-icons/md'
 
-const RoleOverlay = () => {
-    const [modal, setModal] = useState(true);
+const RoleOverlay = ({role}) => {
+    const [modal, setModal] = useState(false);
 
     const toggleModal = () => {
         setModal(!modal);
@@ -26,8 +26,71 @@ const RoleOverlay = () => {
                 <div onClick={toggleModal} className="overlay"></div>
                 <div className="modal-content">
                     <div className="content">
-                        
-                        <span>hey</span>
+                        <div className="info">
+                        {role === 'imposter' ? 
+                            <>
+                                <span>Imposter</span>
+                                <Image 
+                                    src="/imposter.png"
+                                    alt="imposter"
+                                    width={140}
+                                    height={140}
+                                /> 
+                            </>
+                            :
+                            <>
+                                <span>Crewmate</span>
+                                <Image 
+                                    src="/red-among-us-png.png"
+                                    alt="crewmate"
+                                    width={80}
+                                    height={170}
+                                />
+                            </>}
+                        </div>
+                        <div>
+                            {role === 'imposter' ? 
+                            <>
+                                <p>
+                                    Work with fellow imposters to correctly guess what the crewmates' tasks are within the time limit. 
+                                </p>
+                                <span>Win Condition:</span>
+                                <ul>
+                                    <li>Prevent the crewmates from completing their tasks.</li>
+                                    <li>Kill crewmates by guessing their tasks. Their contributions to the required amount of tasks are gone once taken out.</li>
+                                </ul>
+                                <span>Rules:</span>
+                                <ul>
+                                    <li>You have limited amount of guesses.</li>
+                                    {/* <li>If the crewmates finish their required number of tasks, and you still have available guesses, then you can use them as last ditch efforts.</li> */}
+                                    <li>Clues will be given throughout the game to either help you or sabotage the crewmates!</li>
+                                </ul>
+                                <span>Tips:</span>
+                                <ul>
+                                    <li>Guess wisely!</li>
+                                    <li>Don't be baited by the crewmate's fake tasks!</li>
+                                </ul>
+                            </>
+                            :
+                            <>
+                                <p>
+                                    Complete your tasks with in the time limit! Work with each other to complete the required amount of tasks by the end of the game to win!
+                                </p>
+                                <span>Win Condition:</span>
+                                <ul>
+                                    <li>Complete your tasks. The crewmates must complete a certain number of tasks by the end of the game to win.</li>
+                                </ul>
+                                <span>Rules:</span>
+                                <ul>
+                                    <li>You MUST perform your task in front of the imposters. Do NOT perform it discreetly to give the imposters a chance.</li>
+                                    <li>You are allowed to show your crewmates your tasks.</li>
+                                </ul>
+                                <span>Tips:</span>
+                                <ul>
+                                    <li>Try to bait the imposters into using up their guesses!</li>
+                                </ul>
+                            </>}
+                        </div>
                     </div>
                     <button className="close-modal" onClick={toggleModal}>
                     X
@@ -103,8 +166,17 @@ const ModalDiv = styled.div`
         display: flex;
         justify-content: space-around;
         flex-direction: column;
-        & span {
-            font-family: VCR OSD Mono;
+        .info {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin: auto;
+            & span {
+                display: flex; 
+                justify-content: center;
+                font-size: 50px;
+                font-family: VCR OSD Mono;
+            }
         }
     }
 

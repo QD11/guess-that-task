@@ -134,6 +134,7 @@ const ModalDiv = styled.div`
         margin-right: 50px;
         width: 50%;
         .header {
+            font-family: VCR OSD Mono;
             display: flex;
             align-items: center;
         }

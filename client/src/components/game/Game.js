@@ -9,7 +9,8 @@ const Game = ({socket, imposters, user}) => {
         <MainContainer>
             <div className="header">
                 <span className="role">{role.charAt(0).toUpperCase() + role.slice(1)}</span>
-                <RoleOverlay />
+                <span>TIME</span>
+                <RoleOverlay role={role}/>
             </div>
             <button onClick={() => socket?.emit("endGame")}>
                 End Game
