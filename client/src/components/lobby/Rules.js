@@ -20,7 +20,7 @@ const Rules = ({rules, setRules, players}) => {
                 </div>
             </li>
             <li>
-                <span>Number of Imposters</span>
+                <span># of Imposters</span>
                 <div className="tw-toggle">
                     <TwButton active={1} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={1} >1</TwButton>
                     <TwButton active={2} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={2} disabled={players.length < 3}>2</TwButton>
@@ -28,9 +28,16 @@ const Rules = ({rules, setRules, players}) => {
                 </div>
             </li>
             <li>
+                <span># of Guesses</span>
+                <div>
+                    <input className="guesses" name="guesses" type="number" onKeyDown={e => e.preventDefault()} min={rules.numOfCrewmatesTasks} max="20" step="1" value={rules.guesses < rules.numOfCrewmatesTasks ? rules.numOfCrewmatesTasks : rules.guesses} onChange={handleRules}></input>
+                    <label> guesses</label>
+                </div>
+            </li>
+            <li>
                 <span># of Tasks Required to Win</span>
                 <div>
-                    <input className="numOfCrewmatesTasks" name="numOfCrewmatesTasks" type="number" onKeyDown={e => e.preventDefault()} min="1" max="10" step="1" value={rules.numOfCrewmatesTasks} onChange={handleRules}></input>
+                    <input className="numOfCrewmatesTasks" name="numOfCrewmatesTasks" type="number" onKeyDown={e => e.preventDefault()} min="1" max={players.length} step="1" value={rules.numOfCrewmatesTasks} onChange={handleRules}></input>
                     <label> tasks</label>
                 </div>
             </li>

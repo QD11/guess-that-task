@@ -29,6 +29,7 @@ const Lobby = ({ errorCode, lobby }) => {
     const [rules, setRules] = useState({
         duration: 10,
         numOfImposter: 1,
+        guesses: players.length,
         numOfCrewmatesTasks: 1,
         clues: true,
     })
@@ -144,6 +145,7 @@ const Lobby = ({ errorCode, lobby }) => {
                     owner={owner} 
                     imposters={imposters} 
                     user={user.info}
+                    rules={rules}
                 />
             </>
         )

@@ -1,15 +1,27 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components'
 import RoleOverlay from './RoleOverlay'
+import Countdown from 'react-countdown';
 
-const Game = ({socket, imposters, user}) => {
+const Game = ({socket, imposters, user, rules}) => {
     const [role, setRole] = useState(imposters.some(player => player._id === user._id)? "imposter" : "crewmate")
+
+    const Completionist = () => <span>TIME!</span>;
+    const renderer = ({ minutes, seconds, completed }) => {
+        if (completed) {
+          // Render a completed state
+            return <Completionist />;
+        } else {
+          // Render a countdown
+            return <span>{minutes}:{seconds}</span>;
+        }
+    };
 
     return(
         <MainContainer>
             <div className="header">
                 <span className="role">{role.charAt(0).toUpperCase() + role.slice(1)}</span>
-                <span>TIME</span>
+                <Countdown date={Date.now() + 1000*60*rules.duration} renderer={renderer} />
                 <RoleOverlay role={role}/>
             </div>
             <button onClick={() => socket?.emit("endGame")}>
