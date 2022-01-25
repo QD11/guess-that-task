@@ -111,6 +111,10 @@ io.on('connection', (socket) => {
             io.in(room).emit("endGame")
         })
 
+        socket.on('rules', (rules) => {
+            socket.to(room).emit('rules', rules)
+        })
+
         //io.in(room).emit('roomCancelled', true)
         socket.on('roomCanceled', data => {
             io.in(room).emit('goBack', data)

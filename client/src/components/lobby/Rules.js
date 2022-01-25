@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 
-const Rules = ({rules, setRules, players}) => {
+const Rules = ({rules, setRules, players, owner}) => {
     
     const handleRules = e => {
         setRules({
@@ -15,37 +15,37 @@ const Rules = ({rules, setRules, players}) => {
             <li>
                 <span>Game Duration</span>
                 <div>
-                    <input className="duration" name="duration" type="number" onKeyDown={e => e.preventDefault()} min="10" max="60" step="5" value={rules.duration} onChange={handleRules}></input>
+                    <input className="duration" name="duration" type="number" onKeyDown={e => e.preventDefault()} min="10" max="60" step="5" value={rules.duration} disabled={!owner} onChange={handleRules}></input>
                     <label> minutes</label>
                 </div>
             </li>
             <li>
                 <span># of Imposters</span>
                 <div className="tw-toggle">
-                    <TwButton active={1} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={1} >1</TwButton>
-                    <TwButton active={2} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={2} disabled={players.length < 3}>2</TwButton>
-                    <TwButton active={3} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={3} disabled={players.length < 4}>3</TwButton>
+                    <TwButton active={1} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={1} disabled={!owner} >1</TwButton>
+                    <TwButton active={2} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={2} disabled={players.length < 3 || !owner}>2</TwButton>
+                    <TwButton active={3} cur_value={rules.numOfImposter} name="numOfImposter" onClick={handleRules} value={3} disabled={players.length < 4 || !owner}>3</TwButton>
                 </div>
             </li>
             <li>
                 <span># of Guesses</span>
                 <div>
-                    <input className="guesses" name="guesses" type="number" onKeyDown={e => e.preventDefault()} min={rules.numOfCrewmatesTasks} max="20" step="1" value={rules.guesses < rules.numOfCrewmatesTasks ? rules.numOfCrewmatesTasks : rules.guesses} onChange={handleRules}></input>
+                    <input disabled={!owner} className="guesses" name="guesses" type="number" onKeyDown={e => e.preventDefault()} min={rules.numOfCrewmatesTasks} max="20" step="1" value={rules.guesses < rules.numOfCrewmatesTasks ? rules.numOfCrewmatesTasks : rules.guesses} onChange={handleRules}></input>
                     <label> guesses</label>
                 </div>
             </li>
             <li>
                 <span># of Tasks Required to Win</span>
                 <div>
-                    <input className="numOfCrewmatesTasks" name="numOfCrewmatesTasks" type="number" onKeyDown={e => e.preventDefault()} min="1" max={players.length} step="1" value={rules.numOfCrewmatesTasks} onChange={handleRules}></input>
+                    <input disabled={!owner} className="numOfCrewmatesTasks" name="numOfCrewmatesTasks" type="number" onKeyDown={e => e.preventDefault()} min="1" max={players.length} step="1" value={rules.numOfCrewmatesTasks} onChange={handleRules}></input>
                     <label> tasks</label>
                 </div>
             </li>
             <li>
                 <span>Clues</span>
                 <div className="tw-toggle">
-                    <TwButton active={true} cur_value={rules.clues} name="clues" onClick={() => setRules({...rules, clues: true})}>Yes</TwButton>
-                    <TwButton active={false} cur_value={rules.clues} name="clues" onClick={() => setRules({...rules, clues: false})}>No</TwButton>
+                    <TwButton disabled={!owner} active={true} cur_value={rules.clues} name="clues" onClick={() => setRules({...rules, clues: true})}>Yes</TwButton>
+                    <TwButton disabled={!owner} active={false} cur_value={rules.clues} name="clues" onClick={() => setRules({...rules, clues: false})}>No</TwButton>
                 </div>
             </li>
             <hr/>

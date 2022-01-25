@@ -40,11 +40,20 @@ const Lobby = ({ errorCode, lobby }) => {
     }, [])
 
     useEffect(() => {
+        if (owner) {
+            socket?.emit("rules", rules)
+        }
+    }, [rules])
+
+    useEffect(() => {
         socket?.emit("room", lobby_code, user.info)
         socket?.on("playerJoined", data => {
             if (!players.map(player => player._id).includes(data._id)) {
                 setPlayers(players => [...players, data])
             }
+        })
+        socket?.on("rules", data => {
+            setRules(data)
         })
         socket?.on("playerLeft", data => {
             setPlayers(players => players.filter(player => player._id !== data._id))
@@ -123,7 +132,7 @@ const Lobby = ({ errorCode, lobby }) => {
                     </Header>
                     <MainContainer>
                         <PlayerList players={players}/>
-                        <Rules rules={rules} setRules={setRules} players={players}/>
+                        <Rules rules={rules} setRules={setRules} players={players} owner={owner}/>
                     </MainContainer>
                 </div>
                 <ButtonDiv>
