@@ -23,7 +23,10 @@ const Lobby = ({ errorCode, lobby }) => {
     const { lobby_code } = router.query
     const user = useSelector(state => state.user)
     const owner = lobby.owner._id === user.info._id ? true: false
-    const [socket, setSocket] = useState(null)
+    const [socket, setSocket] = useState(io(url))
+    // useEffect(() => {
+    //     setSocket(io(url))
+    // }, [])
     const [players, setPlayers] = useState(lobby.players)
     const [startGame, setStartGame] = useState(false)
     const [rules, setRules] = useState({
@@ -33,11 +36,8 @@ const Lobby = ({ errorCode, lobby }) => {
         numOfCrewmatesTasks: 1,
         clues: true,
     })
+    //push owner changes to fetch so that when players join, they get the latest rule change
     const [imposters, setImposters] = useState(null)
-    
-    useEffect(() => {
-        setSocket(io(url))
-    }, [])
 
     useEffect(() => {
         if (owner) {

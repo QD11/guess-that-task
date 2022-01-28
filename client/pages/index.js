@@ -88,7 +88,6 @@ const Home = ({user}) => {
                     console.log('No Code Found')
                 }
                 else if (!lobby.players.find(player => player._id === id)) {
-                    console.log('1')
                     fetch(`${url}/lobbies/${lobbyCode}/${id}`, {
                         method: "PATCH",
                         headers: {
