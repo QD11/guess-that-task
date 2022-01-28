@@ -84,6 +84,7 @@ const RoleOverlay = ({role}) => {
                                 <span>Rules:</span>
                                 <ul>
                                     <li>You MUST perform your task in front of the imposters. Do NOT perform it discreetly to give the imposters a chance.</li>
+                                    <li>Some tasks are persistent. They are complete if you survive until the end.</li>
                                     <li>You are allowed to show your crewmates your tasks.</li>
                                 </ul>
                                 <span>Tips:</span>

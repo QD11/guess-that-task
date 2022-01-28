@@ -20,7 +20,7 @@ const tasks = [
         task: "Flip a water bottle and land it on its bottom"
     },
     {
-        task: "Wink to everyone. Make sure they notice you"
+        task: "Wink to 3/4th of the players (rounded up). Do one less if the other person is an imposter and he/she winks back. Make sure they notice you"
     },
     {
         task: "Do 8 crunches (5 if female)"
@@ -38,7 +38,7 @@ const tasks = [
         task: "Make a heart symbol with your hands and show it to an imposter"
     },
     {
-        task: "Blow kisses"
+        task: "Blow kisses three times (once if toward an imposter)"
     },
     {
         task: "Perform an Aegyo (a cute, over-the-top facial expression with sounds)"
@@ -53,7 +53,7 @@ const tasks = [
         task: "Jump up and clap your hands three times"
     },
     {
-        task: "Scrunch your nose 5 times"
+        task: "Scrunch your nose everytime you make eye contact with someone"
     },
     {
         task: "Use a pickup line three times (once if with an imposter)"
@@ -62,7 +62,8 @@ const tasks = [
         task: "Clap a slate"
     },
     {
-        task: "Perform a dance"
+        task: "Perform a dance",
+        extra: "Guessing the name of the dance also counts"
     },
     {
         task: "Give a hug twice. Once if with an imposter"
@@ -78,7 +79,17 @@ const tasks = [
     },
     {
         task: "Eat a food and say 'Yummmmmmmmy'"
-    }
+    },
+    {
+        task: "Slap your hands against any object/surface before you talk",
+        extra: "Imposters must guess this task exactly but give them another chance if all they guess is to slap your hands"
+    },
+    {
+        task: "Bark 3 times in a row"
+    },
+    {
+        task: "Meow with the hand gesture"
+    },
 ]
 
 export default tasks;

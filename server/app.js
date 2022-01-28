@@ -12,6 +12,8 @@ import { Server } from "socket.io";
 import WebSockets from "./utils/WebSockets.js";
 import "dotenv/config.js";
 
+import tasks from './tasks.js'
+
 // import postsRoutes from './routes/posts.js'
 import playersRoutes from './routes/players.js'
 import lobbiesRoutes from './routes/lobbies.js'
@@ -146,5 +148,7 @@ io.on('connection', (socket) => {
     })
 
 })
+
+console.log(`There are ${tasks.length} tasks`)
 // server.listen(5000, () => console.log('Listening on port *:5000'))
 // Start the server
