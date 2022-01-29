@@ -73,7 +73,7 @@ server.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
 const connectedUsers = new Map();
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
+    console.log(`${socket.id} connected`);
 
     socket.on('disconnect', () => {
         console.log('user disconnected');
@@ -103,7 +103,7 @@ io.on('connection', (socket) => {
             connectedUsers.get(room).push(user);
         }
 
-        console.log(`${user.name} joined room ${room}`)
+        console.log(`${user.name}, ${socket.id}, joined room ${room}`)
 
         socket.on('startGame', (imposters) => {
             io.in(room).emit("startGame", imposters)
@@ -120,8 +120,8 @@ io.on('connection', (socket) => {
         //io.in(room).emit('roomCancelled', true)
         socket.on('roomCanceled', data => {
             io.in(room).emit('goBack', data)
-            socket.disconnect()
         })
+
         socket.room = room;
         socket.join(room);
 
@@ -132,16 +132,24 @@ io.on('connection', (socket) => {
             const index = connectedUsers.get(room).findIndex(u => u._id === user._id)
             connectedUsers.get(room).splice(index, 1);
             socket.to(room).emit('playerLeft', user)
-            socket.leave(socket.room);
-            if (!connectedUsers.get(room).length) {
-                // delete key if no more users in room
-                connectedUsers.delete(room);
-            }
-            socket.disconnect()
+            socket.leave(room);
+            // if (!connectedUsers.get(room).length) {
+            //     // delete key if no more users in room
+            //     connectedUsers.delete(room);
+            // }
         });
 
-        // io.in(room).emit("playersInRoom", connectedUsers.get(room))
+        socket.on('sendTask', () => {
+            const clients = io.sockets.adapter.rooms.get(room);
+            for (const clientId of clients) {
+                const clientSocket = io.sockets.sockets.get(clientId)
+                
+            }
+            io.in(room).emit('getTask', 'hihi')
+        })
 
+        // io.in(room).emit("playersInRoom", connectedUsers.get(room))
+        // console.log(io.sockets.clients(room))
         socket.to(room).emit("message", `Welcome to lobby ${room}`)
 
         io.in(room).emit("message", `Welcome ALL to lobby ${room}`)

@@ -23,10 +23,10 @@ const tasks = [
         task: "Wink to 3/4th of the players (rounded up). Do one less if the other person is an imposter and he/she winks back. Make sure they notice you"
     },
     {
-        task: "Do 8 crunches (5 if female)"
+        task: "Do 4 crunches (3 if female)"
     },
     {
-        task: "Shake hands with an imposter"
+        task: "Shake hands with another person (different people if possible) 3 times (1 if with an imposter)"
     },
     {
         task: "Sing any national anthem"
@@ -72,10 +72,18 @@ const tasks = [
         task: "Drink 3 glasses of any beverage"
     },
     {
-        task: "Make the TT sign (Look up 'TT' by Twice)"
+        task: "Make the TT sign (Look up 'TT' by Twice)",
+        image: {
+            src: 'https://c.tenor.com/3Wnd3HZK9oMAAAAC/%EB%82%98%EC%9A%B8%EA%B2%83%EA%B0%99%EC%9D%80%EA%B8%B0%EB%B6%84%EC%9D%B4%EC%95%BC-%EB%8C%84%EC%8A%A4.gif',
+            alt: "TT"
+        }
     },
     {
-        task: "Do the 'Shy Shy Shy' dance (Look up 'Shy Shy Shy' by Sana from Twice)"
+        task: "Do the 'Shy Shy Shy' dance",
+        image: {
+            src: 'https://c.tenor.com/swm5XDffK7MAAAAd/shy-shy-shy-sana.gif',
+            alt: "ShyShyShy"
+        }
     },
     {
         task: "Eat a food and say 'Yummmmmmmmy'"
@@ -90,6 +98,17 @@ const tasks = [
     {
         task: "Meow with the hand gesture"
     },
+    {
+        task: "Do jutsu hand signs",
+        image: {
+            src: 'https://c.tenor.com/Hud6X-C8w9kAAAAC/uchiha-jutsu-hand-signs.gif',
+            alt: "Jutsu"
+        }
+    },
+    {
+        task: "Pucker your lips everytime someone mentions your name",
+        extra: "Imposters must guess this task exactly but give them another chance if all they guess is to pucker your lip"
+    }
 ]
 
 export default tasks;

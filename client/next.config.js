@@ -1,5 +1,10 @@
 module.exports = {
   reactStrictMode: true,
+  images: {
+    domains: [
+      'c.tenor.com'
+    ]
+  }
 }
 
 // const withCSS = require('@zeit/next-css')

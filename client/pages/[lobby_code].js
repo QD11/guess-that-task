@@ -5,12 +5,14 @@ import PlayerList from '../src/components/lobby/PlayerList'
 import Rules from '../src/components/lobby/Rules'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
-import {io} from 'socket.io-client'
 import Error from 'next/error'
 import { useBeforeunload } from 'react-beforeunload';
 import { IoArrowBackCircleSharp } from 'react-icons/io5'
 import _ from 'underscore'
 
+import Image from 'next/image'
+
+import {SocketContext} from '../pages/_app'
 import Tutorial from '../src/components/home/Tutorial'
 import Game from '../src/components/game/Game'
 
@@ -23,7 +25,8 @@ const Lobby = ({ errorCode, lobby }) => {
     const { lobby_code } = router.query
     const user = useSelector(state => state.user)
     const owner = lobby.owner._id === user.info._id ? true: false
-    const [socket, setSocket] = useState(io(url))
+    // const [socket, setSocket] = useState(io(url))
+    const socket = useContext(SocketContext)
     // useEffect(() => {
     //     setSocket(io(url))
     // }, [])
@@ -74,9 +77,32 @@ const Lobby = ({ errorCode, lobby }) => {
         socket?.on('endGame', () => {
             setStartGame(false)
         })
-        return () => {
-            socket?.disconnect()
-        }
+        socket.on("getTask", data => {
+            console.log(data)
+        })
+        // return () => {
+        //     if (owner) {
+        //         fetch(`${url}/lobbies/${lobby_code}`, {
+        //             method: "DELETE",
+        //             headers: {
+        //                 "Content-Type": "application/json"
+        //             },
+        //         })
+        //         socket?.emit('roomCanceled', true)
+        //     } 
+        //     else{
+        //         fetch(`${url}/lobbies/${lobby_code}/${user.info._id}/remove`, {
+        //             method: "PATCH",
+        //             headers: {
+        //                 "Content-Type": "application/json"
+        //             },
+        //             body: JSON.stringify({
+        //                 playerId: user.info._id,
+        //             })
+        //         })
+        //         socket?.emit('leaveRoom', user.info)
+        //     }
+        // }
     }, [socket])
 
     if (errorCode) {
@@ -141,6 +167,12 @@ const Lobby = ({ errorCode, lobby }) => {
                         Start Game
                     </button>
                 </ButtonDiv>
+                {/* <Image 
+                    src="https://c.tenor.com/3Wnd3HZK9oMAAAAC/%EB%82%98%EC%9A%B8%EA%B2%83%EA%B0%99%EC%9D%80%EA%B8%B0%EB%B6%84%EC%9D%B4%EC%95%BC-%EB%8C%84%EC%8A%A4.gif"
+                    alt="crewmate"
+                    width={200}
+                    height={200}
+                /> */}
             </>
         )
     } else return(
@@ -150,7 +182,6 @@ const Lobby = ({ errorCode, lobby }) => {
                     <link rel="shortcut icon" href="/red-among-us-png.png" />
                 </Head>
                 <Game 
-                    socket={socket} 
                     owner={owner} 
                     imposters={imposters} 
                     user={user.info}

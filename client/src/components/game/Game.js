@@ -1,10 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import styled from 'styled-components'
 import RoleOverlay from './RoleOverlay'
 import Countdown from 'react-countdown';
 
-const Game = ({socket, imposters, user, rules}) => {
+import {SocketContext} from '../../../pages/_app'
+
+const Game = ({imposters, user, rules, owner}) => {
     const [role, setRole] = useState(imposters.some(player => player._id === user._id)? "imposter" : "crewmate")
+    const [task, setTask] = useState(null)
+    const socket = useContext(SocketContext)
 
     const Completionist = () => <span>TIME!</span>;
     const renderer = ({ minutes, seconds, completed }) => {
@@ -16,6 +20,19 @@ const Game = ({socket, imposters, user, rules}) => {
             return <span>{minutes}:{seconds}</span>;
         }
     };
+
+    useEffect(() => {
+        socket.on('sendTask', data => {
+            console.log(data)
+        })
+    }, [socket])
+    
+    useEffect(() => {
+        if (owner) {
+            socket.emit('sendTask')
+        }
+    }, [])
+
 
     return(
         <MainContainer>
