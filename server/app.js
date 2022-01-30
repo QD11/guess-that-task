@@ -12,6 +12,8 @@ import { Server } from "socket.io";
 import WebSockets from "./utils/WebSockets.js";
 import "dotenv/config.js";
 
+import _ from 'underscore'
+
 import tasks from './tasks.js'
 
 // import postsRoutes from './routes/posts.js'
@@ -139,13 +141,14 @@ io.on('connection', (socket) => {
             // }
         });
 
-        socket.on('sendTask', () => {
+        socket.on('sendTask', (players) => {
             const clients = io.sockets.adapter.rooms.get(room);
-            for (const clientId of clients) {
-                const clientSocket = io.sockets.sockets.get(clientId)
-                
-            }
-            io.in(room).emit('getTask', 'hihi')
+            const randomTasks = _.sample(tasks, players.length)
+            let i = 0;
+            clients.forEach((client, index) => {
+                io.to(index).emit('getTask', randomTasks[i]);
+                i++;
+            })
         })
 
         // io.in(room).emit("playersInRoom", connectedUsers.get(room))

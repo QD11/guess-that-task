@@ -186,6 +186,7 @@ const Lobby = ({ errorCode, lobby }) => {
                     imposters={imposters} 
                     user={user.info}
                     rules={rules}
+                    players={players}
                 />
             </>
         )

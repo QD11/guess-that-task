@@ -5,7 +5,7 @@ import Countdown from 'react-countdown';
 
 import {SocketContext} from '../../../pages/_app'
 
-const Game = ({imposters, user, rules, owner}) => {
+const Game = ({imposters, user, rules, owner, players}) => {
     const [role, setRole] = useState(imposters.some(player => player._id === user._id)? "imposter" : "crewmate")
     const [task, setTask] = useState(null)
     const socket = useContext(SocketContext)
@@ -22,14 +22,14 @@ const Game = ({imposters, user, rules, owner}) => {
     };
 
     useEffect(() => {
-        socket.on('sendTask', data => {
-            console.log(data)
+        socket.on('getTask', data => {
+            setTask(data)
         })
     }, [socket])
     
     useEffect(() => {
         if (owner) {
-            socket.emit('sendTask')
+            socket.emit('sendTask', players)
         }
     }, [])
 
