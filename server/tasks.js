@@ -14,7 +14,7 @@ const tasks = [
         task: "Perform a split, or atleast try..."
     },
     {
-        task: "Compliment another person three times (six if more than six crewmates)"
+        task: "Compliment different person three times (six if more than six crewmates). An imposter counts for 3 people."
     },
     {
         task: "Flip a water bottle and land it on its bottom"
