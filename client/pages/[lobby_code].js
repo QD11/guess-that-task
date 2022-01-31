@@ -77,9 +77,6 @@ const Lobby = ({ errorCode, lobby }) => {
         socket?.on('endGame', () => {
             setStartGame(false)
         })
-        socket.on("getTask", data => {
-            console.log(data)
-        })
         // return () => {
         //     if (owner) {
         //         fetch(`${url}/lobbies/${lobby_code}`, {

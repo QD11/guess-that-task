@@ -2,12 +2,14 @@ import React, {useEffect, useState, useContext} from 'react';
 import styled from 'styled-components'
 import RoleOverlay from './RoleOverlay'
 import Countdown from 'react-countdown';
+import CrewmateDashBoard from './CrewmateDashBoard'
+import ImposterDashBoard from './ImposterDashBoard'
 
 import {SocketContext} from '../../../pages/_app'
 
 const Game = ({imposters, user, rules, owner, players}) => {
-    const [role, setRole] = useState(imposters.some(player => player._id === user._id)? "imposter" : "crewmate")
-    const [task, setTask] = useState(null)
+    // const [role, setRole] = useState(imposters.some(player => player._id === user._id)? "imposter" : "crewmate")
+    const role = imposters.some(player => player._id === user._id)? "imposter" : "crewmate"
     const socket = useContext(SocketContext)
 
     const Completionist = () => <span>TIME!</span>;
@@ -20,19 +22,13 @@ const Game = ({imposters, user, rules, owner, players}) => {
             return <span>{minutes}:{seconds}</span>;
         }
     };
-
-    useEffect(() => {
-        socket.on('getTask', data => {
-            setTask(data)
-        })
-    }, [socket])
     
     useEffect(() => {
         if (owner) {
             socket.emit('sendTask', players)
         }
     }, [])
-
+    console.log(role)
 
     return(
         <MainContainer>
@@ -41,6 +37,11 @@ const Game = ({imposters, user, rules, owner, players}) => {
                 <Countdown date={Date.now() + 1000*60*rules.duration} renderer={renderer} />
                 <RoleOverlay role={role}/>
             </div>
+            {role === 'crewmate' ? 
+                <CrewmateDashBoard/> 
+                : 
+                <ImposterDashBoard/>
+            }
             <button onClick={() => socket?.emit("endGame")}>
                 End Game
             </button>
