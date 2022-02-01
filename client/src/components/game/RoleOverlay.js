@@ -52,7 +52,7 @@ const RoleOverlay = ({role}) => {
                             {role === 'imposter' ? 
                             <>
                                 <p>
-                                    Work with fellow imposters to correctly guess what the crewmates' tasks are within the time limit. 
+                                    Work with fellow imposters to correctly guess what the crewmates&apos; tasks are within the time limit. 
                                 </p>
                                 <span>Win Condition:</span>
                                 <ul>
@@ -62,14 +62,14 @@ const RoleOverlay = ({role}) => {
                                 <span>Rules:</span>
                                 <ul>
                                     <li>You have limited amount of guesses.</li>
-                                    <li>You don't have to guess exactly. Example: One of the tasks is to compliment another person multiple times. You guess correctly if you say the task is "To give compliments"</li>
+                                    <li>You don&apos;t have to guess exactly. Example: One of the tasks is to compliment another person multiple times. You guess correctly if you say the task is &quot;To give compliments&quot;</li>
                                     {/* <li>If the crewmates finish their required number of tasks, and you still have available guesses, then you can use them as last ditch efforts.</li> */}
                                     <li>Clues will be given throughout the game to either help you or sabotage the crewmates!</li>
                                 </ul>
                                 <span>Tips:</span>
                                 <ul>
                                     <li>Guess wisely!</li>
-                                    <li>Don't be baited by the crewmate's fake tasks!</li>
+                                    <li>Don&apos;t be baited by the crewmate&apos;s fake tasks!</li>
                                 </ul>
                             </>
                             :
