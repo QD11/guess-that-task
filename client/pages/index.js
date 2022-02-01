@@ -125,12 +125,6 @@ const Home = ({user}) => {
                 },
                 body: JSON.stringify({name: name})
             })
-            .then(resp => resp.json())
-            .then(player => {
-                dispatch(getUserID({
-                    info: player
-                }))
-            })
         }
     })
 
