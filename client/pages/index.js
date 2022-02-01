@@ -190,7 +190,7 @@ const Home = ({user}) => {
 
 export async function getServerSideProps({req, res}) {
     console.log(req.cookies)
-    let data = ''
+    let data = {message: 'test'}
     if (process.env.NODE_ENV === 'development') {
         data = {message: 'test'}
     } else if (req.cookies.user) {
