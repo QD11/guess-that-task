@@ -11,7 +11,7 @@ const tasks = [
         extra: "If an imposter calls the other person and guess this task right, both crewmates are killed"
     },
     {
-        task: "Perform a split, or atleast try..."
+        task: "Perform a split, or atleast attempt it..."
     },
     {
         task: "Compliment different person three times (six if more than six crewmates). An imposter counts for 3 people."
