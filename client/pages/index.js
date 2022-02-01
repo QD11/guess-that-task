@@ -52,6 +52,7 @@ const Home = ({user}) => {
             })
             .then(res => res.json())
             .then(player => {
+                console.log('post succeeded')
                 setId(player._id)
                 cookie.set("user", player._id)
                 dispatch(getUserID({
