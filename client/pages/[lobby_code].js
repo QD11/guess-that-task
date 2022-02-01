@@ -21,6 +21,7 @@ const development = 'http://localhost:4000'
 const url = process.env.NODE_ENV === 'development' ? development : production;
 
 const Lobby = ({ errorCode, lobby }) => {
+    console.log(errorCode, lobby)
     const router = useRouter()
     const { lobby_code } = router.query
     const user = useSelector(state => state.user)
