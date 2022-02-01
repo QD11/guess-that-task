@@ -195,8 +195,6 @@ export async function getServerSideProps({req, res}) {
     } else if (req.cookies.user) {
         const response = await fetch(`${url}/${req.cookies.user}`)
         data = await response.json()
-    } else {
-        data = {message: 'test'}
     }
     return { props: {user: data}}
 }
