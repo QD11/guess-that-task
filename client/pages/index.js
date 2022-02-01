@@ -52,7 +52,6 @@ const Home = ({user}) => {
             })
             .then(res => res.json())
             .then(player => {
-                console.log('post succeeded')
                 setId(player._id)
                 cookie.set("user", player._id)
                 dispatch(getUserID({
@@ -189,14 +188,13 @@ const Home = ({user}) => {
 }
 
 export async function getServerSideProps({req, res}) {
-    console.log(req.cookies)
+
     let data = {message: 'test'}
-    if (process.env.NODE_ENV === 'development') {
-        data = {message: 'test'}
-    } else if (req.cookies.user) {
+    if (req.cookies.user) {
         const response = await fetch(`${url}/players/${req.cookies.user}`)
         data = await response.json()
     }
+
     return { props: {user: data}}
 }
 
