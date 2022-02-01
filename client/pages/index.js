@@ -35,14 +35,14 @@ const Home = ({user}) => {
         if (!user.message ) {
             setId(user._id)
             setName(user.name)
-            console.log(user)
-            fetch(`${url}/players/${user.id}`)
-            .then(res => res.json())
-            .then(player => {
-                dispatch(getUserID({
-                    info: player
-                }))
-            })
+            dispatch(getUserID({info: user}))
+            // fetch(`${url}/players/${user.id}`)
+            // .then(res => res.json())
+            // .then(player => {
+            //     dispatch(getUserID({
+            //         info: player
+            //     }))
+            // })
         } else {
             fetch(`${url}/players`, {
                 method: "POST",
