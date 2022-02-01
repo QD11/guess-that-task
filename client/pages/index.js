@@ -17,6 +17,7 @@ const development = 'http://localhost:4000'
 const url = process.env.NODE_ENV === 'development' ? development : production;
 
 const Home = ({user}) => {
+    console.log(user)
     const dispatch = useDispatch()
     const router = useRouter()
     const [id, setId] = useState('')
