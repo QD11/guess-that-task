@@ -192,9 +192,11 @@ export async function getServerSideProps({req, res}) {
     let data = ''
     if (process.env.NODE_ENV === 'development') {
         data = {message: 'test'}
-    } else {
+    } else if (req.cookies.user) {
         const response = await fetch(`${url}/${req.cookies.user}`)
         data = await response.json()
+    } else {
+        data = {message: 'test'}
     }
     return { props: {user: data}}
 }
