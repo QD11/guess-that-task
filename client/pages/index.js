@@ -15,9 +15,8 @@ import Tutorial from '../src/components/home/Tutorial'
 const production = 'https://guess-that-task-server.herokuapp.com';
 const development = 'http://localhost:4000'
 const url = process.env.NODE_ENV === 'development' ? development : production;
-
+console.log(url)
 const Home = ({user}) => {
-    console.log(user)
     const dispatch = useDispatch()
     const router = useRouter()
     const [id, setId] = useState('')
