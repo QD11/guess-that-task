@@ -61,9 +61,6 @@ const Lobby = ({ errorCode, lobby }) => {
         socket?.on("playerLeft", data => {
             setPlayers(players => players.filter(player => player._id !== data._id))
         })
-        socket?.on("message", data => {
-            console.log(data)
-        })
         socket?.on("goBack", data => {
             if (data) {
                 socket?.emit('leaveRoom', user.info)
@@ -82,7 +79,6 @@ const Lobby = ({ errorCode, lobby }) => {
             socket.removeAllListeners("playerJoined");
             socket.removeAllListeners("rules");
             socket.removeAllListeners("playerLeft");
-            socket.removeAllListeners("message");
             socket.removeAllListeners("goBack");
             socket.removeAllListeners("startGame");
             socket.removeAllListeners("endGame");
