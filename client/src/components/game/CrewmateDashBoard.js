@@ -4,18 +4,35 @@ import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
 
-const CrewmateDashBoard = ({players}) => {
+const CrewmateDashBoard = ({imposters, crewmates}) => {
     const socket = useContext(SocketContext)
     const user = useSelector(state => state.user).info
     const [task, setTask] = useState(null)
     const [taskComplete, setTaskComplete] = useState(false)
+    const [playersTasks, setPlayersTasks] = useState(crewmates.map(crewmate => {
+        return ({
+            ...crewmate,
+            taskComplete: false
+        })
+    }))
+
+    console.log(playersTasks)
 
     useEffect(() => {
         socket.on('getTask', data => {
             setTask(data)
         })
         socket.on('updatedTasksStatus', data => {
-            console.log(data)
+            setPlayersTasks(playersTasks => playersTasks.map(playersTask => {
+                if (data.user._id === playersTask._id) {
+                    return({
+                        ...playersTask,
+                        taskComplete: data.taskComplete
+                    })
+                } else {
+                    return {...playersTask}
+                }
+            }))
         })
 
         return () => {
@@ -27,7 +44,6 @@ const CrewmateDashBoard = ({players}) => {
     useEffect(() => {
         socket.emit('tasksStatus', {user, taskComplete})
     }, [taskComplete])
-
 
     return(
         <MainDiv>

@@ -157,9 +157,6 @@ io.on('connection', (socket) => {
 
         // io.in(room).emit("playersInRoom", connectedUsers.get(room))
         // console.log(io.sockets.clients(room))
-        socket.to(room).emit("message", `Welcome to lobby ${room}`)
-
-        io.in(room).emit("message", `Welcome ALL to lobby ${room}`)
     })
 
 })
