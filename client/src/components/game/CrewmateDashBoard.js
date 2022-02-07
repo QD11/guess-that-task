@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 const CrewmateDashBoard = ({players}) => {
     const socket = useContext(SocketContext)
-    const user = useSelector(state => state.user)
+    const user = useSelector(state => state.user).info
     const [task, setTask] = useState(null)
     const [taskComplete, setTaskComplete] = useState(false)
 
@@ -17,12 +17,16 @@ const CrewmateDashBoard = ({players}) => {
         socket.on('updatedTasksStatus', data => {
             console.log(data)
         })
+
+        return () => {
+            socket.removeAllListeners("getTask");
+            socket.removeAllListeners("updatedTasksStatus");
+        };
     }, [socket])
 
-    const changeTaskStatus = () => {
-        setTaskComplete(taskComplete => !taskComplete)
+    useEffect(() => {
         socket.emit('tasksStatus', {user, taskComplete})
-    }
+    }, [taskComplete])
 
 
     return(
@@ -40,7 +44,7 @@ const CrewmateDashBoard = ({players}) => {
                     />
                 }
                 {task?.extra && <span className='extra'>{task?.extra}</span>}
-                <button className="toggle-task" onClick={changeTaskStatus}>{taskComplete? "Not Completed?" : "Completed?"}</button>
+                <button className="toggle-task" onClick={() => setTaskComplete(taskComplete => !taskComplete)} >{taskComplete? "Not Completed?" : "Completed?"}</button>
             </TaskDiv>
         </MainDiv>
     )

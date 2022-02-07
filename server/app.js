@@ -70,7 +70,7 @@ mongoose.connect(process.env.DB_CONNECTION, {
 const PORT = process.env.PORT || 4000
 //How do we start listening to the server
 // app.listen(port, () => console.log('Server running on port: http://localhost:4000'));
-server.listen(PORT, () => console.log(`Server running on port: ${PORT}`));
+server.listen(PORT, () => console.log(`Server running on port: http://localhost:${PORT}`));
 
 const connectedUsers = new Map();
 

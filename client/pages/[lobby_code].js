@@ -77,6 +77,16 @@ const Lobby = ({ errorCode, lobby }) => {
         socket?.on('endGame', () => {
             setStartGame(false)
         })
+
+        return () => {
+            socket.removeAllListeners("playerJoined");
+            socket.removeAllListeners("rules");
+            socket.removeAllListeners("playerLeft");
+            socket.removeAllListeners("message");
+            socket.removeAllListeners("goBack");
+            socket.removeAllListeners("startGame");
+            socket.removeAllListeners("endGame");
+        }
         // return () => {
         //     if (owner) {
         //         fetch(`${url}/lobbies/${lobby_code}`, {
