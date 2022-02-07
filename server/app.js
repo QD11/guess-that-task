@@ -151,6 +151,10 @@ io.on('connection', (socket) => {
             })
         })
 
+        socket.on('tasksStatus', data => {
+            socket.to(room).emit("updatedTasksStatus", data)
+        })
+
         // io.in(room).emit("playersInRoom", connectedUsers.get(room))
         // console.log(io.sockets.clients(room))
         socket.to(room).emit("message", `Welcome to lobby ${room}`)

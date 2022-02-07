@@ -38,11 +38,11 @@ const Game = ({imposters, user, rules, owner, players}) => {
                 <RoleOverlay role={role}/>
             </div>
             {role === 'crewmate' ? 
-                <CrewmateDashBoard/> 
+                <CrewmateDashBoard players={players}/> 
                 : 
-                <ImposterDashBoard/>
+                <ImposterDashBoard players={players}/>
             }
-            <button onClick={() => socket?.emit("endGame")}>
+            <button className="endgame" onClick={() => socket?.emit("endGame")}>
                 End Game
             </button>
         </MainContainer>
@@ -72,6 +72,16 @@ const MainContainer = styled.div`
             font-weight: bold;
             font-size: 50px;
         }
+    }
+    .endgame {
+        background: #fff no-repeat 50%;
+        background-size: 40px 40px;
+        padding: 10px 25px;
+        border-radius: 4px;
+        font-size: 20px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: .3s ease-out;
     }
 `
 

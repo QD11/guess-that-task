@@ -72,14 +72,14 @@ const tasks = [
         task: "Drink 3 glasses of any beverage"
     },
     {
-        task: "Make the TT sign (Look up 'TT' by Twice)",
+        task: "Do the 'TT' dance. Sing 'I'm like TT' while doing it.",
         image: {
             src: 'https://c.tenor.com/3Wnd3HZK9oMAAAAC/%EB%82%98%EC%9A%B8%EA%B2%83%EA%B0%99%EC%9D%80%EA%B8%B0%EB%B6%84%EC%9D%B4%EC%95%BC-%EB%8C%84%EC%8A%A4.gif',
             alt: "TT"
         }
     },
     {
-        task: "Do the 'Shy Shy Shy' dance",
+        task: "Do the 'Shy Shy Shy' dance. Sing 'Shy Shy Shy' while doing it. ",
         image: {
             src: 'https://c.tenor.com/swm5XDffK7MAAAAd/shy-shy-shy-sana.gif',
             alt: "ShyShyShy"
