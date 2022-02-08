@@ -126,6 +126,7 @@ io.on('connection', (socket) => {
 
         socket.room = room;
         socket.join(room);
+        console.log(socket.room, room)
 
         socket.to(room).emit('playerJoined', user)
 
@@ -142,7 +143,7 @@ io.on('connection', (socket) => {
         });
 
         socket.on('sendTask', (players) => {
-            const clients = io.sockets.adapter.rooms.get(room);
+            const clients = io.sockets.adapter.rooms.get(socket.room);
             const randomTasks = _.sample(tasks, players.length)
             let i = 0;
             clients.forEach((client, index) => {

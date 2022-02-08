@@ -12,8 +12,6 @@ const Game = ({imposters, user, rules, owner, players}) => {
     const crewmates = players.filter(player => !imposters.some(imposter => imposter._id === player._id) && player._id !== user._id)
     const socket = useContext(SocketContext)
 
-    console.log(crewmates)
-
     const Completionist = () => <span>TIME!</span>;
     const renderer = ({ minutes, seconds, completed }) => {
         if (completed) {
@@ -30,7 +28,6 @@ const Game = ({imposters, user, rules, owner, players}) => {
             socket.emit('sendTask', players)
         }
     }, [])
-    console.log(role)
 
     return(
         <MainContainer>

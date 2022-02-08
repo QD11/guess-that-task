@@ -62,10 +62,9 @@ const Lobby = ({ errorCode, lobby }) => {
             setPlayers(players => players.filter(player => player._id !== data._id))
         })
         socket?.on("goBack", data => {
-            if (data) {
+            
                 socket?.emit('leaveRoom', user.info)
                 router.push('/')
-            }
         })
         socket?.on('startGame', (data) => {
             setStartGame(true)
