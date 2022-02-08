@@ -60,7 +60,7 @@ const MainContainer = styled.div`
     }
     @media (min-width:900px){
         // margin-top: 50px;
-        width: 80%;
+        width: 90%;
     }
     .header {
         display: flex;

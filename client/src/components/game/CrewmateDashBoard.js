@@ -16,14 +16,13 @@ const CrewmateDashBoard = ({imposters, crewmates}) => {
         })
     }))
 
-    console.log(playersTasks)
-
     useEffect(() => {
         socket.on('getTask', data => {
             setTask(data)
         })
         socket.on('updatedTasksStatus', data => {
             setPlayersTasks(playersTasks => playersTasks.map(playersTask => {
+                console.log(data)
                 if (data.user._id === playersTask._id) {
                     return({
                         ...playersTask,
@@ -47,6 +46,10 @@ const CrewmateDashBoard = ({imposters, crewmates}) => {
 
     return(
         <MainDiv>
+            <PlayersDiv>
+                <span className="user-status">{user.name}{taskComplete?"✔️":"❌"}</span>
+                {playersTasks.map(crewmate => <span className="player-status">{crewmate.name}{crewmate.taskComplete?"✔️":"❌"}</span>)}
+            </PlayersDiv>
             <TaskDiv>
                 <span className='title'>Your Task</span>
                 <span className='task'>{task?.task}</span>
@@ -59,7 +62,12 @@ const CrewmateDashBoard = ({imposters, crewmates}) => {
                         height={400}
                     />
                 }
-                {task?.extra && <span className='extra'>{task?.extra}</span>}
+                {task?.extra && 
+                    <>
+                        <span>Extra Rules: </span>
+                        <span className='extra'>{task?.extra}</span>
+                    </>
+                }
                 <button className="toggle-task" onClick={() => setTaskComplete(taskComplete => !taskComplete)} >{taskComplete? "Not Completed?" : "Completed?"}</button>
             </TaskDiv>
         </MainDiv>
@@ -78,6 +86,35 @@ const MainDiv = styled.div`
         border-radius: 10px;
         min-height: 3em;
     }
+`
+
+const PlayersDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    // width: 20%;
+    background-color: #faf158;
+    border-radius: 10px;
+    padding: 10px;
+    .user-status {
+        font-size: 23px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .player-status {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    & span {
+        margin: 5px 0 0 0;
+        background: #fff no-repeat 50%;
+        background-size: 40px 40px;
+        padding: 10px 25px;
+        border: 2px solid black;
+        border-radius: 4px;
+        transition: .3s ease-out;
+    }
+    overflow: auto;
 `
 
 const TaskDiv = styled.div`
@@ -104,7 +141,7 @@ const TaskDiv = styled.div`
         margin: 20px 0px;
     }
     .extra {
-        margin: 10px 0px;
+        margin: 5px 0px;
     }
     .toggle-task {
         margin: 20px 0 0 0;
