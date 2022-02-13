@@ -22,7 +22,6 @@ const CrewmateDashBoard = ({imposters, crewmates}) => {
         })
         socket.on('updatedTasksStatus', data => {
             setPlayersTasks(playersTasks => playersTasks.map(playersTask => {
-                console.log(data)
                 if (data.user._id === playersTask._id) {
                     return({
                         ...playersTask,
@@ -48,7 +47,7 @@ const CrewmateDashBoard = ({imposters, crewmates}) => {
         <MainDiv>
             <PlayersDiv>
                 <span className="user-status">{user.name}{taskComplete?"✔️":"❌"}</span>
-                {playersTasks.map(crewmate => <span className="player-status">{crewmate.name}{crewmate.taskComplete?"✔️":"❌"}</span>)}
+                {playersTasks?.map(crewmate => <span key={crewmate._id} className="player-status">{crewmate.name}{crewmate.taskComplete?"✔️":"❌"}</span>)}
             </PlayersDiv>
             <TaskDiv>
                 <span className='title'>Your Task</span>

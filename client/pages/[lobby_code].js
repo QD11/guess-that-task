@@ -33,7 +33,7 @@ const Lobby = ({ errorCode, lobby }) => {
     const [players, setPlayers] = useState(lobby.players)
     const [startGame, setStartGame] = useState(false)
     const [rules, setRules] = useState({
-        duration: 10,
+        duration: 15,
         numOfImposter: 1,
         guesses: players.length,
         numOfCrewmatesTasks: 1,
@@ -41,6 +41,10 @@ const Lobby = ({ errorCode, lobby }) => {
     })
     //push owner changes to fetch so that when players join, they get the latest rule change
     const [imposters, setImposters] = useState(null)
+
+    // useEffect(() => {
+    //     setRules(rules => setRules({...rules, guesses: players.length}))
+    // }, [players])
 
     useEffect(() => {
         if (owner) {
@@ -53,6 +57,7 @@ const Lobby = ({ errorCode, lobby }) => {
         socket?.on("playerJoined", data => {
             if (!players.map(player => player._id).includes(data._id)) {
                 setPlayers(players => [...players, data])
+                setRules(rules => setRules({...rules, guesses: players.length}))
             }
         })
         socket?.on("rules", data => {
