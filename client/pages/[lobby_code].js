@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import PlayerList from '../src/components/lobby/PlayerList'
 import Rules from '../src/components/lobby/Rules'
 import styled from 'styled-components'
-import { useSelector } from 'react-redux'
+import { useSelector, connect } from 'react-redux'
 import Error from 'next/error'
 import { useBeforeunload } from 'react-beforeunload';
 import { IoArrowBackCircleSharp } from 'react-icons/io5'
@@ -20,16 +20,11 @@ const production = 'https://guess-that-task-server.herokuapp.com';
 const development = 'http://localhost:4000'
 const url = process.env.NODE_ENV === 'development' ? development : production;
 
-const Lobby = ({ errorCode, lobby }) => {
+const Lobby = ({ errorCode, lobby, user }) => {
     const router = useRouter()
     const { lobby_code } = router.query
-    const user = useSelector(state => state.user)
     const owner = lobby.owner._id === user.info._id ? true: false
-    // const [socket, setSocket] = useState(io(url))
     const socket = useContext(SocketContext)
-    // useEffect(() => {
-    //     setSocket(io(url))
-    // }, [])
     const [players, setPlayers] = useState(lobby.players)
     const [startGame, setStartGame] = useState(false)
     const [rules, setRules] = useState({
@@ -215,6 +210,14 @@ export async function getServerSideProps(context, req) {
     };
 }
 
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+    };
+};
+
+export default connect(mapStateToProps, null)(Lobby);
+
 const ButtonDiv = styled.div`
     display: flex;
     justify-content: center;
@@ -266,4 +269,3 @@ const MainContainer = styled.div`
     }
 `
 
-export default Lobby
