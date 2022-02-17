@@ -6,7 +6,7 @@ import React, {useState, useEffect, useRef} from 'react'
 import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-generator';
 import { v4 as uuid } from 'uuid';
 import { useRouter } from 'next/router'
-import { useDispatch, connect } from 'react-redux'
+import { connect } from 'react-redux'
 import { getUserID } from '../src/redux/userSlice'
 import cookie from 'js-cookie'
 
@@ -16,8 +16,7 @@ const production = 'https://guess-that-task-server.herokuapp.com';
 const development = 'http://localhost:4000'
 const url = process.env.NODE_ENV === 'development' ? development : production;
 
-const Home = ({user}) => {
-    const dispatch = useDispatch()
+const Home = ({user, getUserID}) => {
     const router = useRouter()
     const [id, setId] = useState('')
     const [name, setName] = useState(uniqueNamesGenerator({
@@ -35,7 +34,7 @@ const Home = ({user}) => {
         if (!user.message ) {
             setId(user._id)
             setName(user.name)
-            dispatch(getUserID({info: user}))
+            getUserID({info: user})
             // fetch(`${url}/players/${user.id}`)
             // .then(res => res.json())
             // .then(player => {
@@ -55,9 +54,7 @@ const Home = ({user}) => {
             .then(player => {
                 setId(player._id)
                 cookie.set("user", player._id)
-                dispatch(getUserID({
-                    info: player
-                }))
+                getUserID({info: player})
             })}
     }, [])
     // cookie.remove("user") //remove user cookie
@@ -201,7 +198,19 @@ export async function getServerSideProps({req, res}) {
     return { props: {user: data}}
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // logout: (id) => {
+        //     dispatch(logout(id));
+        //     dispatch(clearOnLogout());
+        // },
+        getUserID: (id) => {
+            dispatch(getUserID(id));
+        }
+    };
+};
 
+export default connect(null, mapDispatchToProps)(Home);
 
 const Container = styled.div`
     display: flex;
@@ -309,22 +318,4 @@ const Center = styled.div`
     }
 `
 
-    //serverside cookies (not need since its not important information)
-    //add cookie
-    // useEffect(() => {
-    //     fetch("/api/login", {
-    //         method: "post",
-    //         headers: {"Content-Type": "application/json"},
-    //         body: JSON.stringify({token: "ABCD"})
-    //     })
-    // }, [])
-    //remove cookie
-    // useEffect(() => {
-    //     fetch("/api/logout", {
-    //         method: "post",
-    //         headers: {"Content-Type": "application/json"},
-    //         body: JSON.stringify({})
-    //     })
-    // }, [])
-
-export default Home
+// export default Home
