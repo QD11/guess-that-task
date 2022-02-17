@@ -6,7 +6,7 @@ import React, {useState, useEffect, useRef} from 'react'
 import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-generator';
 import { v4 as uuid } from 'uuid';
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
+import { useDispatch, connect } from 'react-redux'
 import { getUserID } from '../src/redux/userSlice'
 import cookie from 'js-cookie'
 
@@ -193,7 +193,9 @@ export async function getServerSideProps({req, res}) {
     let data = {message: 'test'}
     if (req.cookies.user) {
         const response = await fetch(`${url}/players/${req.cookies.user}`)
-        data = await response.json()
+        if (response.ok){
+            data = await response.json()
+        }
     }
 
     return { props: {user: data}}
