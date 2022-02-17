@@ -4,7 +4,7 @@ import RoleOverlay from './RoleOverlay'
 import Countdown from 'react-countdown';
 import CrewmateDashBoard from './CrewmateDashBoard'
 import ImposterDashBoard from './ImposterDashBoard'
-
+import { connect } from 'react-redux'
 import {SocketContext} from '../../../pages/_app'
 
 const Game = ({imposters, user, rules, owner, players}) => {
@@ -84,4 +84,12 @@ const MainContainer = styled.div`
     }
 `
 
-export default Game;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.info,
+    };
+};
+
+export default connect(mapStateToProps, null)(Game);
+
+// export default Game

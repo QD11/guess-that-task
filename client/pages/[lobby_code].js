@@ -185,7 +185,6 @@ const Lobby = ({ errorCode, lobby, user }) => {
                 <Game 
                     owner={owner} 
                     imposters={imposters} 
-                    user={user.info}
                     rules={rules}
                     players={players}
                 />

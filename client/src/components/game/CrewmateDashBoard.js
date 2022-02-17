@@ -1,12 +1,11 @@
 import React, {useEffect, useContext, useState} from 'react';
 import {SocketContext} from '../../../pages/_app'
 import styled from 'styled-components'
-import { useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import Image from 'next/image'
 
-const CrewmateDashBoard = ({imposters, crewmates}) => {
+const CrewmateDashBoard = ({imposters, crewmates, user}) => {
     const socket = useContext(SocketContext)
-    const user = useSelector(state => state.user).info
     const [task, setTask] = useState(null)
     const [taskComplete, setTaskComplete] = useState(false)
     const [playersTasks, setPlayersTasks] = useState(crewmates.map(crewmate => {
@@ -158,4 +157,10 @@ const TaskDiv = styled.div`
     }
 `
 
-export default CrewmateDashBoard;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.info,
+    };
+};
+
+export default connect(mapStateToProps, null)(CrewmateDashBoard);
