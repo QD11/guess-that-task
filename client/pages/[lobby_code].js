@@ -34,12 +34,7 @@ const Lobby = ({ errorCode, lobby, user }) => {
         numOfCrewmatesTasks: 1,
         clues: true,
     })
-    //push owner changes to fetch so that when players join, they get the latest rule change
     const [imposters, setImposters] = useState(null)
-
-    // useEffect(() => {
-    //     setRules(rules => setRules({...rules, guesses: players.length}))
-    // }, [players])
 
     useEffect(() => {
         if (owner) {
@@ -82,29 +77,6 @@ const Lobby = ({ errorCode, lobby, user }) => {
             socket.removeAllListeners("startGame");
             socket.removeAllListeners("endGame");
         }
-        // return () => {
-        //     if (owner) {
-        //         fetch(`${url}/lobbies/${lobby_code}`, {
-        //             method: "DELETE",
-        //             headers: {
-        //                 "Content-Type": "application/json"
-        //             },
-        //         })
-        //         socket?.emit('roomCanceled', true)
-        //     } 
-        //     else{
-        //         fetch(`${url}/lobbies/${lobby_code}/${user.info._id}/remove`, {
-        //             method: "PATCH",
-        //             headers: {
-        //                 "Content-Type": "application/json"
-        //             },
-        //             body: JSON.stringify({
-        //                 playerId: user.info._id,
-        //             })
-        //         })
-        //         socket?.emit('leaveRoom', user.info)
-        //     }
-        // }
     }, [socket])
 
     if (errorCode) {
@@ -168,12 +140,6 @@ const Lobby = ({ errorCode, lobby, user }) => {
                         Start Game
                     </button>
                 </ButtonDiv>
-                {/* <Image 
-                    src="https://c.tenor.com/3Wnd3HZK9oMAAAAC/%EB%82%98%EC%9A%B8%EA%B2%83%EA%B0%99%EC%9D%80%EA%B8%B0%EB%B6%84%EC%9D%B4%EC%95%BC-%EB%8C%84%EC%8A%A4.gif"
-                    alt="crewmate"
-                    width={200}
-                    height={200}
-                /> */}
             </>
         )
     } else return(
@@ -193,8 +159,6 @@ const Lobby = ({ errorCode, lobby, user }) => {
     }
 
 export async function getServerSideProps(context, req) {
-    // const router = useRouter()
-    // const { lobby_code } = router.query
     const lobby_code = context.params.lobby_code
     //
     const res = await fetch(`${url}/lobbies/${lobby_code}`);
