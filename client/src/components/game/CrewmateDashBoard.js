@@ -1,4 +1,5 @@
 import React, {useEffect, useContext, useState} from 'react';
+import CrewmateModal from './CrewmateModal'
 import {SocketContext} from '../../../pages/_app'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
@@ -14,10 +15,19 @@ const CrewmateDashBoard = ({imposters, crewmates, user}) => {
             taskComplete: false
         })
     }))
+    const [modal, setModal] = useState(false)
+    const toggleModal = () => {
+        setModal(!modal);
+    };
 
     useEffect(() => {
         socket.on('getTask', data => {
             setTask(data)
+        })
+        socket.on('confirmGuess', id => {
+            if (user._id === id) {
+                setModal(modal => !modal)
+            }
         })
         socket.on('updatedTasksStatus', data => {
             setPlayersTasks(playersTasks => playersTasks.map(playersTask => {
@@ -35,6 +45,7 @@ const CrewmateDashBoard = ({imposters, crewmates, user}) => {
         return () => {
             socket.removeAllListeners("getTask");
             socket.removeAllListeners("updatedTasksStatus");
+            socket.removeAllListeners("confirmGuess");
         };
     }, [socket])
 
@@ -44,6 +55,7 @@ const CrewmateDashBoard = ({imposters, crewmates, user}) => {
 
     return(
         <MainDiv>
+            <CrewmateModal modal={modal} toggleModal={toggleModal}/>
             <PlayersDiv>
                 <span className="user-status">{user.name}{taskComplete?"✔️":"❌"}</span>
                 {playersTasks?.map(crewmate => <span key={crewmate._id} className="player-status">{crewmate.name}{crewmate.taskComplete?"✔️":"❌"}</span>)}

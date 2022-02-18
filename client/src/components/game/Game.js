@@ -39,7 +39,7 @@ const Game = ({imposters, user, rules, owner, players}) => {
             {role === 'crewmate' ? 
                 <CrewmateDashBoard imposters={imposters} crewmates={crewmates}/> 
                 : 
-                <ImposterDashBoard imposters={imposters} crewmates={crewmates}/>
+                <ImposterDashBoard imposters={imposters} crewmates={crewmates} rules={rules}/>
             }
             <button className="endgame" onClick={() => socket?.emit("endGame")}>
                 End Game

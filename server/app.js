@@ -156,6 +156,14 @@ io.on('connection', (socket) => {
             socket.to(room).emit("updatedTasksStatus", data)
         })
 
+        socket.on('decreaseOtherGuesses', () => {
+            socket.to(room).emit("useGuess")
+        })
+
+        socket.on('checkGuess', id => {
+            socket.to(room).emit("confirmGuess", id)
+        })
+
         // io.in(room).emit("playersInRoom", connectedUsers.get(room))
         // console.log(io.sockets.clients(room))
     })
