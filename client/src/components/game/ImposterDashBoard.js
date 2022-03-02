@@ -43,10 +43,9 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
 
     return(
         <MainDiv>
-            {/* <GuessModal modal={modal} toggleModal={toggleModal}/> */}
             <GuessModal modal={modal} toggleModal={toggleModal} clickedCrewmate={clickedCrewmate}/>
             <PlayersDiv>
-            {crewmates?.map(crewmate => <span onClick={() => useGuess(crewmate._id)} key={crewmate._id} className="player-status">{crewmate.name}</span>)}
+            {crewmates?.map(crewmate => <span onClick={useGuess(crewmate._id)} key={crewmate._id} className="player-status">{crewmate.name}</span>)}
             </PlayersDiv>
             <div className="guess-div">
                 <span>Guess: {guesses}</span>
