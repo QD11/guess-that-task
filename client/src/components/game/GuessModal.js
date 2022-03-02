@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {SocketContext} from '../../../pages/_app'
 import { connect } from 'react-redux'
 
-const GuessModal = ({modal, toggleModal, clickedCrewmate}) => {
+const GuessModal = ({modal, toggleModal, clickedCrewmate, guesses}) => {
     const socket = useContext(SocketContext)
     useEffect(() => {
         if(modal) {
@@ -13,10 +13,10 @@ const GuessModal = ({modal, toggleModal, clickedCrewmate}) => {
         }
     }, [modal])
 
-    // const closeModal = (userResponse, user) => {
-    //     socket.emit('respondToGuess', (userResponse, user))
-    //     toggleModal()
-    // }
+    const closeModal = (userResponse, user) => {
+        // socket.emit('respondToGuess', (userResponse, user))
+        toggleModal()
+    }
 
     return (
         <>
@@ -26,14 +26,17 @@ const GuessModal = ({modal, toggleModal, clickedCrewmate}) => {
                 <div className="modal-content">
                     <div className="content">
                         <Title>
-                            Did the imposters guess your task correctly?
+                            Are you using one of your guesses on {clickedCrewmate.name}?
+                        </Title>
+                        <Title>
+                            You have {guesses} left.
                         </Title>
                         <div className="bottom-container">
                             <div className="create-container">
-                                <button onClick={() => closeModal(true, user)}>Yes</button>
+                                <button onClick={() => closeModal()}>Yes</button>
                             </div>
                             <div className="create-container">
-                                <button onClick={() => closeModal(false, user)}>No</button>
+                                <button onClick={() => closeModal()}>No</button>
                             </div>
                         </div>
                     </div>
