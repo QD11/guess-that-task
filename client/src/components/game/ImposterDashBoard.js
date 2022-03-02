@@ -10,11 +10,7 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
     const clues = rules.clues
     const [guesses, setGuesses] = useState(rules.guesses)
     const [modal, setModal] = useState(false)
-    const toggleModal = () => {
-        setModal(!modal);
-    };
     const [clickedCrewmate, setClickedCrewmate] = useState(null)
-    console.log(clickedCrewmate)
 
     useEffect(() => {
         socket.on('useGuess', () => {
@@ -30,25 +26,27 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
         }
     }, [socket])
 
-    // const useGuess = (crewmate_id) => {
-    //     setModal(true)
-    //     clickedCrewmate(crewmate_id)
-    //     // if (guesses > 0) {
-    //     //     setGuesses(guesses => guesses - 1)
-    //     //     socket.emit('decreaseOtherGuesses')
-    //     //     socket.emit('checkGuess', crewmate_id)
-    //     // }
-    // }
+    const toggleModal = () => {
+        setModal(modal => !modal);
+    };
+
+    const useGuess = (crewmate_id) => {
+        if (guesses > 0) {
+            setGuesses(guesses => guesses - 1)
+            socket.emit('decreaseOtherGuesses')
+            socket.emit('checkGuess', crewmate_id)
+            setModal(modal => !modal);
+    }}
 
     const handleClick = (crewmate) => {
         setClickedCrewmate(crewmate)
-        setModal(true)
+        setModal(modal => !modal)
     }
     
 
     return(
         <MainDiv>
-            <GuessModal modal={modal} toggleModal={toggleModal} clickedCrewmate={clickedCrewmate} guesses={guesses}/>
+            <GuessModal useGuess={useGuess} modal={modal} toggleModal={toggleModal} clickedCrewmate={clickedCrewmate} guesses={guesses}/>
             <PlayersDiv>
             {crewmates?.map(crewmate => <span onClick={() => handleClick(crewmate)} key={crewmate._id} className="player-status">{crewmate.name}</span>)}
             </PlayersDiv>

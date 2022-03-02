@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {SocketContext} from '../../../pages/_app'
 import { connect } from 'react-redux'
 
-const GuessModal = ({modal, toggleModal, clickedCrewmate, guesses}) => {
+const GuessModal = ({modal, useGuess, clickedCrewmate, guesses, toggleModal}) => {
     const socket = useContext(SocketContext)
     useEffect(() => {
         if(modal) {
@@ -33,10 +33,10 @@ const GuessModal = ({modal, toggleModal, clickedCrewmate, guesses}) => {
                         </Title>
                         <div className="bottom-container">
                             <div className="create-container">
-                                <button onClick={() => closeModal()}>Yes</button>
+                                <button onClick={() => useGuess()}>Yes</button>
                             </div>
                             <div className="create-container">
-                                <button onClick={() => closeModal()}>No</button>
+                                <button onClick={() => toggleModal()}>No</button>
                             </div>
                         </div>
                     </div>
