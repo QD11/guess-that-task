@@ -33,7 +33,7 @@ const GuessModal = ({modal, useGuess, clickedCrewmate, guesses, toggleModal}) =>
                         </Title>
                         <div className="bottom-container">
                             <div className="create-container">
-                                <button onClick={() => useGuess()}>Yes</button>
+                                <button onClick={() => useGuess(clickedCrewmate._id)}>Yes</button>
                             </div>
                             <div className="create-container">
                                 <button onClick={() => toggleModal()}>No</button>
