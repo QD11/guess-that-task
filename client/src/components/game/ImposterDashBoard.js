@@ -30,7 +30,7 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
         setModal(modal => !modal);
     };
 
-    const useGuess = (crewmate_id) => {
+    const handleGuess = (crewmate_id) => {
         if (guesses > 0) {
             setGuesses(guesses => guesses - 1)
             socket.emit('decreaseOtherGuesses')
@@ -47,7 +47,7 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
 
     return(
         <MainDiv>
-            <GuessModal useGuess={useGuess} modal={modal} toggleModal={toggleModal} clickedCrewmate={clickedCrewmate} guesses={guesses}/>
+            <GuessModal handleGuess={handleGuess} modal={modal} toggleModal={toggleModal} clickedCrewmate={clickedCrewmate} guesses={guesses}/>
             <PlayersDiv>
             {crewmates?.map(crewmate => <span onClick={() => handleClick(crewmate)} key={crewmate._id} className="player-status">{crewmate.name}</span>)}
             </PlayersDiv>
