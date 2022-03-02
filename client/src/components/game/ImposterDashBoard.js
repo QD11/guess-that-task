@@ -29,15 +29,15 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
         }
     }, [socket])
 
-    const useGuess = (crewmate_id) => {
-        setModal(true)
-        clickedCrewmate(crewmate_id)
-        // if (guesses > 0) {
-        //     setGuesses(guesses => guesses - 1)
-        //     socket.emit('decreaseOtherGuesses')
-        //     socket.emit('checkGuess', crewmate_id)
-        // }
-    }
+    // const useGuess = (crewmate_id) => {
+    //     setModal(true)
+    //     clickedCrewmate(crewmate_id)
+    //     // if (guesses > 0) {
+    //     //     setGuesses(guesses => guesses - 1)
+    //     //     socket.emit('decreaseOtherGuesses')
+    //     //     socket.emit('checkGuess', crewmate_id)
+    //     // }
+    // }
 
     
 
@@ -45,7 +45,7 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
         <MainDiv>
             <GuessModal modal={modal} toggleModal={toggleModal} clickedCrewmate={clickedCrewmate}/>
             <PlayersDiv>
-            {crewmates?.map(crewmate => <span onClick={useGuess(crewmate._id)} key={crewmate._id} className="player-status">{crewmate.name}</span>)}
+            {crewmates?.map(crewmate => <span key={crewmate._id} className="player-status">{crewmate.name}</span>)}
             </PlayersDiv>
             <div className="guess-div">
                 <span>Guess: {guesses}</span>
