@@ -36,7 +36,8 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
             socket.emit('decreaseOtherGuesses')
             socket.emit('checkGuess', crewmate_id)
             setModal(modal => !modal);
-    }}
+        }
+    }
 
     const handleClick = (crewmate) => {
         setClickedCrewmate(crewmate)
