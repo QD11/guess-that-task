@@ -50,7 +50,6 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
             </PlayersDiv>
             <div className="guess-div">
                 <span>Guess: {guesses}</span>
-                {/* <button onClick={useGuess}>Guess!</button> */}
             </div>
         </MainDiv>
     )
