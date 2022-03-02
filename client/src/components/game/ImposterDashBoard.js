@@ -2,12 +2,17 @@ import React, {useEffect, useContext, useState} from 'react';
 import {SocketContext} from '../../../pages/_app'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+import GuessModal from './GuessModal'
 import Image from 'next/image'
 
 const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
     const socket = useContext(SocketContext)
     const clues = rules.clues
     const [guesses, setGuesses] = useState(rules.guesses)
+    const [modal, setModal] = useState(false)
+    const toggleModal = () => {
+        setModal(!modal);
+    };
 
     useEffect(() => {
         socket.on('useGuess', () => {
@@ -25,9 +30,9 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
 
     const useGuess = (crewmate_id) => {
         if (guesses > 0) {
-            setGuesses(guesses => guesses - 1)
-            socket.emit('decreaseOtherGuesses')
-            socket.emit('checkGuess', crewmate_id)
+            // setGuesses(guesses => guesses - 1)
+            // socket.emit('decreaseOtherGuesses')
+            // socket.emit('checkGuess', crewmate_id)
         }
     }
 
@@ -35,6 +40,7 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
 
     return(
         <MainDiv>
+            <GuessModal modal={modal} toggleModal={toggleModal}/>
             <PlayersDiv>
             {crewmates?.map(crewmate => <span onClick={() => useGuess(crewmate._id)} key={crewmate._id} className="player-status">{crewmate.name}</span>)}
             </PlayersDiv>
