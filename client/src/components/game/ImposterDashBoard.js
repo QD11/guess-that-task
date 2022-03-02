@@ -13,6 +13,7 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
     const toggleModal = () => {
         setModal(!modal);
     };
+    const [clickedCrewmate, setClickedCrewmate] = useState(null)
 
     useEffect(() => {
         socket.on('useGuess', () => {
@@ -29,24 +30,27 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
     }, [socket])
 
     const useGuess = (crewmate_id) => {
-        if (guesses > 0) {
-            // setGuesses(guesses => guesses - 1)
-            // socket.emit('decreaseOtherGuesses')
-            // socket.emit('checkGuess', crewmate_id)
-        }
+        setModal(true)
+        clickedCrewmate(crewmate_id)
+        // if (guesses > 0) {
+        //     setGuesses(guesses => guesses - 1)
+        //     socket.emit('decreaseOtherGuesses')
+        //     socket.emit('checkGuess', crewmate_id)
+        // }
     }
 
     
 
     return(
         <MainDiv>
-            <GuessModal modal={modal} toggleModal={toggleModal}/>
+            {/* <GuessModal modal={modal} toggleModal={toggleModal}/> */}
+            <GuessModal modal={modal} toggleModal={toggleModal} clickedCrewmate={clickedCrewmate}/>
             <PlayersDiv>
             {crewmates?.map(crewmate => <span onClick={() => useGuess(crewmate._id)} key={crewmate._id} className="player-status">{crewmate.name}</span>)}
             </PlayersDiv>
             <div className="guess-div">
                 <span>Guess: {guesses}</span>
-                <button onClick={useGuess}>Guess!</button>
+                {/* <button onClick={useGuess}>Guess!</button> */}
             </div>
         </MainDiv>
     )

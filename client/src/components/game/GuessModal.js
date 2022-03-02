@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {SocketContext} from '../../../pages/_app'
 import { connect } from 'react-redux'
 
-const GuessModal = ({modal, toggleModal}) => {
+const GuessModal = ({modal, toggleModal, clickedCrewmate}) => {
     const socket = useContext(SocketContext)
     useEffect(() => {
         if(modal) {
