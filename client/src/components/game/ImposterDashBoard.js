@@ -3,6 +3,7 @@ import {SocketContext} from '../../../pages/_app'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import GuessModal from './GuessModal'
+import { FaSkull } from 'react-icons/fa'
 import Image from 'next/image'
 
 const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
@@ -11,6 +12,11 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
     const [guesses, setGuesses] = useState(rules.guesses)
     const [modal, setModal] = useState(false)
     const [clickedCrewmate, setClickedCrewmate] = useState(null)
+    const [crewmatesInfo, setCrewmatesInfo] = useState(crewmates.map(crewmate => ({
+        name: crewmate.name,
+        _id: crewmate._id,
+        alive: true
+    })))
 
     useEffect(() => {
         socket.on('useGuess', () => {
@@ -18,6 +24,15 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
         })
         socket.on('rewindGuess', () => {
             setGuesses(guesses => guesses - 1)
+        })
+        socket.on('crewmateResponse', data => {
+            setCrewmatesInfo(crewmatesInfo => crewmatesInfo.map(crewmate => {
+                if (crewmate._id === data._id) {
+                    return({...crewmate, alive: false})
+                } else {
+                    return(crewmate)
+                }
+            }))
         })
 
         return () => {
@@ -46,12 +61,13 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
         }
     }
     
+    //add a condition to make it unclickable if dead
 
     return(
         <MainDiv>
             <GuessModal handleGuess={handleGuess} modal={modal} toggleModal={toggleModal} clickedCrewmate={clickedCrewmate} guesses={guesses}/>
             <PlayersDiv guesses={guesses}>
-                {crewmates?.map(crewmate => <span onClick={() => handleClick(crewmate)} key={crewmate._id} className="player-status">{crewmate.name}</span>)}
+                {crewmatesInfo?.map(crewmate => <span onClick={() => handleClick(crewmate)} key={crewmate._id} className="player-status">{crewmate.name}{crewmate.alive? "😃":"☠️"}</span>)}
             </PlayersDiv>
             <div className="guess-div">
                 <span>Guess: {guesses}</span>
