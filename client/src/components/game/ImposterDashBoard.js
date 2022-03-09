@@ -40,8 +40,10 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
     }
 
     const handleClick = (crewmate) => {
-        setClickedCrewmate(crewmate)
-        setModal(modal => !modal)
+        if (guesses > 0) {
+            setClickedCrewmate(crewmate)
+            setModal(modal => !modal)
+        }
     }
     
 
