@@ -7,7 +7,7 @@ import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-
 import { v4 as uuid } from 'uuid';
 import { useRouter } from 'next/router'
 import { connect } from 'react-redux'
-import { getUserID } from '../src/redux/userSlice'
+import { getUserID, changeUserName } from '../src/redux/userSlice'
 import cookie from 'js-cookie'
 
 import Tutorial from '../src/components/home/Tutorial'
@@ -16,7 +16,7 @@ const production = 'https://guess-that-task-server.herokuapp.com';
 const development = 'http://localhost:4000'
 const url = process.env.NODE_ENV === 'development' ? development : production;
 
-const Home = ({user, getUserID}) => {
+const Home = ({user, getUserID, changeUserName}) => {
     const router = useRouter()
     const [id, setId] = useState('')
     const [name, setName] = useState(uniqueNamesGenerator({
@@ -122,6 +122,7 @@ const Home = ({user, getUserID}) => {
                 },
                 body: JSON.stringify({name: name})
             })
+            changeUserName(name)
         }
     })
 
@@ -206,6 +207,9 @@ const mapDispatchToProps = (dispatch) => {
         // },
         getUserID: (id) => {
             dispatch(getUserID(id));
+        },
+        changeUserName: (name) => {
+            dispatch(changeUserName(name))
         }
     };
 };

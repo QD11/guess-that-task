@@ -36,8 +36,6 @@ const Lobby = ({ errorCode, lobby, user }) => {
         clues: true,
     })
     const [imposters, setImposters] = useState(null)
-    //fix name change not appearing in lobby
-    console.log(user.info)
 
     useEffect(() => {
         if (owner) {
