@@ -50,8 +50,8 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
     return(
         <MainDiv>
             <GuessModal handleGuess={handleGuess} modal={modal} toggleModal={toggleModal} clickedCrewmate={clickedCrewmate} guesses={guesses}/>
-            <PlayersDiv>
-            {crewmates?.map(crewmate => <span onClick={() => handleClick(crewmate)} key={crewmate._id} className="player-status">{crewmate.name}</span>)}
+            <PlayersDiv guesses={guesses}>
+                {crewmates?.map(crewmate => <span onClick={() => handleClick(crewmate)} key={crewmate._id} className="player-status">{crewmate.name}</span>)}
             </PlayersDiv>
             <div className="guess-div">
                 <span>Guess: {guesses}</span>
@@ -94,7 +94,7 @@ const PlayersDiv = styled.div`
         border: 2px solid black;
         border-radius: 4px;
         transition: .3s ease-out;
-        cursor: pointer;
+        cursor: ${props => props.guesses && "pointer"}
     }
     overflow: auto;
 `
