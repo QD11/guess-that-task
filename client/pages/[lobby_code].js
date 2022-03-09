@@ -26,6 +26,7 @@ const Lobby = ({ errorCode, lobby, user }) => {
     const owner = lobby.owner._id === user.info._id ? true: false
     const socket = useContext(SocketContext)
     const [players, setPlayers] = useState(lobby.players)
+    console.log(players)
     const [startGame, setStartGame] = useState(false)
     const [rules, setRules] = useState({
         duration: 15,
@@ -35,6 +36,8 @@ const Lobby = ({ errorCode, lobby, user }) => {
         clues: true,
     })
     const [imposters, setImposters] = useState(null)
+    //fix name change not appearing in lobby
+    console.log(user.info)
 
     useEffect(() => {
         if (owner) {
