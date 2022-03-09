@@ -38,6 +38,7 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
         return () => {
             socket.removeAllListeners("useGuess");
             socket.removeAllListeners("rewindGuess");
+            socket.removeAllListeners("crewmateResponse");
         }
     }, [socket])
 
