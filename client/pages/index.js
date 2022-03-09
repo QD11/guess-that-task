@@ -34,7 +34,8 @@ const Home = ({user, getUserID, changeUserName}) => {
         if (!user.message ) {
             setId(user._id)
             setName(user.name)
-            getUserID({info: user})
+            // getUserID({info: user})
+            getUserID(user)
             // fetch(`${url}/players/${user.id}`)
             // .then(res => res.json())
             // .then(player => {
@@ -54,7 +55,8 @@ const Home = ({user, getUserID, changeUserName}) => {
             .then(player => {
                 setId(player._id)
                 cookie.set("user", player._id)
-                getUserID({info: player})
+                // getUserID({info: player})
+                getUserID(player)
             })}
     }, [])
     // cookie.remove("user") //remove user cookie

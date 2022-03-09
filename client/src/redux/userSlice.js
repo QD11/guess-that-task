@@ -7,7 +7,8 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         getUserID(state, action) {
-            return {...action.payload}
+            // return {...action.payload}
+            return {...state, info: action.payload}
         },
         changeUserName(state, action) {
             return {...state, info: {...current(state).info, name: action.payload}}
