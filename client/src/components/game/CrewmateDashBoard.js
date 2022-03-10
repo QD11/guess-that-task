@@ -45,7 +45,15 @@ const CrewmateDashBoard = ({imposters, crewmates, user}) => {
             }))
         })
         socket.on('crewmateResponse', data => {
-            console.log(data)
+            if (data.userResponse === true) {
+                setPlayersTasks(playersTasks => playersTasks.map(crewmate => {
+                    if (crewmate._id === data.user._id) {
+                        return({...crewmate, alive: false})
+                    } else {
+                        return(crewmate)
+                    }
+                }))
+            }
         })
 
         return () => {
