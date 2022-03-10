@@ -164,8 +164,8 @@ io.on('connection', (socket) => {
             socket.to(room).emit("confirmGuess", id)
         })
 
-        socket.on('respondToGuess', data => {
-            socket.to(room).emit("crewmateResponse", data)
+        socket.on('respondToGuess', (userResponse, user) => {
+            socket.to(room).emit("crewmateResponse", {userResponse, user})
         })
 
         // io.in(room).emit("playersInRoom", connectedUsers.get(room))
