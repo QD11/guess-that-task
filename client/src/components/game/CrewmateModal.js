@@ -20,6 +20,8 @@ const CrewmateModal = ({modal, toggleModal, user, setAlive}) => {
         toggleModal()
     }
 
+    
+
     return (
         <>
         {modal && (
@@ -32,7 +34,10 @@ const CrewmateModal = ({modal, toggleModal, user, setAlive}) => {
                         </Title>
                         <div className="bottom-container">
                             <div className="create-container">
-                                <button onClick={() => closeModal(true, user)}>Yes</button>
+                                <button onClick={() => {
+                                    setAlive(alive => !alive)
+                                    closeModal(true, user)}}
+                                >Yes</button>
                             </div>
                             <div className="create-container">
                                 <button onClick={() => closeModal(false, user)}>No</button>

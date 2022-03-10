@@ -165,7 +165,7 @@ io.on('connection', (socket) => {
         })
 
         socket.on('respondToGuess', (data) => {
-            io.in(room).emit("crewmateResponse", data)
+            socket.to(room).emit("crewmateResponse", data)
         })
 
         // io.in(room).emit("playersInRoom", connectedUsers.get(room))
