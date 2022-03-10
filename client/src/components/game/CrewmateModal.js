@@ -15,13 +15,8 @@ const CrewmateModal = ({modal, toggleModal, user, setAlive}) => {
 
     const closeModal = (userResponse, user) => {
         const data = {userResponse: userResponse, user: user}
+        //somehow Alive is not registering, let's make 
         socket.emit('respondToGuess', (data))
-        console.log('hey', userResponse)
-        if (userResponse) {
-            // setAlive(alive => !alive)
-            console.log("He dead")
-            setAlive(false)
-        }
         toggleModal()
     }
 
