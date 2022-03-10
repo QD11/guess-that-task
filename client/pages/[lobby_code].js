@@ -83,7 +83,8 @@ const Lobby = ({ errorCode, lobby, user }) => {
         return <Error statusCode={errorCode} />
     }
     else if (!lobby.players.find(player => player._id === user.info._id)) {
-        return <Error statusCode={404}/>
+        // return <Error statusCode={404}/>
+        router.push(`/${lobby.code}`)
     }
 
     const leaveLobby = () => {

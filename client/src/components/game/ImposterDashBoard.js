@@ -49,7 +49,8 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
     };
 
     const handleGuess = (crewmate_id) => {
-        if (guesses > 0) {
+        const crewmateAlive = crewmatesInfo.find(crewmate => crewmate._id === crewmate_id).alive
+        if (guesses > 0 && crewmateAlive === true) {
             setGuesses(guesses => guesses - 1)
             socket.emit('decreaseOtherGuesses')
             socket.emit('checkGuess', crewmate_id)
