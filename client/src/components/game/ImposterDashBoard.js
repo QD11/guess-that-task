@@ -26,13 +26,15 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
             setGuesses(guesses => guesses - 1)
         })
         socket.on('crewmateResponse', data => {
-            setCrewmatesInfo(crewmatesInfo => crewmatesInfo.map(crewmate => {
-                if (crewmate._id === data._id) {
-                    return({...crewmate, alive: false})
-                } else {
-                    return(crewmate)
-                }
-            }))
+            if (data.userResponse === true) {
+                setCrewmatesInfo(crewmatesInfo => crewmatesInfo.map(crewmate => {
+                    if (crewmate._id === data.user._id) {
+                        return({...crewmate, alive: false})
+                    } else {
+                        return(crewmate)
+                    }
+                }))
+            }
         })
 
         return () => {
