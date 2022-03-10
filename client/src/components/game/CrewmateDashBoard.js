@@ -75,7 +75,7 @@ const CrewmateDashBoard = ({imposters, crewmates, user}) => {
             <CrewmateModal setAlive={setAlive} modal={modal} toggleModal={toggleModal}/>
             <PlayersDiv>
                 <UserSpan alive={alive} className="user-status">{user.name}{taskComplete?"✔️":"❌"}</UserSpan>
-                {playersTasks?.map(crewmate => <PlayersSpan alive={crewmate.alive} key={crewmate._id} className="player-status">{crewmate.name}{crewmate.taskComplete?"✔️":"❌"}</span>)}
+                {playersTasks?.map(crewmate => <PlayersSpan alive={crewmate.alive} key={crewmate._id} className="player-status">{crewmate.name}{crewmate.taskComplete?"✔️":"❌"}</PlayersSpan>)}
             </PlayersDiv>
             <TaskDiv>
                 <span className='title'>Your Task</span>
