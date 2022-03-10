@@ -17,6 +17,9 @@ const CrewmateModal = ({modal, toggleModal, user, setAlive}) => {
         const data = {userResponse: userResponse, user: user}
         //somehow Alive is not registering, let's make 
         socket.emit('respondToGuess', (data))
+        if (userResponse) {
+            setAlive(alive => !alive)
+        }
         toggleModal()
     }
 
@@ -34,9 +37,7 @@ const CrewmateModal = ({modal, toggleModal, user, setAlive}) => {
                         </Title>
                         <div className="bottom-container">
                             <div className="create-container">
-                                <button onClick={() => {
-                                    setAlive(alive => !alive)
-                                    closeModal(true, user)}}
+                                <button onClick={() => closeModal(true, user)}
                                 >Yes</button>
                             </div>
                             <div className="create-container">
