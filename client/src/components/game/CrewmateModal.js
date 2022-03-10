@@ -14,7 +14,8 @@ const CrewmateModal = ({modal, toggleModal, user, setAlive}) => {
     }, [modal])
 
     const closeModal = (userResponse, user) => {
-        socket.emit('respondToGuess', (userResponse, user))
+        const data = {userResponse: userResponse, user: user}
+        socket.emit('respondToGuess', (data))
         if (userResponse === true) {
             setAlive(alive => !alive)
         }

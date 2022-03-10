@@ -164,8 +164,7 @@ io.on('connection', (socket) => {
             socket.to(room).emit("confirmGuess", id)
         })
 
-        socket.on('respondToGuess', (userResponse, user) => {
-            const data = {userResponse: userResponse, user: user}
+        socket.on('respondToGuess', (data) => {
             socket.to(room).emit("crewmateResponse", data)
         })
 
