@@ -17,6 +17,8 @@ const CrewmateDashBoard = ({imposters, crewmates, user}) => {
             alive: true,
         })
     }))
+
+    console.log(playersTasks)
     
     const [modal, setModal] = useState(false)
     const toggleModal = () => {
