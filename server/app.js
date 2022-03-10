@@ -165,7 +165,8 @@ io.on('connection', (socket) => {
         })
 
         socket.on('respondToGuess', (userResponse, user) => {
-            socket.to(room).emit("crewmateResponse", {userResponse, user})
+            const data = {userResponse: userResponse, user: user}
+            socket.to(room).emit("crewmateResponse", data)
         })
 
         // io.in(room).emit("playersInRoom", connectedUsers.get(room))
