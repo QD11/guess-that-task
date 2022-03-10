@@ -71,7 +71,7 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
                 {crewmatesInfo?.map(crewmate => <span onClick={() => handleClick(crewmate)} key={crewmate._id} className="player-status">{crewmate.name}{crewmate.alive? "😃":"☠️"}</span>)}
             </PlayersDiv>
             <div className="guess-div">
-                <span>Guess: {guesses}</span>
+                <span>Guess: You have {guesses} {guesses > 1 ? "guesses":"guess"} left</span>
             </div>
         </MainDiv>
     )

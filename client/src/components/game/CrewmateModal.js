@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {SocketContext} from '../../../pages/_app'
 import { connect } from 'react-redux'
 
-const CrewmateModal = ({modal, toggleModal, user}) => {
+const CrewmateModal = ({modal, toggleModal, user, setAlive}) => {
     const socket = useContext(SocketContext)
     useEffect(() => {
         if(modal) {
@@ -15,6 +15,9 @@ const CrewmateModal = ({modal, toggleModal, user}) => {
 
     const closeModal = (userResponse, user) => {
         socket.emit('respondToGuess', (userResponse, user))
+        if (userResponse === true) {
+            setAlive(alive => !alive)
+        }
         toggleModal()
     }
 

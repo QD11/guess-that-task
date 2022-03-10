@@ -9,12 +9,15 @@ const CrewmateDashBoard = ({imposters, crewmates, user}) => {
     const socket = useContext(SocketContext)
     const [task, setTask] = useState(null)
     const [taskComplete, setTaskComplete] = useState(false)
+    const [alive, setAlive] = useState(true)
     const [playersTasks, setPlayersTasks] = useState(crewmates.map(crewmate => {
         return ({
             ...crewmate,
-            taskComplete: false
+            taskComplete: false,
+            alive: true,
         })
     }))
+    
     const [modal, setModal] = useState(false)
     const toggleModal = () => {
         setModal(!modal);
@@ -41,6 +44,9 @@ const CrewmateDashBoard = ({imposters, crewmates, user}) => {
                 }
             }))
         })
+        socket.on('crewmateResponse', data => {
+            console.log(data)
+        })
 
         return () => {
             socket.removeAllListeners("getTask");
@@ -55,7 +61,7 @@ const CrewmateDashBoard = ({imposters, crewmates, user}) => {
 
     return(
         <MainDiv>
-            <CrewmateModal modal={modal} toggleModal={toggleModal}/>
+            <CrewmateModal setAlive={setAlive} modal={modal} toggleModal={toggleModal}/>
             <PlayersDiv>
                 <span className="user-status">{user.name}{taskComplete?"✔️":"❌"}</span>
                 {playersTasks?.map(crewmate => <span key={crewmate._id} className="player-status">{crewmate.name}{crewmate.taskComplete?"✔️":"❌"}</span>)}
