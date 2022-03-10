@@ -17,8 +17,6 @@ const CrewmateDashBoard = ({imposters, crewmates, user}) => {
             alive: true,
         })
     }))
-
-    console.log(playersTasks)
     
     const [modal, setModal] = useState(false)
     const toggleModal = () => {
@@ -74,8 +72,8 @@ const CrewmateDashBoard = ({imposters, crewmates, user}) => {
         <MainDiv>
             <CrewmateModal setAlive={setAlive} modal={modal} toggleModal={toggleModal}/>
             <PlayersDiv>
-                <span className="user-status">{user.name}{taskComplete?"✔️":"❌"}</span>
-                {playersTasks?.map(crewmate => <span key={crewmate._id} className="player-status">{crewmate.name}{crewmate.taskComplete?"✔️":"❌"}</span>)}
+                <UserSpan alive={alive} className="user-status">{user.name}{taskComplete?"✔️":"❌"}</UserSpan>
+                {playersTasks?.map(crewmate => <PlayersSpan alive={crewmate.alive} key={crewmate._id} className="player-status">{crewmate.name}{crewmate.taskComplete?"✔️":"❌"}</span>)}
             </PlayersDiv>
             <TaskDiv>
                 <span className='title'>Your Task</span>
@@ -115,6 +113,32 @@ const MainDiv = styled.div`
     }
 `
 
+const PlayersSpan = styled.span`
+    margin: 5px 0 0 0;
+    background: ${props => props.alive? "#fff no-repeat 50%" : "#ff8888 no-repeat 50%"};
+    background-size: 40px 40px;
+    padding: 10px 25px;
+    border: 2px solid black;
+    border-radius: 4px;
+    transition: .3s ease-out;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+`
+
+const UserSpan = styled.span`
+    margin: 5px 0 0 0;
+    background: ${props => props.alive? "#fff no-repeat 50%" : "#ff8888 no-repeat 50%"};
+    background-size: 40px 40px;
+    padding: 10px 25px;
+    border: 2px solid black;
+    border-radius: 4px;
+    transition: .3s ease-out;
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 5px;
+`
+
 const PlayersDiv = styled.div`
     display: flex;
     flex-direction: column;
@@ -122,25 +146,6 @@ const PlayersDiv = styled.div`
     background-color: #faf158;
     border-radius: 10px;
     padding: 10px;
-    .user-status {
-        font-size: 23px;
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-    .player-status {
-        font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 5px;
-    }
-    & span {
-        margin: 5px 0 0 0;
-        background: #fff no-repeat 50%;
-        background-size: 40px 40px;
-        padding: 10px 25px;
-        border: 2px solid black;
-        border-radius: 4px;
-        transition: .3s ease-out;
-    }
     overflow: auto;
 `
 
