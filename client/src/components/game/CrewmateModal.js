@@ -17,7 +17,9 @@ const CrewmateModal = ({modal, toggleModal, user, setAlive}) => {
         const data = {userResponse: userResponse, user: user}
         socket.emit('respondToGuess', (data))
         if (userResponse === true) {
-            setAlive(alive => !alive)
+            // setAlive(alive => !alive)
+            console.log("He dead")
+            setAlive(false)
         }
         toggleModal()
     }
