@@ -3,6 +3,7 @@ import {SocketContext} from '../../../pages/_app'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import GuessModal from './GuessModal'
+import Countdown from 'react-countdown';
 import { FaSkull } from 'react-icons/fa'
 import Image from 'next/image'
 
@@ -17,6 +18,18 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
         _id: crewmate._id,
         alive: true
     })))
+    const numClues = useState(rules.duration%5 - 1)
+
+    const Completionist = () => <span>TIME!</span>;
+    const renderer = ({ minutes, seconds, completed }) => {
+        if (completed) {
+          // Render a completed state
+            return <Completionist />;
+        } else {
+          // Render a countdown
+            return <span>{minutes}:{seconds}</span>;
+        }
+    };
 
     useEffect(() => {
         socket.on('useGuess', () => {
@@ -75,6 +88,10 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
             </PlayersDiv>
             <div className="guess-div">
                 <span>Guess: {guesses > 1 ? `You have ${guesses} left`: "NO MORE"} </span>
+                <div>
+                    <span>Next Clue: </span>
+                    <Countdown date={Date.now() + 1000*60*5} renderer={renderer} />
+                </div>
             </div>
         </MainDiv>
     )
