@@ -29,15 +29,11 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@types/node": "^17.0.21",
-    "@types/react": "^17.0.40",
-    "@types/styled-components": "^5.1.24",
     "babel-plugin-styled-components": "^2.0.2",
     "css-loader": "^6.5.1",
     "eslint": "8.5.0",
     "eslint-config-next": "12.0.7",
     "file-loader": "^6.2.0",
-    "typescript": "^4.6.2",
     "url-loader": "^4.1.1"
   }
 }
