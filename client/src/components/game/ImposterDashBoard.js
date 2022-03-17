@@ -18,9 +18,17 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
         _id: crewmate._id,
         alive: true
     })))
-    const numClues = useState(rules.duration%5 - 1)
+    const [numClues, setNumClues] = useState(rules.duration/5 - 1)
+    const [currentTime, setCurrentTime] = useState(Date.now() + 1000*60*5)
+
+    console.log(numClues)
 
     const Completionist = () => <span>TIME!</span>;
+    const restartFunction = () => {
+        if (numClues === 0) return;
+        setNumClues(numClues => numClues - 1)
+        setCurrentTime(Date.now() + 1000*60*5)
+    }
     const renderer = ({ minutes, seconds, completed }) => {
         if (completed) {
           // Render a completed state
@@ -88,10 +96,10 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
             </PlayersDiv>
             <div className="guess-div">
                 <span>Guess: {guesses > 1 ? `You have ${guesses} left`: "NO MORE"} </span>
-                <div>
+                {clues && <div>
                     <span>Next Clue: </span>
-                    <Countdown date={Date.now() + 1000*60*5} renderer={renderer} />
-                </div>
+                    <Countdown date={currentTime} key={numClues} renderer={renderer} onComplete={restartFunction} />
+                </div>}
             </div>
         </MainDiv>
     )
