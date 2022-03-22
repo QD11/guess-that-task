@@ -19,7 +19,7 @@ const Game = ({imposters, user, rules, owner, players}) => {
             return <Completionist />;
         } else {
           // Render a countdown
-            return <TimeSpan>{minutes}:{seconds}</TimeSpan>;
+            return <TimeSpan>{minutes < 10? "0" + minutes: minutes}:{seconds < 10? "0" + seconds : seconds}</TimeSpan>;
         }
     };
     
@@ -33,7 +33,7 @@ const Game = ({imposters, user, rules, owner, players}) => {
         <MainContainer>
             <div className="header">
                 <span className="role">{role.charAt(0).toUpperCase() + role.slice(1)}</span>
-                <Countdown date={Date.now() + 1000*60*rules.duration} renderer={renderer} />
+                <Countdown date={Date.now() + 1000*60*rules.duration} renderer={renderer} precision={2} />
                 <RoleOverlay role={role}/>
             </div>
             {role === 'crewmate' ? 
