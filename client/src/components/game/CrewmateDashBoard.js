@@ -18,8 +18,6 @@ const CrewmateDashBoard = ({imposters, crewmates, user}) => {
         })
     }))
 
-    console.log(alive)
-    
     const [modal, setModal] = useState(false)
     const toggleModal = () => {
         setModal(!modal);
@@ -95,7 +93,7 @@ const CrewmateDashBoard = ({imposters, crewmates, user}) => {
                         <span className='extra'>{task?.extra}</span>
                     </>
                 }
-                <button className="toggle-task" onClick={() => setTaskComplete(taskComplete => !taskComplete)} >{taskComplete? "Not Completed?" : "Completed?"}</button>
+                <button className="toggle-task" onClick={alive ? () => setTaskComplete(taskComplete => !taskComplete) : null} >{!alive ? "You are DEAD ☠️"  :taskComplete? "Not Completed?" : "Completed?"}</button>
             </TaskDiv>
         </MainDiv>
     )
