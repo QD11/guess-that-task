@@ -12,14 +12,14 @@ const Game = ({imposters, user, rules, owner, players}) => {
     const crewmates = players.filter(player => !imposters.some(imposter => imposter._id === player._id) && player._id !== user._id)
     const socket = useContext(SocketContext)
 
-    const Completionist = () => <span>TIME!</span>;
+    const Completionist = () => <TimeSpan>TIME!</TimeSpan>;
     const renderer = ({ minutes, seconds, completed }) => {
         if (completed) {
           // Render a completed state
             return <Completionist />;
         } else {
           // Render a countdown
-            return <span>{minutes}:{seconds}</span>;
+            return <TimeSpan>{minutes}:{seconds}</TimeSpan>;
         }
     };
     
@@ -47,6 +47,12 @@ const Game = ({imposters, user, rules, owner, players}) => {
         </MainContainer>
     )
 };
+
+const TimeSpan = styled.span`
+    font-family: VCR OSD Mono;
+    font-weight: bold;
+    font-size: 50px;
+`
 
 const MainContainer = styled.div`
     display: flex;
