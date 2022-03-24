@@ -95,8 +95,8 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
                 {crewmatesInfo?.map(crewmate => <span onClick={() => handleClick(crewmate)} key={crewmate._id} className="player-status">{crewmate.name}{crewmate.alive? "😃":"☠️"}</span>)}
             </PlayersDiv>
             <GuessDiv className="guess-div">
-                <span>Guess: {guesses > 1 ? `You have ${guesses} left`: "NO MORE"} </span>
-                {clues && <div>
+                <span className="guess-span">Guess: {guesses > 1 ? `You have ${guesses} left`: "NO MORE"} </span>
+                {clues && <div className="clue-div">
                     <span>Next Clue: </span>
                     <Countdown date={currentTime} key={numClues} renderer={renderer} onComplete={restartFunction} />
                 </div>}
@@ -153,6 +153,16 @@ const GuessDiv = styled.div`
     min-height: 7em;
     width: 60%;
     margin: auto auto;
+    .guess-span{
+        font-size: 20px;
+        margin: 0 auto;
+        font-weight: bold;
+    }
+    .clue-div {
+        font-size: 20px;
+        margin: 0 auto;
+        font-weight: bold;
+    }
     }
 `
 
