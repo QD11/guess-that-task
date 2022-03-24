@@ -94,13 +94,13 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
             <PlayersDiv guesses={guesses}>
                 {crewmatesInfo?.map(crewmate => <span onClick={() => handleClick(crewmate)} key={crewmate._id} className="player-status">{crewmate.name}{crewmate.alive? "😃":"☠️"}</span>)}
             </PlayersDiv>
-            <div className="guess-div">
+            <GuessDiv className="guess-div">
                 <span>Guess: {guesses > 1 ? `You have ${guesses} left`: "NO MORE"} </span>
                 {clues && <div>
                     <span>Next Clue: </span>
                     <Countdown date={currentTime} key={numClues} renderer={renderer} onComplete={restartFunction} />
                 </div>}
-            </div>
+            </GuessDiv>
         </MainDiv>
     )
 };
@@ -144,45 +144,15 @@ const PlayersDiv = styled.div`
     overflow: auto;
 `
 
-const TaskDiv = styled.div`
+const GuessDiv = styled.div`
     display: flex;
     flex-direction: column;
     padding: 10px;
-    //border: 0.5px solid black;
     background-color: #faf158;
     border-radius: 10px;
     min-height: 7em;
     width: 60%;
     margin: auto auto;
-    .title {
-        margin: 0 auto;
-        font-weight: bold;
-        font-size: 20px;
-    }
-    .task {
-        margin: 10px 0px;
-        display: flex;
-        font-size: 25px;
-    }
-    .task-image {
-        margin: 20px 0px;
-    }
-    .extra {
-        margin: 5px 0px;
-    }
-    .toggle-task {
-        margin: 20px 0 0 0;
-        background: #fff no-repeat 50%;
-        background-size: 40px 40px;
-        padding: 10px 25px;
-        border-radius: 4px;
-        font-size: 20px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: .3s ease-out;
-        // :hover {
-        //     transform: scale(1.05);
-        // }
     }
 `
 
