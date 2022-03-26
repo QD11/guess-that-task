@@ -20,7 +20,7 @@ const tasks = [
         task: "Flip a water bottle and land it on its bottom"
     },
     {
-        task: "Wink to 3/4th of the players (rounded up). Do one less if the other person is an imposter and he/she winks back. Make sure they notice you"
+        task: "Wink to 1/2 of the players (rounded up). They must wink back. Do one less if the other person is an imposter."
     },
     {
         task: "Do 4 crunches (3 if female)"
