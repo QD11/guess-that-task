@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 const Rules = ({rules, setRules, players, owner}) => {
@@ -15,7 +15,7 @@ const Rules = ({rules, setRules, players, owner}) => {
             <li>
                 <span>Game Duration</span>
                 <div>
-                    <input className="duration" name="duration" type="number" onKeyDown={e => e.preventDefault()} min="10" max="60" step="5" value={rules.duration} disabled={!owner} onChange={handleRules}></input>
+                    <input className="duration" name="duration" type="number" onKeyDown={e => e.preventDefault()} min="10" max="30" step="5" value={rules.duration} disabled={!owner} onChange={handleRules}></input>
                     <label> minutes</label>
                 </div>
             </li>
