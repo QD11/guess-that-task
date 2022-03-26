@@ -10,5 +10,9 @@ const clues = [
     {
         id: 3,
         clue: "All crewmates who have finished their tasks in the last 5 minutes must do them again"
+    },
+    {
+        id: 4,
+        clue: "Pick 1/4 of the crewmates (rounded up). If they completed their tasks, they must do them again."
     }
 ]
