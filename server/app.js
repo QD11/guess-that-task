@@ -11,9 +11,9 @@ import http from 'http';
 import { Server } from "socket.io";
 import WebSockets from "./utils/WebSockets.js";
 import "dotenv/config.js";
-
 import _ from 'underscore'
 
+import clues from "./clues.js"
 import tasks from './tasks.js'
 
 // import postsRoutes from './routes/posts.js'
@@ -107,12 +107,20 @@ io.on('connection', (socket) => {
 
         console.log(`${user.name}, ${socket.id}, joined room ${room}`)
 
+        let randomClues = []
+
         socket.on('startGame', (imposters) => {
             io.in(room).emit("startGame", imposters)
+            randomClues = _.sample(clues, clues.length)
         })
 
         socket.on('endGame', () => {
             io.in(room).emit("endGame")
+            randomClues = []
+        })
+
+        socket.on('sendClues', () => {
+            io.in(room).emit("getClues", randomClues)
         })
 
         socket.on('rules', (rules) => {
@@ -167,9 +175,6 @@ io.on('connection', (socket) => {
         socket.on('respondToGuess', (data) => {
             socket.to(room).emit("crewmateResponse", data)
         })
-
-        // io.in(room).emit("playersInRoom", connectedUsers.get(room))
-        // console.log(io.sockets.clients(room))
     })
 
 })

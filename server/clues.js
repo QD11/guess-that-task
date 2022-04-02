@@ -32,3 +32,5 @@ const clues = [
         clue: "Pick two players. They switch tasks. Each will have to complete their new tasks."
     }
 ]
+
+export default clues;

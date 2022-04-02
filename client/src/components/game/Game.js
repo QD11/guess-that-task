@@ -26,6 +26,7 @@ const Game = ({imposters, user, rules, owner, players}) => {
     useEffect(() => {
         if (owner) {
             socket.emit('sendTask', players)
+            socket.emit('sendClues')
         }
     }, [])
 

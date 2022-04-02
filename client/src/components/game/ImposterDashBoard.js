@@ -20,14 +20,17 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
     })))
     const [numClues, setNumClues] = useState(rules.duration/5 - 1)
     const [currentTime, setCurrentTime] = useState(Date.now() + 1000*60*5)
-
-    console.log(guesses)
+    const [randomClues, setRandomClues] = useState([])
+    const [displayClue, setDisplayClue] = useState("")
 
     const Completionist = () => <span>TIME!</span>;
     const restartFunction = () => {
+        let count = 0;
         if (numClues === 0) return;
+        setDisplayClue(randomClues[count].clue)
         setNumClues(numClues => numClues - 1)
         setCurrentTime(Date.now() + 1000*60*5)
+        count++
     }
     const renderer = ({ minutes, seconds, completed }) => {
         if (completed) {
@@ -40,6 +43,9 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
     };
 
     useEffect(() => {
+        socket.on('getClues', (data) => {
+            setRandomClues(data)
+        })
         socket.on('useGuess', () => {
             setGuesses(guesses => guesses - 1)
         })
@@ -59,6 +65,7 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
         })
 
         return () => {
+            socket.removeAllListeners("getClues")
             socket.removeAllListeners("useGuess");
             socket.removeAllListeners("rewindGuess");
             socket.removeAllListeners("crewmateResponse");
@@ -87,6 +94,7 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
     }
     
     //add a condition to make it unclickable if dead
+    console.log(displayClue)
 
     return(
         <MainDiv>
@@ -99,6 +107,9 @@ const ImposterDashBoard = ({imposters, crewmates, user, rules}) => {
                 {clues && <div className="clue-div">
                     <span>Next Clue: </span>
                     <Countdown date={currentTime} key={numClues} renderer={renderer} onComplete={restartFunction} />
+                    <div>
+                        {displayClue && <span>{displayClue}</span>}
+                    </div>
                 </div>}
             </GuessDiv>
         </MainDiv>
